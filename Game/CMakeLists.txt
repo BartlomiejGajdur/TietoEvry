@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(COMMON_SOURCES 
     Src/FileManager.cpp
     Src/Coordinates.cpp 
+    Src/map.cpp
 )
 
 set(Testing_SOURCES 
