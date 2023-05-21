@@ -2,20 +2,17 @@
 #include "Include/FileManager.hpp"
 #include <algorithm>
 #include "Include/Coordinates.hpp"
+#include "Include/map.hpp"
 int main(){
 
     FileManager mapa("../Config/mapa.txt");
     mapa.openFile();
     mapa.readFromFile();
-    std::cout<<mapa.getFileContent();
-
     std::string line = mapa.getFileContent();
 
-    //Obliczanie rozmiaru mapy Trzeba pamietac ze rozpoczynamy od 0x0
-    size_t SIZE_Y = std::count(line.begin(), line.end(), '\n');
-    auto it = std::find(line.begin(),line.end(),'\n');
-    size_t SIZE_X = std::distance(line.begin(),it);
-    std::cout<< SIZE_X<<"x"<<SIZE_Y<<"\n";
+    Map maps(line);
+
+
 
 
     Coordinates first{1,2};
