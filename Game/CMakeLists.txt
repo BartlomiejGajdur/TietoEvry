@@ -11,9 +11,17 @@ FetchContent_MakeAvailable(googletest)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(COMMON_SOURCES 
+    Src/FileManager.cpp 
+)
+
+set(Testing_SOURCES 
+    Tests/Test.cpp 
+)
+
 # Kompilacja i dodanie targetów
-add_executable(Gra main.cpp)
-add_executable(Tests Tests/Test.cpp)
+add_executable(Gra main.cpp ${COMMON_SOURCES})
+add_executable(Tests ${Testing_SOURCES} ${COMMON_SOURCES})
 
 # Dodanie flag kompilatora
 target_compile_options(Tests PRIVATE -Wall -Wextra -Werror)
