@@ -2,6 +2,6 @@
 
 int main(){
 
-    std::cout<<"HEJKA!\n\n\n";
+    std::cout<<"HEJKA!\n\n";
     return 0;
 }
