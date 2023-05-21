@@ -9,10 +9,7 @@
 
 class Map{
     public:
-        Map(const std::string& mapData):mapData_(mapData) {
-            MAP_SIZE_X = getMapSizeX();
-            MAP_SIZE_Y = getMapSizeY();
-        };
+        Map(const std::string& mapData);
 
         size_t getMapSizeX() const;
         size_t getMapSizeY() const;
@@ -21,8 +18,6 @@ class Map{
     private:
         std::string mapData_;
         std::vector<std::vector<Coordinates>> vectorOfCoordinates;
-        
 
-         
-
+        void matchCoordinatesWithFile();
 };
