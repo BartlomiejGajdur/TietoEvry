@@ -12,7 +12,8 @@ FetchContent_MakeAvailable(googletest)
 set(CMAKE_CXX_STANDARD 17)
 
 set(COMMON_SOURCES 
-    Src/FileManager.cpp 
+    Src/FileManager.cpp
+    Src/Coordinates.cpp 
 )
 
 set(Testing_SOURCES 
