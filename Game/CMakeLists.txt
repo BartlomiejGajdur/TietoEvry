@@ -15,6 +15,7 @@ set(COMMON_SOURCES
     Src/FileManager.cpp
     Src/Coordinates.cpp 
     Src/map.cpp
+    Src/Object.cpp
 )
 
 set(Testing_SOURCES 
