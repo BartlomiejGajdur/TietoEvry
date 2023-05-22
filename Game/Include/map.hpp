@@ -5,6 +5,7 @@
 #include <vector>
 #include "../Include/Coordinates.hpp"
 #include "../Include/FileManager.hpp"
+#include "../Include/Object.hpp"
 
 
 class Map{
@@ -19,7 +20,7 @@ class Map{
     private:
         std::string mapData_;
         //Tutaj będą raczje mapObjects
-        std::vector<std::vector<Coordinates>> vectorOfCoordinates;
+        std::vector<std::vector<std::shared_ptr<MapObject>>> vectorOfObjects;
 
         void matchCoordinatesWithFile();
 };

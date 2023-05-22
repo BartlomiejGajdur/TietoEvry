@@ -1,4 +1,5 @@
 #include "../Include/Object.hpp"
+#include "../Include/Map.hpp"
 #include <iostream>
 int MapObject::id_ = 0;
 
@@ -35,6 +36,7 @@ bool Unit::Move(const Coordinates& moveTo){
 
         return true;
     }
+    
     std::cerr<<"Dystans jest za duzy !\n";
     return false;
     
