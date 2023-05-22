@@ -50,6 +50,7 @@ class Object : public MapObject{
     public:
         Object(){};
         Object(const ObjectTYPE& ObjectType):ObjectType_(ObjectType){};
+        Object(const Coordinates& coordinates, const ObjectTYPE& ObjectType) : MapObject(coordinates),ObjectType_(ObjectType){};
         virtual ~Object() = 0;
        
        int getId() const override {return -1;};
