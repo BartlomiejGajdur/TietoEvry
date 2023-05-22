@@ -1,6 +1,6 @@
 #include "../Include/Coordinates.hpp"
 
-bool Coordinates::operator==(const Coordinates &other)
+bool Coordinates::operator==(const Coordinates &other) const
     {
         return this->positionX_ == other.positionX_ &&
                 this->positionY_ == other.positionY_;

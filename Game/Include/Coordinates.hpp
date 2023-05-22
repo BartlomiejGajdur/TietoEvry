@@ -20,7 +20,7 @@ class Coordinates{
     void setPositionY(const int positionY) {positionY_=positionY;}
 
     //OPERATORS
-    bool operator==(const Coordinates &other);
+    bool operator==(const Coordinates &other) const;
     friend std::ostream& operator<<(std::ostream &os, const Coordinates& position);
     
     //FUNCTIONS
