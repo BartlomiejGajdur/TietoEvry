@@ -4,6 +4,7 @@
 #include "Include/Coordinates.hpp"
 #include "Include/Object.hpp"
 #include "Include/map.hpp"
+#include "Include/Units.hpp"
 int main(){
 
     // FileManager mapa("../Config/mapa.txt");
@@ -14,9 +15,9 @@ int main(){
     // Map maps(line);
 
      Coordinates first{1,2};
-    Coordinates second{3,7};
+    Coordinates second{2,3};
 
-    Unit Knif(UnitTYPE::Knight, 20,first );
+    Knight Knif{};
     std::cout<<Knif.getObjectCoordinates()<<"\n";
     Knif.Move(second);
     std::cout<<Knif.getObjectCoordinates()<<"\n";
@@ -28,6 +29,6 @@ int main(){
 
    
 
-    std::cout<<Coordinates::distance(first,second);
+    //std::cout<<Coordinates::distance(first,second);
     return 0;
 }

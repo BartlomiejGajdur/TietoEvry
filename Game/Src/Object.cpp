@@ -3,6 +3,7 @@
 unsigned short Unit::id_ = 0;
 
 MapObject::~MapObject(){}
+Unit::~Unit(){}
 
 Unit::Unit(const UnitTYPE& unitType, unsigned short endurance, const Coordinates& ObjectCoordinates)
     :  MapObject(ObjectCoordinates),
