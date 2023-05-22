@@ -15,6 +15,7 @@ std::array<std::array<unsigned short, 8>, 7> attackTable{{
 
 MapObject::~MapObject(){}
 Unit::~Unit(){}
+Object::~Object(){}
 
 Unit::Unit(const UnitTYPE& unitType, short endurance, const Coordinates& ObjectCoordinates)
     :  MapObject(ObjectCoordinates),

@@ -61,7 +61,7 @@ class Worker : public Unit{
 
 class Base : public Unit{
     public:
-        Base();
+        Base(const Coordinates& cord);
         Base(const Coordinates& cord, const unsigned short endurance);
 
     inline bool Move([[maybe_unused]] const Coordinates& moveTo) override { std::cout<<"Base Cannot move!\n"; return false;}

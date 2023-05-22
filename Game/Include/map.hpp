@@ -15,7 +15,7 @@ class Map{
         size_t getMapSizeX() const;
         size_t getMapSizeY() const;
         //Find and return obj with given id 
-
+        
         size_t MAP_SIZE_X, MAP_SIZE_Y;
     private:
         std::string mapData_;
@@ -23,4 +23,5 @@ class Map{
         std::vector<std::vector<std::shared_ptr<MapObject>>> vectorOfObjects;
 
         void matchCoordinatesWithFile();
+        std::shared_ptr<MapObject> returnPointerFromGivenValue(char zn,int CoordX, int CoordY);
 };

@@ -19,7 +19,7 @@ struct UnitsUnderTestFixture : public ::testing::Test{
     //     std::string line = mapa.getFileContent();
     // }
     
-    std::shared_ptr<Base> BASE = std::make_shared<Base>();
+    std::shared_ptr<Base> BASE = std::make_shared<Base>(Coordinates{2,2});
     std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0,0},70);
     std::shared_ptr<Swordsman> Swordsman1 = std::make_shared<Swordsman>(Coordinates{1,1},60);
 

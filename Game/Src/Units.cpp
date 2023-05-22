@@ -138,14 +138,14 @@ Worker::Worker(const Coordinates& cord, const unsigned short endurance): Unit(co
               counter++;
         }
 
-Base::Base(){
+Base::Base(const Coordinates& cord){
               unitType_ = UnitTYPE::Base; 
               endurance_ = 200;
               speed_ = 0;
               purchaseCost_ = 0;
               attackRange_ = 0;
               BuildTime_ = 0;
-              ObjectCoordinates_ = Coordinates{0,0};
+              ObjectCoordinates_ = cord;
               counter++;
         };
 
