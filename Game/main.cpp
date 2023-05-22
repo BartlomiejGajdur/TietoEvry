@@ -5,6 +5,7 @@
 #include "Include/Object.hpp"
 #include "Include/map.hpp"
 #include "Include/Units.hpp"
+#include <memory>
 int main(){
 
     // FileManager mapa("../Config/mapa.txt");
@@ -17,15 +18,11 @@ int main(){
      Coordinates first{1,2};
     Coordinates second{2,3};
 
-    Knight Knif{};
-    std::cout<<Knif.getObjectCoordinates()<<"\n";
-    Knif.Move(second);
-    std::cout<<Knif.getObjectCoordinates()<<"\n";
-    std::cout<<Knif.getSpeedLeft()<<"\n";
-    Knif.Move(Coordinates{12,8});
-    std::cout<<Knif.getObjectCoordinates()<<"\n";
-    std::cout<<Knif.getSpeedLeft()<<"\n";
-
+    std::shared_ptr<Knight> Knif = std::make_shared<Knight>(first,70);
+    std::shared_ptr<Swordsman> miecznik2 = std::make_shared<Swordsman>(second,60);
+    
+    Knif->Attack(miecznik2);
+    std::cout<<miecznik2->getEndurance();
 
    
 

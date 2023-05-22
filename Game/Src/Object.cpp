@@ -1,6 +1,16 @@
 #include "../Include/Object.hpp"
-
+#include <iostream>
 unsigned short Unit::id_ = 0;
+
+std::array<std::array<unsigned short, 8>,7> attackTable{
+    35,	35,	35,	35,	35,	50,	35,	35,
+    30,	30,	30,	20,	20,	30,	30,	30,
+    15,	15,	15,	15,	10,	10,	15,	15,
+    35,	15,	15,	15,	15,	10,	15,	10,
+    40,	40,	40,	40,	40,	40,	40,	50,
+    10,	10,	10,	10,	10,	10,	10,	50,
+    5,	5,	5,	5,	5,	5,	5,	1,
+};
 
 MapObject::~MapObject(){}
 Unit::~Unit(){}
@@ -21,6 +31,16 @@ bool Unit::Move(const Coordinates& moveTo){
 
         return true;
     }
+    std::cerr<<"Dystans jest za duzy !\n";
     return false;
     
+}
+
+ bool Unit::Attack(std::shared_ptr<Unit> Solider){
+    //Musi ona stać obok czyli distance z tej jednostki do solidera ma byc mniejszy lub rowny "zasiegAtaku"
+    //Speed left czy tez po porstu speed ma byc conjamniej 1
+
+    Solider->endurance_-= attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)];
+    std::cout<<"Udalo sie zaatakowac! Atak"<<static_cast<int>(unitType_)<<" na "<<static_cast<int>(Solider->unitType_)<<"   Odjeto: "<<attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)]<<" \n";
+    return true;
 }
