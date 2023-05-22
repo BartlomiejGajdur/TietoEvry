@@ -20,14 +20,18 @@ Unit::Unit(const UnitTYPE& unitType, unsigned short endurance, const Coordinates
       unitType_(unitType),
       endurance_(endurance){};
 
+Unit::Unit(const Coordinates& ObjectCoordinates, unsigned short endurance)
+:  MapObject(ObjectCoordinates),
+      endurance_(endurance){};
+
 
 bool Unit::Move(const Coordinates& moveTo){
     size_t distance = Coordinates::distance(this->ObjectCoordinates_,moveTo);
 
-    if(distance <= this->speedLeft_)
+    if(distance <= this->speed_)
     {
         this->ObjectCoordinates_ = moveTo;
-        this->speedLeft_-= distance;
+        this->speed_-= distance;
 
         return true;
     }
