@@ -5,7 +5,7 @@
 #include <vector>
 #include "../Include/Coordinates.hpp"
 #include "../Include/FileManager.hpp"
-#include "../Include/Object.hpp"
+#include "../Include/MapObjects.hpp"
 
 
 class Map{

@@ -22,15 +22,15 @@ size_t Map::getMapSizeX() const {
 //Tutaj w tym przypiswywaniu bedize jeszcze jednostka na bank. Jakos to ogarniemy.
 void Map::matchCoordinatesWithFile(){
 
-    vectorOfCoordinates.resize(MAP_SIZE_X);
+    vectorOfObjects.resize(MAP_SIZE_X);
 
     for(size_t i = 0 ; i<MAP_SIZE_X;i++)
     {
-        vectorOfCoordinates[i].resize(MAP_SIZE_Y);
+        vectorOfObjects[i].resize(MAP_SIZE_Y);
         for(size_t j = 0 ; j<MAP_SIZE_Y ;j++)
         {   
-            Coordinates c(i,j);
-            vectorOfCoordinates[i][j] = c;
+            // //Coordinates c(i,j);
+            // vectorOfObjects[i][j] = c;
         }
     }
 }

@@ -1,4 +1,4 @@
-#include "Object.hpp"
+#include "MapObjects.hpp"
 #include <iostream>
 
 class Knight : public Unit{

@@ -1,5 +1,5 @@
-#include "../Include/Object.hpp"
-#include "../Include/Map.hpp"
+#include "../Include/MapObjects.hpp"
+#include "../Include/map.hpp"
 #include <iostream>
 int MapObject::id_ = 0;
 

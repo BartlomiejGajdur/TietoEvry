@@ -4,7 +4,7 @@
 #include "../Include/FileManager.hpp"
 #include <algorithm>
 #include "../Include/Coordinates.hpp"
-#include "../Include/Object.hpp"
+#include "../Include/MapObjects.hpp"
 #include "../Include/map.hpp"
 #include "../Include/Units.hpp"
 #include <memory>
@@ -62,7 +62,7 @@ TEST_F(UnitsUnderTestFixture, WrongActionForTheUnit)
 
 TEST_F(UnitsUnderTestFixture, MoveOutOfMap)
 {
-    
+
     Coordinates Move{-1,-1};
     bool result = Knight1->Move(Move);
 

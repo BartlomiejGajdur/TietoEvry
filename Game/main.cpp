@@ -2,7 +2,7 @@
 #include "Include/FileManager.hpp"
 #include <algorithm>
 #include "Include/Coordinates.hpp"
-#include "Include/Object.hpp"
+#include "Include/MapObjects.hpp"
 #include "Include/map.hpp"
 #include "Include/Units.hpp"
 #include <memory>

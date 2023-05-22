@@ -6,7 +6,7 @@
 #include "Coordinates.hpp"
 
 enum class UnitTYPE {Knight = 0,Swordsman,Archer,Pikeman,Ram,Catapult,Worker,Base};
-enum class ObjectTYPE {Mine, Obstacle, Road};
+enum class ObjectTYPE { Road = 0, Mine = 6, Obstacle = 9};
 
 class MapObject{
     public:
@@ -41,4 +41,16 @@ class Unit : public MapObject{
     protected:
         UnitTYPE unitType_;
         unsigned short endurance_, speed_, purchaseCost_,attackRange_,BuildTime_;      
+};
+
+class Object : public MapObject{
+    public:
+        Object(){};
+        Object(const ObjectTYPE& ObjectType):ObjectType_(ObjectType){};
+        virtual ~Object() = 0;
+       
+       int getId() const override {return -1;};
+        
+    protected:
+        ObjectTYPE ObjectType_;  
 };
