@@ -17,6 +17,48 @@ class Swordsman : public Unit{
     private:
 };
 
+class Archer : public Unit{
+    public:
+        Archer();
+        Archer(const Coordinates& cord, const unsigned short endurance);
+   
+    private:
+};
+
+class Pikeman : public Unit{
+    public:
+        Pikeman();
+        Pikeman(const Coordinates& cord, const unsigned short endurance);
+
+    private:
+};
+
+class Catapult : public Unit{
+    public:
+        Catapult();
+        Catapult(const Coordinates& cord, const unsigned short endurance);
+   
+    private:
+};
+
+class Ram : public Unit{
+    public:
+        Ram();
+        Ram(const Coordinates& cord, const unsigned short endurance);
+
+    private:
+};
+
+class Worker : public Unit{
+    public:
+        Worker();
+        Worker(const Coordinates& cord, const unsigned short endurance);
+        virtual bool Move(const Coordinates& moveTo);//Jego warunek niemocy iscia na kopalnie nie obowiazuje. i on tam bedzie sobie mogl siedziec 
+        //If on jest na pozycji kopalni +50golda dla gracza. Czyli na poczatku tury np sprawdza czy w swoim vectorze są jakies osoby na pozycji w ktorej jest kopalnia. A dokladnie to on Tylko
+
+    private:
+};
+
 class Base : public Unit{
     public:
         Base();

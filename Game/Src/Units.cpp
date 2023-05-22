@@ -39,6 +39,104 @@ Swordsman::Swordsman(const Coordinates& cord, const unsigned short endurance): U
               BuildTime_ = 3;
               counter++;
         }
+Archer::Archer(){
+              unitType_ = UnitTYPE::Archer; 
+              endurance_ = 40;
+              speed_ = 2;
+              purchaseCost_ = 250;
+              attackRange_ = 5;
+              BuildTime_ = 3;
+              ObjectCoordinates_ = Coordinates{0,0};
+              counter++;
+        };
+
+ Archer::Archer(const Coordinates& cord, const unsigned short endurance): Unit(cord,endurance){
+              unitType_ = UnitTYPE::Archer; 
+              speed_ = 2;
+              purchaseCost_ = 250;
+              attackRange_ = 5;
+              BuildTime_ = 3;
+              counter++;
+        }
+
+  Pikeman::Pikeman(){
+              unitType_ = UnitTYPE::Pikeman; 
+              endurance_ = 50;
+              speed_ = 2;
+              purchaseCost_ = 200;
+              attackRange_ = 2;
+              BuildTime_ = 3;
+              ObjectCoordinates_ = Coordinates{0,0};
+              counter++;
+        };
+
+Pikeman::Pikeman(const Coordinates& cord, const unsigned short endurance): Unit(cord,endurance){
+              unitType_ = UnitTYPE::Pikeman; 
+              speed_ = 2;
+              purchaseCost_ = 200;
+              attackRange_ = 2;
+              BuildTime_ = 3;
+              counter++;
+        }
+
+Ram::Ram(){
+              unitType_ = UnitTYPE::Ram; 
+              endurance_ = 90;
+              speed_ = 2;
+              purchaseCost_ = 500;
+              attackRange_ = 1;
+              BuildTime_ = 4;
+              ObjectCoordinates_ = Coordinates{0,0};
+              counter++;
+        };
+
+ Ram::Ram(const Coordinates& cord, const unsigned short endurance): Unit(cord,endurance){
+              unitType_ = UnitTYPE::Ram; 
+              speed_ = 2;
+              purchaseCost_ = 500;
+              attackRange_ = 1;
+              BuildTime_ = 4;
+              counter++;
+        }
+
+Catapult::Catapult(){
+              unitType_ = UnitTYPE::Catapult; 
+              endurance_ = 50;
+              speed_ = 2;
+              purchaseCost_ = 800;
+              attackRange_ = 7;
+              BuildTime_ = 6;
+              ObjectCoordinates_ = Coordinates{0,0};
+              counter++;
+        };
+
+Catapult::Catapult(const Coordinates& cord, const unsigned short endurance): Unit(cord,endurance){
+              unitType_ = UnitTYPE::Catapult; 
+              speed_ = 2;
+              purchaseCost_ = 800;
+              attackRange_ = 7;
+              BuildTime_ = 6;
+              counter++;
+        }
+Worker::Worker(){
+              unitType_ = UnitTYPE::Worker; 
+              endurance_ = 20;
+              speed_ = 2;
+              purchaseCost_ = 100;
+              attackRange_ = 1;
+              BuildTime_ = 2;
+              ObjectCoordinates_ = Coordinates{0,0};
+              counter++;
+        };
+
+Worker::Worker(const Coordinates& cord, const unsigned short endurance): Unit(cord,endurance){
+              unitType_ = UnitTYPE::Worker; 
+              speed_ = 2;
+              purchaseCost_ = 100;
+              attackRange_ = 1;
+              BuildTime_ = 2;
+              counter++;
+        }
 
 Base::Base(){
               unitType_ = UnitTYPE::Base; 

@@ -36,7 +36,7 @@ bool Unit::Move(const Coordinates& moveTo){
 
         return true;
     }
-    
+    //Tutaj nie moze na zadna przeszkode isc czy na kopalnie 
     std::cerr<<"Dystans jest za duzy !\n";
     return false;
     
