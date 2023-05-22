@@ -5,7 +5,7 @@
 #include <array>
 #include "Coordinates.hpp"
 
-enum class UnitTYPE {Knight = 0,Swordsman,Archer,Pikeman,Ram,Catapult,Worker,Base};
+enum class UnitTYPE {Knight = 0,Swordsman,Archer,Pikeman,Catapult,Ram,Worker,Base};
 enum class ObjectTYPE { Road = 0, Mine = 6, Obstacle = 9};
 
 class MapObject{

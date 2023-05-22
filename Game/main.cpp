@@ -7,6 +7,16 @@
 #include "Include/Units.hpp"
 #include <memory>
 
+std::array<std::array<unsigned short, 8>, 7> attackTable2{{
+    {35, 35, 35, 35, 35, 50, 35, 1000},
+    {30, 30, 30, 20, 20, 30, 30, 30},
+    {15, 15, 15, 15, 10, 10, 15, 15},
+    {35, 15, 15, 15, 15, 10, 15, 10},
+    {40, 40, 40, 40, 40, 40, 40, 50},
+    {10, 10, 10, 10, 10, 10, 10, 50},
+    {5, 5, 5, 5, 5, 5, 5, 1}
+}};
+
 
 int main(){
 
@@ -35,8 +45,9 @@ int main(){
     std::cout<<basa->getEndurance();
     std::cout<<Knif->getId();
     std::cout<<miecznik2->getId();
-    std::cout<<basa->getId();
+    std::cout<<basa->getId()<<"\n";
 
+    std::cout<<attackTable2[4][2];
    
 
     //std::cout<<Coordinates::distance(first,second);

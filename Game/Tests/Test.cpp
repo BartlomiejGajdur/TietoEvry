@@ -22,6 +22,9 @@ struct UnitsUnderTestFixture : public ::testing::Test{
     std::shared_ptr<Base> BASE = std::make_shared<Base>();
     std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0,0},70);
     std::shared_ptr<Swordsman> Swordsman1 = std::make_shared<Swordsman>(Coordinates{1,1},60);
+
+    std::shared_ptr<Archer> Archer1 = std::make_shared<Archer>(Coordinates{0,0},40);
+    std::shared_ptr<Catapult> Catapult1 = std::make_shared<Catapult>(Coordinates{7,0},50);
 };
 
 TEST_F(UnitsUnderTestFixture, CorrectMove)
@@ -68,5 +71,27 @@ TEST_F(UnitsUnderTestFixture, MoveOutOfMap)
 
     EXPECT_FALSE(result); 
 }
+
+TEST_F(UnitsUnderTestFixture, AttackRange)
+{
+    //To far to attack
+    EXPECT_FALSE(Archer1->Attack(Catapult1)); 
+    EXPECT_EQ(Catapult1->getEndurance(),50);
+
+
+    EXPECT_TRUE(Catapult1->Attack(Archer1)); 
+    EXPECT_EQ(Archer1->getEndurance(),0);
+}
+
+TEST_F(UnitsUnderTestFixture, SpeedPointsNeededToPerformAttack)
+{
+    //Whole speed points used
+    EXPECT_TRUE(Archer1->Move(Coordinates{2,0}));
+
+    //Try to perfrom attack in range
+    EXPECT_FALSE(Archer1->Attack(Catapult1)); 
+    EXPECT_EQ(Catapult1->getEndurance(),50);
+}
+
 
 

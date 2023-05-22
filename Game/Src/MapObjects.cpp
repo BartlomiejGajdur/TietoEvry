@@ -37,23 +37,38 @@ bool Unit::Move(const Coordinates& moveTo){
         return true;
     }
     //Tutaj nie moze na zadna przeszkode isc czy na kopalnie 
-    std::cerr<<"Dystans jest za duzy !\n";
+    std::cerr<<"Too far!\n";
     return false;
     
 }
 
  bool Unit::Attack(std::shared_ptr<Unit> Solider){
-    //Musi ona stać obok czyli distance z tej jednostki do solidera ma byc mniejszy lub rowny "zasiegAtaku"
-    //Speed left czy tez po porstu speed ma byc conjamniej 1
-    if(this->speed_>=1 && !attackDone_)
-    {
-        Solider->endurance_-= attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)];
-        speed_--;
-        attackDone_=true;
-        std::cout<<"Udalo sie zaatakowac! Atak"<<static_cast<int>(unitType_)<<" na "<<static_cast<int>(Solider->unitType_)<<"   Odjeto: "<<attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)]<<" \n";
-         return true; 
+
+    if(attackDone_)
+    {   
+        std::cerr<<"You have already made an attack this turn!\n";
+        return false;
     }
-     std::cerr<<"Kolezko nie masz juz speed na to zeby zaatakowac lub juz wykonales atak w tej turze \n";
+    if(Coordinates::distance(this->ObjectCoordinates_,Solider->ObjectCoordinates_)>this->attackRange_)
+    {   
+        std::cerr<<"The unit is too far away to attack!\n";
+        return false;
+    }
+    if(this->speed_<1)
+    {
+       std::cerr<<"You need atleast one speed point to attack!\n";
+       return false; 
+    }
+
+    //If everything is okey, perfrom attack acction
+
+    Solider->endurance_-= attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)];
+
+    speed_--;
+    attackDone_ = true;
+
+    std::cout<<"Successfully attacked! Attack "<<static_cast<int>(unitType_)<<" on "<<static_cast<int>(Solider->unitType_)<<"!   Hit strength: "<<attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)]<<" \n";
+        
+    return true; 
      
-     return false;
 }
