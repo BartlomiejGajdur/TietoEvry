@@ -16,9 +16,11 @@ class MapObject{
     virtual ~MapObject() = 0;
 
     Coordinates getObjectCoordinates() const {return ObjectCoordinates_;};
-
+    virtual int getId() const {return id_;};
+    
     protected:
     Coordinates ObjectCoordinates_;
+    static int id_;
 };
 
 
@@ -33,12 +35,12 @@ class Unit : public MapObject{
         virtual bool Attack(std::shared_ptr<Unit> Solider);
 
         unsigned short getSpeedLeft() const {return speedLeft_;};
-        unsigned short getId() const {return id_;};
+        
         UnitTYPE getUnitType()const {return unitType_;};
         unsigned short getEndurance() const {return endurance_;};
     protected:
         UnitTYPE unitType_;
         unsigned short endurance_, speed_, purchaseCost_,attackRange_,BuildTime_;
         unsigned short speedLeft_ = speed_;
-        static unsigned short id_;
+        
 };

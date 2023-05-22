@@ -18,11 +18,13 @@ int main(){
      Coordinates first{1,2};
     Coordinates second{2,3};
 
+    std::shared_ptr<Base> basa = std::make_shared<Base>();
     std::shared_ptr<Knight> Knif = std::make_shared<Knight>(first,70);
     std::shared_ptr<Swordsman> miecznik2 = std::make_shared<Swordsman>(second,60);
     
-    Knif->Attack(miecznik2);
-    std::cout<<miecznik2->getEndurance();
+    Knif->Attack(basa);
+    miecznik2->Attack(basa);
+    std::cout<<basa->getEndurance();
 
    
 

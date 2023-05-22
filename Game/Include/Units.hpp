@@ -44,7 +44,7 @@ class Swordsman : public Unit{
               speedLeft_ = speed_;
               id_++;
         };
-
+//Poprawic te konstruktory, w Unicie dopisać taki konstruktor tutaj go wywoływać a reszte przypisać, to speedLeft mozna wywalic chyba bo w jakims NEXTROUND bedzie do domyslnych szlo
         Swordsman(const Coordinates& cord, const unsigned short endurance){
               unitType_ = UnitTYPE::Swordsman; 
               endurance_ = endurance;
@@ -72,7 +72,6 @@ class Base : public Unit{
               BuildTime_ = 0;
               ObjectCoordinates_ = Coordinates{0,0};
               speedLeft_ = speed_;
-              id_++;
         };
 
         Base(const Coordinates& cord, const unsigned short endurance){
@@ -84,12 +83,11 @@ class Base : public Unit{
               BuildTime_ = 0;
               ObjectCoordinates_ = cord;
               speedLeft_ = speed_;
-              id_++;
         }
 
-    bool Move(const Coordinates& moveTo) override { std::cout<<"Base Cannot move!\n"; return false;}
-    bool Attack(std::shared_ptr<Unit> Solider) override { std::cout<<"Base Cannot attack!\n"; return false;}
-
+    bool Move([[maybe_unused]] const Coordinates& moveTo) override { std::cout<<"Base Cannot move!\n"; return false;}
+    bool Attack([[maybe_unused]] std::shared_ptr<Unit> Solider) override { std::cout<<"Base Cannot attack!\n"; return false;}
+    int getId() const override {return -1;};
     // Ma mieć produce 
     //Player ma do siebie przypisana baze ta baza ma produkowac jednostki. Czyli jezeli w bazie aktualnie nic sie nie produkuje to zaczyna produkcje.
     //W klasie player bedzie podawanie jednostki ktora ma sie produkowac tam odejmujemy pieniadze rowniez tam jest tez licznik jednostek 
