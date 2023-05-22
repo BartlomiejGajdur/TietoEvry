@@ -18,7 +18,7 @@ int main(){
     std::string line = mapa.getFileContent();
 
     Map maps(line);
-    
+    //maps.matchCoordinatesWithFile();
 
     return 0;
 }

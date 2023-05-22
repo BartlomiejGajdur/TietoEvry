@@ -17,11 +17,11 @@ class Map{
         //Find and return obj with given id 
         
         size_t MAP_SIZE_X, MAP_SIZE_Y;
+        void matchCoordinatesWithFile();
     private:
         std::string mapData_;
         //Tutaj będą raczje mapObjects
         std::vector<std::vector<std::shared_ptr<MapObject>>> vectorOfObjects;
 
-        void matchCoordinatesWithFile();
         std::shared_ptr<MapObject> returnPointerFromGivenValue(char zn,int CoordX, int CoordY);
 };

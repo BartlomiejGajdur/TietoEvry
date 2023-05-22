@@ -73,3 +73,56 @@ bool Unit::Move(const Coordinates& moveTo){
     return true; 
      
 }
+
+void Unit::print() const {
+    switch (unitType_)
+    {
+    case UnitTYPE::Knight:
+        std::cout<<"Knight ";
+        break;
+    case UnitTYPE::Swordsman:
+        std::cout<<"Swordsman ";
+        break;
+    case UnitTYPE::Archer:
+        std::cout<<"Archer ";
+        break;
+    case UnitTYPE::Pikeman:
+        std::cout<<"Pikeman ";
+        break;
+    case UnitTYPE::Catapult:
+        std::cout<<"Catapult ";
+        break;
+    case UnitTYPE::Ram:
+        std::cout<<"Ram ";
+        break;
+    case UnitTYPE::Worker:
+        std::cout<<"Worker ";
+        break;
+    case UnitTYPE::Base:
+        std::cout<<"Base ";
+        break;
+    
+    default:
+        std::cout<<"New Unit! ";
+        break;
+    }
+}
+
+void Object::print() const {
+    switch (ObjectType_)
+    {
+    case ObjectTYPE::Road:
+        std::cout<<"Road ";
+        break;
+    case ObjectTYPE::Mine:
+        std::cout<<"Mine ";
+        break;
+    case ObjectTYPE::Obstacle:
+        std::cout<<"Obstacle ";
+        break; 
+    default:
+        std::cout<<"New Object! ";
+        break;
+    }
+}
+

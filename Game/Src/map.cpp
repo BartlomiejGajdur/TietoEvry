@@ -40,16 +40,20 @@ std::shared_ptr<MapObject> Map::returnPointerFromGivenValue(char zn,int CoordX, 
 
 //Tutaj w tym przypiswywaniu bedize jeszcze jednostka na bank. Jakos to ogarniemy.
 void Map::matchCoordinatesWithFile(){
-
-    vectorOfObjects.resize(MAP_SIZE_X);
-
-    for(size_t i = 0 ; i<MAP_SIZE_X;i++)
+    std::string mapData = mapData_;
+    int counter = 0;
+    mapData.erase(std::remove(mapData.begin(),mapData.end(),'\n'),mapData.end());
+    vectorOfObjects.resize(MAP_SIZE_Y);
+    for(size_t i = 0 ; i<MAP_SIZE_Y;i++)
     {
-        vectorOfObjects[i].resize(MAP_SIZE_Y);
-        for(size_t j = 0 ; j<MAP_SIZE_Y ;j++)
+        vectorOfObjects[i].resize(MAP_SIZE_X);
+        for(size_t j = 0 ; j<MAP_SIZE_X ;j++)
         {   
-            // //Coordinates c(i,j);
-            vectorOfObjects[i][j] = returnPointerFromGivenValue(mapData_[i+j],i,j);
+            //std::cout<<"vector["<<i<<"]["<<j<<"]"<<" -> "<<mapData[counter]<<"\n";
+            std::shared_ptr<MapObject>  obj= returnPointerFromGivenValue(mapData[counter++],i,j);;
+            vectorOfObjects[i][j] = obj;
+            obj->print();
         }
+        std::cout<<"\n";
     }
 }
