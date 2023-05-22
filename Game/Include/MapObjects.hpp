@@ -28,20 +28,22 @@ class MapObject{
 class Unit : public MapObject{
     public:
         Unit(){};
-        Unit(const UnitTYPE& unitType,unsigned short endurance, const Coordinates& ObjectCoordinates);
-        Unit(const Coordinates& ObjectCoordinates, unsigned short endurance);
+        Unit(const UnitTYPE& unitType,short endurance, const Coordinates& ObjectCoordinates);
+        Unit(const Coordinates& ObjectCoordinates, short endurance);
         virtual ~Unit() = 0;
         //Tutaj będą rózne sprawdzania w stylu czy sie moze przemiescic bo cos tam cos tam
         virtual bool Move(const Coordinates& moveTo);
         virtual bool Attack(std::shared_ptr<Unit> Solider);
 
-        unsigned short getSpeedLeft() const {return speed_;};
+        short getSpeedLeft() const {return speed_;};
         
         UnitTYPE getUnitType()const {return unitType_;};
-        unsigned short getEndurance() const {return endurance_;};
+        short getEndurance() const {return endurance_;};
     protected:
         UnitTYPE unitType_;
-        unsigned short endurance_, speed_, purchaseCost_,attackRange_,BuildTime_;      
+        unsigned short  purchaseCost_,attackRange_,BuildTime_;   
+        short endurance_, speed_;
+        bool attackDone_ = false;
 };
 
 class Object : public MapObject{

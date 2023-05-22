@@ -16,18 +16,18 @@ std::array<std::array<unsigned short, 8>, 7> attackTable{{
 MapObject::~MapObject(){}
 Unit::~Unit(){}
 
-Unit::Unit(const UnitTYPE& unitType, unsigned short endurance, const Coordinates& ObjectCoordinates)
+Unit::Unit(const UnitTYPE& unitType, short endurance, const Coordinates& ObjectCoordinates)
     :  MapObject(ObjectCoordinates),
       unitType_(unitType),
       endurance_(endurance){};
 
-Unit::Unit(const Coordinates& ObjectCoordinates, unsigned short endurance)
+Unit::Unit(const Coordinates& ObjectCoordinates, short endurance)
 :  MapObject(ObjectCoordinates),
       endurance_(endurance){};
 
 
 bool Unit::Move(const Coordinates& moveTo){
-    size_t distance = Coordinates::distance(this->ObjectCoordinates_,moveTo);
+    short distance = Coordinates::distance(this->ObjectCoordinates_,moveTo);
 
     if(distance <= this->speed_)
     {
@@ -45,8 +45,15 @@ bool Unit::Move(const Coordinates& moveTo){
  bool Unit::Attack(std::shared_ptr<Unit> Solider){
     //Musi ona stać obok czyli distance z tej jednostki do solidera ma byc mniejszy lub rowny "zasiegAtaku"
     //Speed left czy tez po porstu speed ma byc conjamniej 1
-
-    Solider->endurance_-= attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)];
-    std::cout<<"Udalo sie zaatakowac! Atak"<<static_cast<int>(unitType_)<<" na "<<static_cast<int>(Solider->unitType_)<<"   Odjeto: "<<attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)]<<" \n";
-    return true;
+    if(this->speed_>=1 && !attackDone_)
+    {
+        Solider->endurance_-= attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)];
+        speed_--;
+        attackDone_=true;
+        std::cout<<"Udalo sie zaatakowac! Atak"<<static_cast<int>(unitType_)<<" na "<<static_cast<int>(Solider->unitType_)<<"   Odjeto: "<<attackTable[static_cast<int>(unitType_)][static_cast<int>(Solider->unitType_)]<<" \n";
+         return true; 
+    }
+     std::cerr<<"Kolezko nie masz juz speed na to zeby zaatakowac lub juz wykonales atak w tej turze \n";
+     
+     return false;
 }

@@ -23,9 +23,15 @@ int main(){
     std::shared_ptr<Base> basa = std::make_shared<Base>();
     std::shared_ptr<Knight> Knif = std::make_shared<Knight>(first,70);
     std::shared_ptr<Swordsman> miecznik2 = std::make_shared<Swordsman>(second,60);
+    std::shared_ptr<Worker> worker = std::make_shared<Worker>();
     
     Knif->Attack(basa);
-    miecznik2->Attack(basa);
+    //miecznik2->Attack(basa);
+    std::cout<<worker->getEndurance()<<"\n";
+    miecznik2->Attack(worker);
+    std::cout<<worker->getEndurance()<<"\n";
+    miecznik2->Attack(worker);
+    std::cout<<worker->getEndurance()<<"\n";
     std::cout<<basa->getEndurance();
     std::cout<<Knif->getId();
     std::cout<<miecznik2->getId();
