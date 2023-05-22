@@ -2,6 +2,8 @@
 build
 Config*
 .vscode
+../.vscode/
+../~$etoEvry_cpp_task002.docx
 
 # Prerequisites
 *.d
