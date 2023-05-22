@@ -13,10 +13,12 @@ class Map{
 
         size_t getMapSizeX() const;
         size_t getMapSizeY() const;
+        //Find and return obj with given id 
 
         size_t MAP_SIZE_X, MAP_SIZE_Y;
     private:
         std::string mapData_;
+        //Tutaj będą raczje mapObjects
         std::vector<std::vector<Coordinates>> vectorOfCoordinates;
 
         void matchCoordinatesWithFile();
