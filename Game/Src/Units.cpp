@@ -8,7 +8,7 @@ Knight::Knight(){
               attackRange_ = 1;
               BuildTime_ = 5;
               ObjectCoordinates_ = Coordinates{0,0};
-              id_++;
+              counter++;
         };
 
  Knight::Knight(const Coordinates& cord, const unsigned short endurance): Unit(cord,endurance){
@@ -17,7 +17,7 @@ Knight::Knight(){
               purchaseCost_ = 400;
               attackRange_ = 1;
               BuildTime_ = 5;
-              id_++;
+              counter++;
         }
 
   Swordsman::Swordsman(){
@@ -28,7 +28,7 @@ Knight::Knight(){
               attackRange_ = 1;
               BuildTime_ = 3;
               ObjectCoordinates_ = Coordinates{0,0};
-              id_++;
+              counter++;
         };
 
 Swordsman::Swordsman(const Coordinates& cord, const unsigned short endurance): Unit(cord,endurance){
@@ -37,7 +37,7 @@ Swordsman::Swordsman(const Coordinates& cord, const unsigned short endurance): U
               purchaseCost_ = 250;
               attackRange_ = 1;
               BuildTime_ = 3;
-              id_++;
+              counter++;
         }
 
 Base::Base(){
@@ -48,6 +48,7 @@ Base::Base(){
               attackRange_ = 0;
               BuildTime_ = 0;
               ObjectCoordinates_ = Coordinates{0,0};
+              counter++;
         };
 
 Base::Base(const Coordinates& cord, const unsigned short endurance):Unit(cord,endurance){
@@ -56,4 +57,5 @@ Base::Base(const Coordinates& cord, const unsigned short endurance):Unit(cord,en
               purchaseCost_ = 0;
               attackRange_ = 0;
               BuildTime_ = 0;
+              counter++;
         }

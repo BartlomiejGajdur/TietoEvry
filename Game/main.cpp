@@ -27,6 +27,9 @@ int main(){
     Knif->Attack(basa);
     miecznik2->Attack(basa);
     std::cout<<basa->getEndurance();
+    std::cout<<Knif->getId();
+    std::cout<<miecznik2->getId();
+    std::cout<<basa->getId();
 
    
 

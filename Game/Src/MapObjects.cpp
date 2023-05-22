@@ -1,7 +1,7 @@
 #include "../Include/MapObjects.hpp"
 #include "../Include/map.hpp"
 #include <iostream>
-int MapObject::id_ = 0;
+int MapObject::counter = 0;
 
 std::array<std::array<unsigned short, 8>, 7> attackTable{{
     {35, 35, 35, 35, 35, 50, 35, 35},

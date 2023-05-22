@@ -19,7 +19,8 @@ class MapObject{
     
     protected:
     Coordinates ObjectCoordinates_;
-    static int id_;
+    static int counter;
+    int id_ = counter;
 };
 
 
