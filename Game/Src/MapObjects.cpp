@@ -74,59 +74,53 @@ bool Unit::Move(const Coordinates& moveTo){
      
 }
 
-std::string Unit::print() const {
-    std::cout<<this->getObjectCoordinates();
-    switch (unitType_)
+std::string Unit::getTypeInString() const{
+     switch (unitType_)
     {
     case UnitTYPE::Knight:
-        return "Knight | ";
+        return "K";
         break;
     case UnitTYPE::Swordsman:
-        return "Swordsman | ";
+        return "S";
         break;
     case UnitTYPE::Archer:
-        return "Archer | ";
+        return "A";
         break;
     case UnitTYPE::Pikeman:
-        return "Pikeman | ";
+        return "P";
         break;
     case UnitTYPE::Catapult:
-        return "Catapult | ";
+        return "C";
         break;
     case UnitTYPE::Ram:
-        return "Ram | ";
+        return "R";
         break;
     case UnitTYPE::Worker:
-        return "Worker | ";
+        return "W";
         break;
     case UnitTYPE::Base:
-        return "Base | ";
+        return "B";
         break;
-    
     default:
-        return "New Unit! | ";
+        return "New";
         break;
     }
-    
 }
 
-std::string Object::print() const {
-    std::cout<<this->getObjectCoordinates();
+std::string Object::getTypeInString() const {
     switch (ObjectType_)
     {
     case ObjectTYPE::Road:
-        return "Road | ";
+        return "R";
         break;
     case ObjectTYPE::Mine:
-        return "Mine | ";
+        return "M";
         break;
     case ObjectTYPE::Obstacle:
-        return "Obstacle | ";
+        return "O";
         break; 
     default:
-        return "New Object! | ";
+        return "New";
         break;
-    }
-    
+    } 
 }
-

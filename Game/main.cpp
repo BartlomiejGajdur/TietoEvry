@@ -18,10 +18,20 @@ int main(){
     mapa.readFromFile();
     std::string line = mapa.getFileContent();
 
-    //Map maps(line);
-    //Player Player{2000};
+    Map maps(line,std::make_shared <Player>(),std::make_shared  <Player>());
 
-   // Player.moveUnit(maps,10,Coordinates{1,2});
+    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Knight>());
+    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
+    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
+    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
+    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
+    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
+    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
+
+    maps.getPlayerBelongsToEnemy()->printObjectsOwn();
+
+
+    
 
     return 0;
 }

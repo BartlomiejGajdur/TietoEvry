@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <iostream>
 
-Map::Map(const std::string& mapData, std::unique_ptr<Player> PlayerP, std::unique_ptr<Player> PlayerE)
-    : mapData_(mapData), PlayerP_(std::move(PlayerP)), PlayerE_(std::move(PlayerE))
+Map::Map(const std::string& mapData, std::shared_ptr<Player> PlayerP, std::shared_ptr<Player> PlayerE)
+    : mapData_(mapData), PlayerP_(PlayerP), PlayerE_(PlayerE)
 {
     MAP_SIZE_X = getMapSizeX();
     MAP_SIZE_Y = getMapSizeY();
@@ -61,12 +61,12 @@ void Map::matchCoordinatesWithFile(){
 
 bool Map::posibilityToStandOn(std::shared_ptr<Unit> obj,const Coordinates& coord)const {
     
-    if(vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->print()=="Road | ")
+    if(vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->getTypeInString()=="R")
     {
         return true;
     }
 
-    if(obj->getUnitType() == UnitTYPE::Worker && vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->print()=="Mine | " )
+    if(obj->getUnitType() == UnitTYPE::Worker && vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->getTypeInString()=="M" )
     {
         return true;
     }

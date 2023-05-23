@@ -4,9 +4,9 @@
 #include <iostream>
 
 void Player::printObjectsOwn() const{
-    for(const auto& v: unitsOwn_)
+    for( auto v: unitsOwn_)
     {
-        std::cout<<v<<"\n";
+        std::cout<<"UnitType:" <<v->getTypeInString()<<" Unit ID:"<<v->getId()<<" Coordinates:"<<v->getObjectCoordinates()<<" Endurance:"<<v->getEndurance()<<"\n";
     }
 }
 

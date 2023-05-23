@@ -11,17 +11,20 @@ class Player;
 
 class Map {
 public:
-    Map(const std::string& mapData,const std::unique_ptr<Player> PlayerP,const std::unique_ptr<Player> PlayerE);
+    Map(const std::string& mapData,const std::shared_ptr<Player> PlayerP,const std::shared_ptr<Player> PlayerE);
 
     size_t getMapSizeX();
     size_t getMapSizeY();
     bool posibilityToStandOn(std::shared_ptr<Unit> obj, const Coordinates& coord) const;
 
+    std::shared_ptr<Player> getPlayerBelongsToEnemy() const {return PlayerE_;};
+    std::shared_ptr<Player> getPlayerBelongsToUs() const {return PlayerP_;};
+
 private:
     std::string mapData_;
     size_t MAP_SIZE_X, MAP_SIZE_Y;
-    std::unique_ptr<Player> PlayerP_;
-    std::unique_ptr<Player> PlayerE_;
+    std::shared_ptr<Player> PlayerP_;
+    std::shared_ptr<Player> PlayerE_;
 
     std::vector<std::vector<std::shared_ptr<MapObject>>> vectorOfObjects;
 
