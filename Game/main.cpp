@@ -18,10 +18,10 @@ int main(){
     mapa.readFromFile();
     std::string line = mapa.getFileContent();
 
-    Map maps(line);
-    Player Player{2000};
+    //Map maps(line);
+    //Player Player{2000};
 
-    //Player.moveUnit(maps,10,Coordinates{1,2});
+   // Player.moveUnit(maps,10,Coordinates{1,2});
 
     return 0;
 }

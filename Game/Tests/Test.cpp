@@ -13,7 +13,7 @@ struct UnitsUnderTestFixture : public ::testing::Test{
 
     
     Map mapa{
-        "000\n666\n999\n000\n"};
+        "000\n666\n999\n000\n",std::make_unique<Player>(),std::make_unique<Player>()};
     
     std::shared_ptr<Base> BASE = std::make_shared<Base>(Coordinates{2,2});
     std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0,0},70);

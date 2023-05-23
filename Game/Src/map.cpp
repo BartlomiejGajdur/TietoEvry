@@ -7,11 +7,13 @@
 #include <algorithm>
 #include <iostream>
 
-Map::Map(const std::string& mapData):mapData_(mapData) {
-            MAP_SIZE_X = getMapSizeX();
-            MAP_SIZE_Y = getMapSizeY();
-            matchCoordinatesWithFile();      
-        };
+Map::Map(const std::string& mapData, std::unique_ptr<Player> PlayerP, std::unique_ptr<Player> PlayerE)
+    : mapData_(mapData), PlayerP_(std::move(PlayerP)), PlayerE_(std::move(PlayerE))
+{
+    MAP_SIZE_X = getMapSizeX();
+    MAP_SIZE_Y = getMapSizeY();
+    matchCoordinatesWithFile();
+}
 
 size_t Map::getMapSizeX() {
 
