@@ -74,57 +74,59 @@ bool Unit::Move(const Coordinates& moveTo){
      
 }
 
-void Unit::print() const {
+std::string Unit::print() const {
+    std::cout<<this->getObjectCoordinates();
     switch (unitType_)
     {
     case UnitTYPE::Knight:
-        std::cout<<"Knight ";
+        return "Knight | ";
         break;
     case UnitTYPE::Swordsman:
-        std::cout<<"Swordsman ";
+        return "Swordsman | ";
         break;
     case UnitTYPE::Archer:
-        std::cout<<"Archer ";
+        return "Archer | ";
         break;
     case UnitTYPE::Pikeman:
-        std::cout<<"Pikeman ";
+        return "Pikeman | ";
         break;
     case UnitTYPE::Catapult:
-        std::cout<<"Catapult ";
+        return "Catapult | ";
         break;
     case UnitTYPE::Ram:
-        std::cout<<"Ram ";
+        return "Ram | ";
         break;
     case UnitTYPE::Worker:
-        std::cout<<"Worker ";
+        return "Worker | ";
         break;
     case UnitTYPE::Base:
-        std::cout<<"Base ";
+        return "Base | ";
         break;
     
     default:
-        std::cout<<"New Unit! ";
+        return "New Unit! | ";
         break;
     }
-    std::cout<<this->getObjectCoordinates()<<" | ";
+    
 }
 
-void Object::print() const {
+std::string Object::print() const {
+    std::cout<<this->getObjectCoordinates();
     switch (ObjectType_)
     {
     case ObjectTYPE::Road:
-        std::cout<<"Road ";
+        return "Road | ";
         break;
     case ObjectTYPE::Mine:
-        std::cout<<"Mine ";
+        return "Mine | ";
         break;
     case ObjectTYPE::Obstacle:
-        std::cout<<"Obstacle ";
+        return "Obstacle | ";
         break; 
     default:
-        std::cout<<"New Object! ";
+        return "New Object! | ";
         break;
     }
-    std::cout<<this->getObjectCoordinates()<<" | ";
+    
 }
 

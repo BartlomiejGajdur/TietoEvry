@@ -16,7 +16,7 @@ class MapObject{
 
     Coordinates getObjectCoordinates() const {return ObjectCoordinates_;};
     virtual int getId() const {return id_;};
-    virtual void print() const = 0;
+    virtual std::string print() const = 0;
     protected:
     Coordinates ObjectCoordinates_;
     static int counter;
@@ -32,7 +32,7 @@ class Unit : public MapObject{
         //Tutaj będą rózne sprawdzania w stylu czy sie moze przemiescic bo cos tam cos tam
         virtual bool Move(const Coordinates& moveTo);
         virtual bool Attack(std::shared_ptr<Unit> Solider);
-        void print() const override;
+        std::string print() const override;
         short getSpeedLeft() const {return speed_;};
         
         UnitTYPE getUnitType()const {return unitType_;};
@@ -52,7 +52,7 @@ class Object : public MapObject{
         virtual ~Object() = 0;
        
        int getId() const override {return -1;};
-       void print() const override;
+       std::string print() const override;
         
     protected:
         ObjectTYPE ObjectType_;  

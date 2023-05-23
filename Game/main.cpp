@@ -5,6 +5,7 @@
 #include "Include/MapObjects.hpp"
 #include "Include/map.hpp"
 #include "Include/Units.hpp"
+#include "Include/Player.hpp"
 #include <memory>
 
 std::string configLocalization ="../Config/mapa.txt";
@@ -18,7 +19,9 @@ int main(){
     std::string line = mapa.getFileContent();
 
     Map maps(line);
-    //maps.matchCoordinatesWithFile();
+    Player Player{2000};
+
+    //Player.moveUnit(maps,10,Coordinates{1,2});
 
     return 0;
 }

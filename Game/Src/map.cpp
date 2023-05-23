@@ -13,13 +13,21 @@ Map::Map(const std::string& mapData):mapData_(mapData) {
             matchCoordinatesWithFile();      
         };
 
-size_t Map::getMapSizeX() const {
-    auto it = std::find(mapData_.begin(),mapData_.end(),'\n');
-        return std::distance(mapData_.begin(),it);
+size_t Map::getMapSizeX() {
+    FileManager mapa("../Config/mapa.txt");
+    mapa.openFile();
+    mapa.readFromFile();
+    std::string line = mapa.getFileContent();
+    auto it = std::find(line.begin(),line.end(),'\n');
+        return std::distance(line.begin(),it);
     }
 
-    size_t Map::getMapSizeY() const {
-        return std::count(mapData_.begin(), mapData_.end(), '\n');
+    size_t Map::getMapSizeY() {
+        FileManager mapa("../Config/mapa.txt");
+        mapa.openFile();
+        mapa.readFromFile();
+        std::string line = mapa.getFileContent();
+        return std::count(line.begin(), line.end(), '\n');
     }
 
 std::shared_ptr<MapObject> Map::returnPointerFromGivenValue(char zn,int CoordX, int CoordY){
@@ -56,4 +64,19 @@ void Map::matchCoordinatesWithFile(){
         }
         std::cout<<"\n";
     }
+}
+
+bool Map::posibilityToStandOn(std::shared_ptr<Unit> obj,const Coordinates& coord)const {
+    
+    if(vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->print()=="Road | ")
+    {
+        return true;
+    }
+
+    if(obj->getUnitType() == UnitTYPE::Worker && vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->print()=="Mine | " )
+    {
+        return true;
+    }
+
+    return false;
 }
