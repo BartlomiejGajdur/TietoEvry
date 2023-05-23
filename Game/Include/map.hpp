@@ -13,13 +13,13 @@ class Map{
     public:
         Map(const std::string& mapData);
 
-        static::size_t getMapSizeX();
-        static::size_t getMapSizeY();
+        size_t getMapSizeX();
+        size_t getMapSizeY();
         //Find and return obj with given id 
         bool posibilityToStandOn(std::shared_ptr<Unit> obj, const Coordinates& coord) const;
         
     private:
-        friend class Player;
+    
         std::string mapData_;
         size_t MAP_SIZE_X, MAP_SIZE_Y; 
         // Player PlayerP{2000};

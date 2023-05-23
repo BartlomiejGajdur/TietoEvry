@@ -14,20 +14,13 @@ Map::Map(const std::string& mapData):mapData_(mapData) {
         };
 
 size_t Map::getMapSizeX() {
-    FileManager mapa("../Config/mapa.txt");
-    mapa.openFile();
-    mapa.readFromFile();
-    std::string line = mapa.getFileContent();
-    auto it = std::find(line.begin(),line.end(),'\n');
-        return std::distance(line.begin(),it);
+
+    auto it = std::find(mapData_.begin(),mapData_.end(),'\n');
+        return std::distance(mapData_.begin(),it);
     }
 
     size_t Map::getMapSizeY() {
-        FileManager mapa("../Config/mapa.txt");
-        mapa.openFile();
-        mapa.readFromFile();
-        std::string line = mapa.getFileContent();
-        return std::count(line.begin(), line.end(), '\n');
+        return std::count(mapData_.begin(), mapData_.end(), '\n');
     }
 
 std::shared_ptr<MapObject> Map::returnPointerFromGivenValue(char zn,int CoordX, int CoordY){
@@ -60,9 +53,7 @@ void Map::matchCoordinatesWithFile(){
             //std::cout<<"vector["<<i<<"]["<<j<<"]"<<" -> "<<mapData[counter]<<"\n";
             std::shared_ptr<MapObject>  obj= returnPointerFromGivenValue(mapData[counter++],i,j);;
             vectorOfObjects[i][j] = obj;
-            obj->print();
         }
-        std::cout<<"\n";
     }
 }
 

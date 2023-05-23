@@ -12,12 +12,8 @@
 struct UnitsUnderTestFixture : public ::testing::Test{
 
     
-    // std::string downloadMapa(){
-    //     FileManager mapa("../Config/mapa.txt");
-    //     mapa.openFile();
-    //     mapa.readFromFile();
-    //     std::string line = mapa.getFileContent();
-    // }
+    Map mapa{
+        "000\n666\n999\n000\n"};
     
     std::shared_ptr<Base> BASE = std::make_shared<Base>(Coordinates{2,2});
     std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0,0},70);
@@ -25,6 +21,8 @@ struct UnitsUnderTestFixture : public ::testing::Test{
 
     std::shared_ptr<Archer> Archer1 = std::make_shared<Archer>(Coordinates{0,0},40);
     std::shared_ptr<Catapult> Catapult1 = std::make_shared<Catapult>(Coordinates{7,0},50);
+
+    std::shared_ptr<Worker> Worker1 = std::make_shared<Worker>();
 };
 
 TEST_F(UnitsUnderTestFixture, CorrectMove)
@@ -91,6 +89,16 @@ TEST_F(UnitsUnderTestFixture, SpeedPointsNeededToPerformAttack)
     //Try to perfrom attack in range
     EXPECT_FALSE(Archer1->Attack(Catapult1)); 
     EXPECT_EQ(Catapult1->getEndurance(),50);
+}
+
+TEST_F(UnitsUnderTestFixture, Mapa)
+{
+
+    EXPECT_TRUE(mapa.posibilityToStandOn(Knight1,Coordinates{0,0}));
+    EXPECT_TRUE(mapa.posibilityToStandOn(Worker1,Coordinates{0,0}));
+    EXPECT_TRUE(mapa.posibilityToStandOn(Worker1,Coordinates{1,1}));
+    EXPECT_FALSE(mapa.posibilityToStandOn(Knight1,Coordinates{1,1}));
+
 }
 
 
