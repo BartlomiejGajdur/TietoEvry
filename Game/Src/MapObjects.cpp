@@ -37,8 +37,7 @@ bool Unit::Move(const Coordinates& moveTo){
 
         return true;
     }
-    //Tutaj nie moze na zadna przeszkode isc czy na kopalnie 
-    std::cerr<<"Too far!\n";
+    std::cout<<"Too far!\n";
     return false;
     
 }

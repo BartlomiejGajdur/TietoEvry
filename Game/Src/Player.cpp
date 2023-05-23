@@ -11,18 +11,27 @@ void Player::printObjectsOwn() const{
 }
 
 bool Player::moveUnit(Map& map, int id,const Coordinates& coord){
-    auto it = std::find_if(unitsOwn_.begin(),unitsOwn_.end(),[=](std::shared_ptr<Unit>& objectsOwn){ return objectsOwn->getId() == id;});
-    if(it == unitsOwn_.end())
-    {   
-        std::cout<<"Cannot find unit by given ID!\n";
-        return false;
-    }
-    if(!map.posibilityToStandOn(it[0],coord))
+    std::cout<<static_cast<size_t>(coord.getPositionX())<<"\n";
+
+    if(static_cast<size_t>(coord.getPositionX()) >= map.getMapSizeX() || static_cast<size_t>(coord.getPositionY()) >= map.getMapSizeY())
     {
-        std::cout<<"Cannot Stand on this field!\n";
+        std::cerr<<"Cannot move out of map!\n";
         return false;
     }
 
-return true;
-        
+    auto it = std::find_if(unitsOwn_.begin(),unitsOwn_.end(),[=](std::shared_ptr<Unit>& objectsOwn){ return objectsOwn->getId() == id;});
+    if(it == unitsOwn_.end())
+    {   
+        std::cerr<<"Cannot find unit by given ID!\n";
+        return false;
+    }
+    
+    std::shared_ptr<Unit>& foundObject = *it;
+    if(!map.posibilityToStandOn(foundObject,coord))
+    {
+        std::cerr<<"Cannot Stand on this field!\n";
+        return false;
+    }
+
+    return foundObject->Move(coord);    
 }

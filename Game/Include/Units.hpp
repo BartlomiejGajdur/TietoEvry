@@ -54,8 +54,6 @@ class Worker : public Unit{
     public:
         Worker();
         Worker(const Coordinates& cord, const unsigned short endurance);
-        bool Move(const Coordinates& moveTo) override{std::cout<<moveTo<<"ALE JESTEM WORKER MOGE ISC NA KOPALNIE\n"; return true;};//Jego warunek niemocy iscia na kopalnie nie obowiazuje. i on tam bedzie sobie mogl siedziec 
-        //If on jest na pozycji kopalni +50golda dla gracza. Czyli na poczatku tury np sprawdza czy w swoim vectorze są jakies osoby na pozycji w ktorej jest kopalnia. A dokladnie to on Tylko
 
     private:
 };

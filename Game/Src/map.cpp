@@ -61,15 +61,15 @@ void Map::matchCoordinatesWithFile(){
 
 bool Map::posibilityToStandOn(std::shared_ptr<Unit> obj,const Coordinates& coord)const {
     
-    if(vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->getTypeInString()=="R")
+
+    if(vectorOfObjects[coord.getPositionY()][coord.getPositionX()]->getTypeInString()=="R")
     {
         return true;
     }
 
-    if(obj->getUnitType() == UnitTYPE::Worker && vectorOfObjects[coord.getPositionX()][coord.getPositionY()]->getTypeInString()=="M" )
+    if(obj->getUnitType() == UnitTYPE::Worker && vectorOfObjects[coord.getPositionY()][coord.getPositionX()]->getTypeInString()=="M" )
     {
         return true;
     }
-
     return false;
 }

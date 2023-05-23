@@ -22,16 +22,19 @@ int main(){
 
     maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Knight>());
     maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
-    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
-    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
-    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
-    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
-    maps.getPlayerBelongsToEnemy()->addUnit(std::make_shared<Swordsman>());
+
+    maps.getPlayerBelongsToUs()->addUnit(std::make_shared<Swordsman>());
+    maps.getPlayerBelongsToUs()->addUnit(std::make_shared<Swordsman>());
+    maps.getPlayerBelongsToUs()->addUnit(std::make_shared<Worker>());
+
+
+    maps.getPlayerBelongsToUs()->moveUnit(maps,4,{-5,-3});
+    maps.getPlayerBelongsToUs()->moveUnit(maps,6,{11,4});
 
     maps.getPlayerBelongsToEnemy()->printObjectsOwn();
+    std::cout<<"\n\n";
+    maps.getPlayerBelongsToUs()->printObjectsOwn();
 
-
-    
 
     return 0;
 }
