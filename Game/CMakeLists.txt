@@ -18,6 +18,7 @@ set(COMMON_SOURCES
     Src/MapObjects.cpp
     Src/Units.cpp
     Src/Object.cpp
+    Src/Player.cpp
 )
 
 set(Testing_SOURCES 

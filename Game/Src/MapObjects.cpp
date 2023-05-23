@@ -106,6 +106,7 @@ void Unit::print() const {
         std::cout<<"New Unit! ";
         break;
     }
+    std::cout<<this->getObjectCoordinates()<<" | ";
 }
 
 void Object::print() const {
@@ -124,5 +125,6 @@ void Object::print() const {
         std::cout<<"New Object! ";
         break;
     }
+    std::cout<<this->getObjectCoordinates()<<" | ";
 }
 
