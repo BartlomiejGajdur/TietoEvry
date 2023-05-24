@@ -7,6 +7,7 @@
 #include "Coordinates.hpp"
 #include "FileManager.hpp"
 #include "MapObjects.hpp"
+#include <iostream>
 class Player;
 
 class Map {
@@ -17,8 +18,15 @@ public:
     size_t getMapSizeY();
     bool posibilityToStandOn(std::shared_ptr<Unit> obj, const Coordinates& coord) const;
 
-    std::shared_ptr<Player> getPlayerBelongsToEnemy() const {return PlayerE_;};
-    std::shared_ptr<Player> getPlayerBelongsToUs() const {return PlayerP_;};
+    std::shared_ptr<Player>& getPlayerBelongsToEnemy()  {return PlayerE_;};
+    std::shared_ptr<Player>& getPlayerBelongsToUs()  {return PlayerP_;};
+
+    //Podajemy Id jednostki a nastapnie czy staniemy na jendostce przeciwnika, a potem wykonuje te funkcje ktora sobie juz reszte sprawdzi.
+    bool performMoveByPlayerBelongsToUs(int id,const Coordinates& coord);
+    bool performMoveByPlayerBelongsToEnemy(int id,const Coordinates& coord);
+
+    bool performAttackByPlayerBelongsToUs();
+    bool performAttackByPlayerBelongsToEnemy();
 
 private:
     std::string mapData_;

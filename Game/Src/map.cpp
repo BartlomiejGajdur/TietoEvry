@@ -73,3 +73,28 @@ bool Map::posibilityToStandOn(std::shared_ptr<Unit> obj,const Coordinates& coord
     }
     return false;
 }
+
+ bool Map::performMoveByPlayerBelongsToEnemy(int id, const Coordinates& coord) {
+    for (const auto& unit : PlayerP_->getUnits()) {
+        if (unit->getObjectCoordinates() == coord) {
+            std::cout << "Cannot stand on Unit that belongs to enemy[Looking for in Player_P]!\n";
+            return false;
+        }
+    }
+
+    return PlayerE_->moveUnit(*this, id, coord);
+}
+
+bool Map::performMoveByPlayerBelongsToUs(int id, const Coordinates& coord) {
+    for (const auto& unit : PlayerE_->getUnits()) {
+        if (unit->getObjectCoordinates() == coord) {
+            std::cout << "Cannot stand on Unit that belongs to enemy[Looking for in Player_E]!\n";
+            return false;
+        }
+    }
+
+    return PlayerP_->moveUnit(*this, id, coord);
+}
+
+
+  
