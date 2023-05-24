@@ -11,7 +11,6 @@ void Player::printObjectsOwn() const{
 }
 
 bool Player::moveUnit(Map& map, int id,const Coordinates& coord){
-    std::cout<<static_cast<size_t>(coord.getPositionX())<<"\n";
 
     if(static_cast<size_t>(coord.getPositionX()) >= map.getMapSizeX() || static_cast<size_t>(coord.getPositionY()) >= map.getMapSizeY())
     {
