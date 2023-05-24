@@ -26,10 +26,16 @@ size_t Map::getMapSizeX() {
     }
 
 std::shared_ptr<MapObject> Map::returnPointerFromGivenValue(char zn,int CoordX, int CoordY){
-    if(zn == '1' || zn == '2')
+    if(zn == '1')
     {   
         //Pushback do playera 1
-        return std::make_shared<Base>(Coordinates{CoordX,CoordY});
+        std::shared_ptr<Base> PlayerPBase = std::make_shared<Base>(Coordinates{CoordX,CoordY});
+        PlayerP_->addUnit(PlayerPBase);
+        return PlayerPBase;
+    }else if(zn=='2'){
+        std::shared_ptr<Base> PlayerEBase = std::make_shared<Base>(Coordinates{CoordX,CoordY});
+        PlayerP_->addUnit(PlayerEBase);
+        return PlayerEBase;
     }else if(zn == '0')
     {
         return std::make_shared<Road>(Coordinates{CoordX,CoordY},ObjectTYPE::Road);
@@ -53,7 +59,7 @@ void Map::matchCoordinatesWithFile(){
         for(size_t j = 0 ; j<MAP_SIZE_X ;j++)
         {   
             //std::cout<<"vector["<<i<<"]["<<j<<"]"<<" -> "<<mapData[counter]<<"\n";
-            std::shared_ptr<MapObject>  obj= returnPointerFromGivenValue(mapData[counter++],i,j);;
+            std::shared_ptr<MapObject>  obj = returnPointerFromGivenValue(mapData[counter++],i,j);;
             vectorOfObjects[i][j] = obj;
         }
     }
