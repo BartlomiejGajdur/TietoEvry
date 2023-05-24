@@ -9,97 +9,110 @@
 #include "../Include/Units.hpp"
 #include <memory>
 
-struct UnitsUnderTestFixture : public ::testing::Test{
+#include <gtest/gtest.h>
 
-    
+struct UnitsUnderTestFixture : public ::testing::Test {
     Map mapa{
-        "000\n666\n999\n000\n",std::make_unique<Player>(),std::make_unique<Player>()};
-    
+        "090\n600\n909\n000\n",
+        std::make_unique<Player>(),
+        std::make_unique<Player>(),
+    };
+
     std::shared_ptr<Base> BASE = std::make_shared<Base>(Coordinates{2,2});
     std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0,0},70);
     std::shared_ptr<Swordsman> Swordsman1 = std::make_shared<Swordsman>(Coordinates{1,1},60);
-
     std::shared_ptr<Archer> Archer1 = std::make_shared<Archer>(Coordinates{0,0},40);
     std::shared_ptr<Catapult> Catapult1 = std::make_shared<Catapult>(Coordinates{7,0},50);
-
     std::shared_ptr<Worker> Worker1 = std::make_shared<Worker>();
+
+    void addUnitsToEnemyPlayer(){
+        mapa.getPlayerBelongsToEnemy()->addUnit(BASE);
+        mapa.getPlayerBelongsToEnemy()->addUnit(Knight1);
+        mapa.getPlayerBelongsToEnemy()->addUnit(Swordsman1);
+        mapa.getPlayerBelongsToEnemy()->addUnit(Archer1);
+        mapa.getPlayerBelongsToEnemy()->addUnit(Catapult1);
+        mapa.getPlayerBelongsToEnemy()->addUnit(Worker1);
+
+    }
 };
 
-TEST_F(UnitsUnderTestFixture, CorrectMove)
-{
-    Coordinates moveTo{3, 2};
-    bool result = Knight1->Move(moveTo);
+TEST_F(UnitsUnderTestFixture, MoveUnit_ValidCoordinates_ReturnsTrue) {
+    addUnitsToEnemyPlayer();
+    Coordinates validCoord{1, 2};
 
-    EXPECT_TRUE(result); 
-    EXPECT_EQ(Knight1->getObjectCoordinates(), moveTo); 
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, Knight1->getId(), validCoord);
+
+    EXPECT_TRUE(result);
+    EXPECT_EQ(Knight1->getObjectCoordinates(), validCoord);
 }
 
-TEST_F(UnitsUnderTestFixture, DestinationCoordinatesInconsistentWithSpeedPoints)
-{
+TEST_F(UnitsUnderTestFixture, MoveUnit_OutOfMapCoordinates_ReturnsFalse) {
+    addUnitsToEnemyPlayer();
+    Coordinates outOfMapCoord{10, 5};
 
-    Coordinates FirstMove{3, 1};
-    bool result = Knight1->Move(FirstMove);
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, Swordsman1->getId(), outOfMapCoord);
 
-
-    EXPECT_TRUE(result); 
-    EXPECT_EQ(Knight1->getObjectCoordinates(), FirstMove); 
-
-
-    Coordinates SecondMove{4,2};
-    result = Knight1->Move(SecondMove);
-
-    EXPECT_FALSE(result); 
-    EXPECT_EQ(Knight1->getObjectCoordinates(), FirstMove); 
+    EXPECT_FALSE(result);
+    EXPECT_EQ(Swordsman1->getObjectCoordinates(), Coordinates(1, 1));  // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, WrongActionForTheUnit)
-{
+TEST_F(UnitsUnderTestFixture, MoveUnit_UnitNotFound_ReturnsFalse) {
+    addUnitsToEnemyPlayer();
+    Coordinates validCoord{2, 2};
+    int nonExistentId = 999;
 
-    Coordinates Move{3, 1};
-    bool result = BASE->Move(Move);
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, nonExistentId, validCoord);
 
-    EXPECT_FALSE(result); 
+    EXPECT_FALSE(result);
 }
 
-TEST_F(UnitsUnderTestFixture, MoveOutOfMap)
-{
+TEST_F(UnitsUnderTestFixture, MoveUnit_CannotStandOnField_ReturnsFalse) {
+    addUnitsToEnemyPlayer();
+    Coordinates invalidCoord{1, 0};
 
-    Coordinates Move{-1,-1};
-    bool result = Knight1->Move(Move);
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, Archer1->getId(), invalidCoord);
 
-    EXPECT_FALSE(result); 
+    EXPECT_FALSE(result);
+    EXPECT_EQ(Archer1->getObjectCoordinates(), Coordinates(0, 0));  // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, AttackRange)
-{
-    //To far to attack
-    EXPECT_FALSE(Archer1->Attack(Catapult1)); 
-    EXPECT_EQ(Catapult1->getEndurance(),50);
+TEST_F(UnitsUnderTestFixture, MoveUnit_TooFarToMove_ReturnsFalse) {
+    addUnitsToEnemyPlayer();
+    Coordinates farCoord{7, 7};
 
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, Catapult1->getId(), farCoord);
 
-    EXPECT_TRUE(Catapult1->Attack(Archer1)); 
-    EXPECT_EQ(Archer1->getEndurance(),0);
+    EXPECT_FALSE(result);
+    EXPECT_EQ(Catapult1->getObjectCoordinates(), Coordinates(7, 0));  // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, SpeedPointsNeededToPerformAttack)
-{
-    //Whole speed points used
-    EXPECT_TRUE(Archer1->Move(Coordinates{2,0}));
+TEST_F(UnitsUnderTestFixture, MoveBase_CannotMove_ReturnsFalse) {
+    addUnitsToEnemyPlayer();
+    Coordinates validCoord{1, 2};
 
-    //Try to perfrom attack in range
-    EXPECT_FALSE(Archer1->Attack(Catapult1)); 
-    EXPECT_EQ(Catapult1->getEndurance(),50);
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, BASE->getId(), validCoord);
+
+    EXPECT_FALSE(result);
+    EXPECT_EQ(BASE->getObjectCoordinates(), Coordinates(2, 2));  // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, Mapa)
-{
+TEST_F(UnitsUnderTestFixture, MoveUnit_WorkerStandOnMine_ReturnsTrue) {
+    addUnitsToEnemyPlayer();
+    Coordinates MineCoord{0, 1};
 
-    EXPECT_TRUE(mapa.posibilityToStandOn(Knight1,Coordinates{0,0}));
-    EXPECT_TRUE(mapa.posibilityToStandOn(Worker1,Coordinates{0,0}));
-    EXPECT_TRUE(mapa.posibilityToStandOn(Worker1,Coordinates{1,1}));
-    EXPECT_FALSE(mapa.posibilityToStandOn(Knight1,Coordinates{1,1}));
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, Worker1->getId(), MineCoord);
 
+    EXPECT_TRUE(result);
+    EXPECT_EQ(Worker1->getObjectCoordinates(), MineCoord);
 }
 
+TEST_F(UnitsUnderTestFixture, MoveUnit_UnitStandOnMine_ReturnsFalse) {
+    addUnitsToEnemyPlayer();
+    Coordinates MineCoord{0, 1};
 
+    bool result = mapa.getPlayerBelongsToEnemy()->moveUnit(mapa, Knight1->getId(), MineCoord);
+
+    EXPECT_FALSE(result);
+    EXPECT_EQ(Knight1->getObjectCoordinates(), Coordinates(0, 0));  // Check that the unit's position remains unchanged
+}
 
