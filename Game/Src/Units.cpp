@@ -157,3 +157,27 @@ Base::Base(const Coordinates& cord, const unsigned short endurance):Unit(cord,en
               BuildTime_ = 0;
               counter++;
         }
+
+Base::Base(const Coordinates &cord,const unsigned short endurance, const UnitTYPE& unitType, const unsigned short timeToProductionEnd):Unit(cord,endurance){
+              unitType_ = UnitTYPE::Base; 
+              speed_ = 0;
+              purchaseCost_ = 0;
+              attackRange_ = 0;
+              BuildTime_ = 0;
+              counter++;
+              production_.first = unitType;
+              production_.second = timeToProductionEnd;
+}
+
+bool Base::Produce(const UnitTYPE& unitType){
+      if(production_.first != UnitTYPE::Base)
+      {
+            std::cout<<"Base during production! \n";
+            return false;
+      }
+            std::cout<<"production started! \n";
+            production_.first = unitType;
+            production_.second = Unit::getBuildTime(unitType);
+      return true;
+
+}
