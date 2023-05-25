@@ -63,10 +63,16 @@ TEST_F(MapUnderTestFixture, WorkersVector)
     EXPECT_EQ(WorkersCoordinates, map.get_PlayerE()->getWorkersCoordinates());
 }
 
-
-TEST_F(MapUnderTestFixture, CountingVectorsInMines)
+TEST_F(MapUnderTestFixture, CountingWorkersInMines)
 {
     addToPlayerE();
     EXPECT_EQ(map.countWorkersInMine(map.getMineCoordinates(),map.get_PlayerE()->getWorkersCoordinates()), 2);
+}
+
+TEST_F(MapUnderTestFixture, CountingMoneyFromWorkers)
+{
+    addToPlayerE();
+    size_t income = map.countWorkersInMine(map.getMineCoordinates(),map.get_PlayerE()->getWorkersCoordinates()) * INCOME_PER_WORKER;
+    EXPECT_EQ(map.calculateIncomeFromWorkersInMine_PlayerE(), income);
 }
 

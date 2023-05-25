@@ -233,8 +233,9 @@ size_t Map::countWorkersInMine(const std::vector<Coordinates>& mineCoordinates, 
 }
 
   size_t Map::calculateIncomeFromWorkersInMine_PlayerP(){
-
+    return this->countWorkersInMine(this->getMineCoordinates(),this->PlayerP_->getWorkersCoordinates()) * INCOME_PER_WORKER;
   }
+  
   size_t Map::calculateIncomeFromWorkersInMine_PlayerE(){
-
+    return this->countWorkersInMine(this->getMineCoordinates(),this->PlayerE_->getWorkersCoordinates()) * INCOME_PER_WORKER;
   }
