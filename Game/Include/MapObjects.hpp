@@ -16,7 +16,7 @@ enum class UnitTYPE {
   Worker,
   Base
 };
-enum class ObjectTYPE { Road = 0, Mine = 6, Obstacle = 9 };
+enum class ObjectTYPE { Road = 0, Mine = 6, Obstacle = 9, BaseP = 1, BaseE = 2 };
 
 class MapObject {
 public:

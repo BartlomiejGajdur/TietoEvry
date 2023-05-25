@@ -122,6 +122,10 @@ std::string Object::getTypeInString() const {
     break;
   case ObjectTYPE::Obstacle:
     return "O";
+  case ObjectTYPE::BaseP:
+    return "1";
+  case ObjectTYPE::BaseE:
+    return "2";
     break;
   default:
     return "New";

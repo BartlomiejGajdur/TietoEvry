@@ -8,14 +8,16 @@
 #include <unordered_map>
 #include <functional>
 
+std::string statusLocalization ="../Config/status.txt";
 
 Map::Map(const std::string &mapData, std::shared_ptr<Player> PlayerP,
          std::shared_ptr<Player> PlayerE, size_t currentRound)
     : currentRound_(currentRound),mapData_(mapData), PlayerP_(PlayerP), PlayerE_(PlayerE) {
   MAP_SIZE_X = getMapSizeX();
   MAP_SIZE_Y = getMapSizeY();
+  FileManager::ParseStatusFile(statusLocalization,*this);
   matchCoordinatesWithFile();
-  //Wczytanie z pliku status
+  
 }
 
 void Map::nextRound(){
@@ -57,8 +59,7 @@ void Map::nextRound(){
 
 
   currentRound_++;
-  
-  //Zapis do pliku status
+  FileManager::SaveStatusToFile(statusLocalization,*this);
 }
 
 size_t Map::getMapSizeX() {
@@ -73,17 +74,27 @@ size_t Map::getMapSizeY() {
 
 std::shared_ptr<MapObject> Map::returnPointerFromGivenValue(char zn, int CoordX,
                                                             int CoordY) {
+                                                            
   if (zn == '1') {
-
-    std::shared_ptr<Base> PlayerPBase =
-        std::make_shared<Base>(Coordinates{CoordX, CoordY});
-    PlayerP_->addUnit(PlayerPBase);
-    return PlayerPBase;
+    if(auto deli = std::dynamic_pointer_cast<Base>(PlayerP_->getBase()))
+    {
+     
+    }else{
+      std::shared_ptr<Base> PlayerPBase = std::make_shared<Base>(Coordinates{CoordX, CoordY});
+      PlayerP_->addUnit(PlayerPBase);
+      return PlayerPBase;
+    }
+  return nullptr;
   } else if (zn == '2') {
-    std::shared_ptr<Base> PlayerEBase =
-        std::make_shared<Base>(Coordinates{CoordX, CoordY});
-    PlayerE_->addUnit(PlayerEBase);
-    return PlayerEBase;
+    if(auto deli = std::dynamic_pointer_cast<Base>(PlayerE_->getBase()))
+    {
+      
+    }else{
+      std::shared_ptr<Base> PlayerEBase = std::make_shared<Base>(Coordinates{CoordX, CoordY});
+      PlayerE_->addUnit(PlayerEBase);
+      return PlayerEBase;
+    }
+  return nullptr;
   } else if (zn == '0') {
     return std::make_shared<Road>(Coordinates{CoordX, CoordY},
                                   ObjectTYPE::Road);

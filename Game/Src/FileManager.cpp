@@ -3,6 +3,7 @@
 
 #include "../Include/FileManager.hpp"
 #include "../Include/Units.hpp"
+#include "../Include/Map.hpp"
 
 FileManager::~FileManager() {
   if (file_.is_open())
@@ -33,14 +34,15 @@ bool FileManager::readFromFile() {
   return true;
 }
 
-void FileManager::SaveStatusToFile(const std::string& fileName, std::shared_ptr<Player> PlayerP_, std::shared_ptr<Player> PlayerE_) {
+void FileManager::SaveStatusToFile(const std::string& fileName, Map& mapa) {
   std::ofstream outputFile(fileName); 
 
   if (outputFile.is_open()) {
-    outputFile<<"P "<<PlayerP_->getMoney()<<"\n";
-    outputFile<<"E "<<PlayerE_->getMoney()<<"\n";
+    outputFile<< mapa.getRound()<<"\n";
+    outputFile<<"P "<<mapa.get_PlayerP()->getMoney()<<"\n";
+    outputFile<<"E "<<mapa.get_PlayerE()->getMoney()<<"\n";
 
-    for(const auto& unit : PlayerP_->getUnits()){
+    for(const auto& unit : mapa.get_PlayerP()->getUnits()){
       outputFile<<"P "<<unit->getTypeInString()<<" "<<unit->getId()<<" "<<unit->getObjectCoordinates().getPositionX()<<" "<<unit->getObjectCoordinates().getPositionY()<<" "
       <<unit->getEndurance();
       if(auto dynamic = std::dynamic_pointer_cast<Base>(unit))
@@ -52,7 +54,7 @@ void FileManager::SaveStatusToFile(const std::string& fileName, std::shared_ptr<
       
     }
 
-    for(const auto& unit : PlayerE_->getUnits()){
+    for(const auto& unit : mapa.get_PlayerE()->getUnits()){
       outputFile<<"E "<<unit->getTypeInString()<<" "<<unit->getId()<<" "<<unit->getObjectCoordinates().getPositionX()<<" "<<unit->getObjectCoordinates().getPositionY()<<" "
       <<unit->getEndurance();
       if(auto dynamic = std::dynamic_pointer_cast<Base>(unit))
@@ -70,7 +72,7 @@ void FileManager::SaveStatusToFile(const std::string& fileName, std::shared_ptr<
   }
 }
 
-void FileManager::ParseStatusFile(const std::string& fileName, std::shared_ptr<Player> PlayerP_, std::shared_ptr<Player> PlayerE_) {
+void FileManager::ParseStatusFile(const std::string& fileName, Map& mapa) {
   std::ifstream inputFile(fileName);
 
   if (inputFile.is_open()) {
@@ -83,22 +85,28 @@ void FileManager::ParseStatusFile(const std::string& fileName, std::shared_ptr<P
 
     int playerPMoney = 0;
     int playerEMoney = 0;
+    int roundNumber = 0;
     int lineCount = 0;
 
     while (std::getline(inputFile, line)) {
       std::istringstream iss(line);
 
-      if (lineCount < 2) {
+      if (lineCount == 0) {
+        if (iss >> roundNumber) {
+          mapa.setRound(roundNumber);
+          std::cout << "Round number: " << roundNumber << std::endl;
+        }
+      } else if (lineCount == 1) {
         if (iss >> playerTag) {
           if (playerTag == "P") {
             if (iss >> playerPMoney) {
               std::cout << "PlayerP money: " << playerPMoney << std::endl;
-              PlayerP_->setMoney(playerPMoney);
+              mapa.get_PlayerP()->setMoney(playerPMoney);
             }
           } else if (playerTag == "E") {
             if (iss >> playerEMoney) {
               std::cout << "PlayerE money: " << playerEMoney << std::endl;
-              PlayerE_->setMoney(playerEMoney);
+              mapa.get_PlayerE()->setMoney(playerEMoney);
             }
           }
         }
@@ -107,21 +115,29 @@ void FileManager::ParseStatusFile(const std::string& fileName, std::shared_ptr<P
           if (playerTag == "P" || playerTag == "E") {
             if (iss >> unitType >> id >> posX >> posY >> endurance) {
               if (playerTag == "P") {
-                if(unitType == "B")
-                {
-                  if (iss >> productionType >> productionAmount)
-                    PlayerP_->addUnit(Unit::returnUnit(unitType,id,posX,posY,endurance,productionType,productionAmount));
-                }else{
-                    PlayerP_->addUnit(Unit::returnUnit(unitType,id,posX,posY,endurance,"x",0));
+                if (unitType == "B") {
+                  if (iss >> productionType) { // czy to jest 0 np
+                    if (productionType == "0") {
+                      mapa.get_PlayerP()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, "B", 0));
+                    } else if (iss >> productionAmount) {
+                      mapa.get_PlayerP()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, productionType, productionAmount));
+                    }
+                  }
+                } else {
+                  mapa.get_PlayerP()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, "x", 0));
                 }
                 std::cout << "PlayerP unit: " << unitType << " ID: " << id << " Position: (" << posX << ", " << posY << ") Endurance: " << endurance << std::endl;
               } else if (playerTag == "E") {
-                if(unitType == "B")
-                {
-                  if (iss >> productionType >> productionAmount)
-                    PlayerE_->addUnit(Unit::returnUnit(unitType,id,posX,posY,endurance,productionType,productionAmount));
-                }else{
-                    PlayerE_->addUnit(Unit::returnUnit(unitType,id,posX,posY,endurance,"x",0));
+                if (unitType == "B") {
+                  if (iss >> productionType) { // czy to jest 0 np
+                    if (productionType == "0") {
+                      mapa.get_PlayerE()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, "B", 0));
+                    } else if (iss >> productionAmount) {
+                      mapa.get_PlayerE()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, productionType, productionAmount));
+                    }
+                  }
+                } else {
+                  mapa.get_PlayerE()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, "x", 0));
                 }
                 std::cout << "PlayerE unit: " << unitType << " ID: " << id << " Position: (" << posX << ", " << posY << ") Endurance: " << endurance << std::endl;
               }
@@ -129,7 +145,7 @@ void FileManager::ParseStatusFile(const std::string& fileName, std::shared_ptr<P
           }
         }
       }
-      //Funkcja ktora zwroci shared ptr<unit>
+
       lineCount++;
     }
 
