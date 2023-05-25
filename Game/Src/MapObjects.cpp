@@ -26,6 +26,10 @@ Unit::Unit(const Coordinates& ObjectCoordinates, short endurance)
 :  MapObject(ObjectCoordinates),
       endurance_(endurance){};
 
+bool Unit::Produce([[maybe_unused]] const UnitTYPE& unitType){
+    std::cout<<"Incorrect action "<<this->getTypeInString()<<" cannot produce Units!\n";
+    return false;
+}
 
 bool Unit::Move(const Coordinates& moveTo){
     short distance = Coordinates::distance(this->ObjectCoordinates_,moveTo);
@@ -122,4 +126,71 @@ std::string Object::getTypeInString() const {
         return "New";
         break;
     } 
+}
+
+unsigned short Unit::getPurchaseCost(const UnitTYPE& unitType){
+ switch (unitType)
+    {
+    case UnitTYPE::Knight:
+        return 400;
+        break;
+    case UnitTYPE::Swordsman:
+        return 250;
+        break;
+    case UnitTYPE::Archer:
+        return 250;
+        break;
+    case UnitTYPE::Pikeman:
+        return 200;
+        break;
+    case UnitTYPE::Ram:
+        return 500;
+        break;
+    case UnitTYPE::Catapult:
+        return 800;
+        break;
+    case UnitTYPE::Worker:
+        return 100;
+        break;
+    case UnitTYPE::Base:
+        return 0;
+        break;
+    default:
+        return 0;
+        break;
+    }
+}
+
+unsigned short Unit::getBuildTime(const UnitTYPE& unitType){
+     switch (unitType)
+    {
+    case UnitTYPE::Knight:
+        return 5;
+        break;
+    case UnitTYPE::Swordsman:
+        return 3;
+        break;
+    case UnitTYPE::Archer:
+        return 3;
+        break;
+    case UnitTYPE::Pikeman:
+        return 3;
+        break;
+    case UnitTYPE::Ram:
+        return 4;
+        break;
+    case UnitTYPE::Catapult:
+        return 6;
+        break;
+    case UnitTYPE::Worker:
+        return 2;
+        break;
+    case UnitTYPE::Base:
+        return 0;
+        break;
+    default:
+        return 0;
+        break;
+    }
+
 }

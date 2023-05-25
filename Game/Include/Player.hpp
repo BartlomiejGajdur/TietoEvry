@@ -12,6 +12,7 @@ class Player{
 
         long getMoney() const {return money_;};
         void addMoney(long money) { money_ += money;};
+        void substractMoney(long money) { money_ -= money;};
         void addUnit(const std::shared_ptr<Unit>& Unit) { unitsOwn_.push_back(Unit);};
         void printObjectsOwn()const;
         std::vector<std::shared_ptr<Unit>>& getUnits() {return unitsOwn_;};

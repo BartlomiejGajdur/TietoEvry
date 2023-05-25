@@ -2,6 +2,7 @@
 #include "../Include/map.hpp"
 #include <algorithm>
 #include <iostream>
+#include "../Include/MapObjects.hpp"
 
 void Player::printObjectsOwn() const{
     for( auto v: unitsOwn_)
@@ -46,6 +47,5 @@ bool Player::moveUnit(Map& map, int id,const Coordinates& coord){
 
 std::shared_ptr<Unit> Player::getBase(){
     auto it = std::find_if(this->unitsOwn_.begin(), this->unitsOwn_.end(),[](const std::shared_ptr<Unit>& unit){ return unit->getUnitType() == UnitTYPE::Base;});
-    
     return *it;
 }

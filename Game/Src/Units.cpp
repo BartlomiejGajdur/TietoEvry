@@ -157,3 +157,16 @@ Base::Base(const Coordinates& cord, const unsigned short endurance):Unit(cord,en
               BuildTime_ = 0;
               counter++;
         }
+
+bool Base::Produce(const UnitTYPE& unitType){
+      if(production.first != UnitTYPE::Base)
+      {
+            std::cout<<"Base during production! \n";
+            return false;
+      }
+            std::cout<<"Production started! \n";
+            production.first = unitType;
+            production.second = Unit::getBuildTime(unitType);
+      return true;
+
+}

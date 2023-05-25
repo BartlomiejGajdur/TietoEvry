@@ -28,6 +28,9 @@ public:
     bool performAttackByPlayerBelongsToUs(int PlayerUnitId, int EnemyPlayerUnitId);
     bool performAttackByPlayerBelongsToEnemy(int PlayerUnitId, int EnemyPlayerUnitId);
 
+    bool performBuildByPlayerBelongsToUs(const UnitTYPE& unitType);
+    bool performBuildByPlayerBelongsToEnemy(const UnitTYPE& unitType);
+
 private:
     std::string mapData_;
     size_t MAP_SIZE_X, MAP_SIZE_Y;

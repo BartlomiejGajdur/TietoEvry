@@ -161,4 +161,29 @@ bool Map::performAttackByPlayerBelongsToEnemy(int PlayerUnitId, int EnemyPlayerU
     
     return result;
 }
-  
+
+bool Map::performBuildByPlayerBelongsToUs(const UnitTYPE& unitType){
+    if(PlayerP_->getMoney() < Unit::getPurchaseCost(unitType))
+    {
+        std::cout<<"Lack of money to produce unit!\n";
+        return false;
+    }
+
+    return PlayerP_->getBase()->Produce(unitType);
+}
+
+
+bool Map::performBuildByPlayerBelongsToEnemy(const UnitTYPE& unitType){
+
+     if(PlayerE_->getMoney() < Unit::getPurchaseCost(unitType))
+    {
+        std::cout<<"Lack of money to produce unit!\n";
+        return false;
+    }
+
+    if(!PlayerE_->getBase()->Produce(unitType))
+        return false;
+
+    PlayerE_->substractMoney(Unit::getPurchaseCost(unitType));
+        return true; 
+}

@@ -68,9 +68,11 @@ class Base : public Unit{
     // Ma mieć produce 
     //Player ma do siebie przypisana baze ta baza ma produkowac jednostki. Czyli jezeli w bazie aktualnie nic sie nie produkuje to zaczyna produkcje.
     //W klasie player bedzie podawanie jednostki ktora ma sie produkowac tam odejmujemy pieniadze rowniez tam jest tez licznik jednostek 
-    bool produce(UnitTYPE unitType) {std::cout<<static_cast<int>(unitType); return true;};
+    bool Produce(const UnitTYPE& unitType) override;
     
     private:
-        unsigned short timeToProduce;
+        unsigned short timeToProduce{0};
+        std::pair<UnitTYPE, unsigned short> production = std::make_pair(UnitTYPE::Base, timeToProduce);
+
 
 };

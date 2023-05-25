@@ -12,10 +12,10 @@ std::string configLocalization ="../Config/mapa.txt";
 
 int main(){
 
-    FileManager mapa("../Config/mapa.txt");
-    mapa.openFile();
-    mapa.readFromFile();
-    std::string line = mapa.getFileContent();
+    FileManager File("../Config/mapa.txt");
+    File.openFile();
+    File.readFromFile();
+    std::string line = File.getFileContent();
 
     Map maps(line,std::make_shared <Player>(),std::make_shared  <Player>());
 
@@ -32,7 +32,7 @@ int main(){
     maps.getPlayerBelongsToEnemy()->printObjectsOwn();
     std::cout<<"\n\n";
 
-    
+    maps.getPlayerBelongsToEnemy()->getUnits()[1]->Produce(UnitTYPE::Knight);
 
     maps.performAttackByPlayerBelongsToEnemy(4,3);
 

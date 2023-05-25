@@ -34,9 +34,11 @@ class Unit : public MapObject{
         virtual bool Attack(std::shared_ptr<Unit> Solider);
         std::string getTypeInString() const override;
         short getSpeedLeft() const {return speed_;};
-        
+        virtual bool Produce([[maybe_unused]]  const UnitTYPE& unitType);
         UnitTYPE getUnitType()const {return unitType_;};
         short getEndurance() const {return endurance_;};
+        static unsigned short getBuildTime(const UnitTYPE& unitType);
+        static unsigned short getPurchaseCost(const UnitTYPE& unitType);
     protected:
         UnitTYPE unitType_;
         unsigned short  purchaseCost_,attackRange_,BuildTime_;   
