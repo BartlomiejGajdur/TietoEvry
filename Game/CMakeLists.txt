@@ -19,6 +19,7 @@ set(COMMON_SOURCES
     Src/Units.cpp
     Src/Object.cpp
     Src/Player.cpp
+    Src/Time.cpp
 )
 
 set(Testing_SOURCES 

@@ -32,6 +32,10 @@ bool Unit::Produce([[maybe_unused]] const UnitTYPE &unitType) {
   return false;
 }
 
+void Unit::nextDay(){
+  this->attackDone_=false;
+}
+
 bool Unit::Move(const Coordinates &moveTo) {
   short distance = Coordinates::distance(this->ObjectCoordinates_, moveTo);
 

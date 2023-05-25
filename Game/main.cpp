@@ -6,18 +6,22 @@
 #include "Include/map.hpp"
 #include "Include/Units.hpp"
 #include "Include/Player.hpp"
+#include "Include/Time.hpp"
 #include <memory>
 
 std::string configLocalization ="../Config/mapa.txt";
 
 int main(){
-
+    Time czas{};
+    
     FileManager File("../Config/mapa.txt");
     File.openFile();
     File.readFromFile();
     std::string line = File.getFileContent();
 
-    Map maps(line,std::make_shared <Player>(),std::make_shared  <Player>());
+    Map maps(line,std::make_shared<Player>(),std::make_shared<Player>(),0);
+    czas.addObserver(&maps);
+
 
     maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(1,1),60));
     maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(2,1),15));
@@ -38,6 +42,9 @@ int main(){
 
     std::cout<<"\nPLAYER UNITS: \n";
     maps.get_PlayerP()->printObjectsOwn();
+
+    czas.nextRound();
+    
 
     return 0;
 }

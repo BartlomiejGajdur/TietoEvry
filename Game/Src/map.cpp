@@ -10,11 +10,25 @@
 
 
 Map::Map(const std::string &mapData, std::shared_ptr<Player> PlayerP,
-         std::shared_ptr<Player> PlayerE)
-    : mapData_(mapData), PlayerP_(PlayerP), PlayerE_(PlayerE) {
+         std::shared_ptr<Player> PlayerE, size_t currentRound)
+    : currentRound_(currentRound),mapData_(mapData), PlayerP_(PlayerP), PlayerE_(PlayerE) {
   MAP_SIZE_X = getMapSizeX();
   MAP_SIZE_Y = getMapSizeY();
   matchCoordinatesWithFile();
+}
+
+void Map::nextRound(){
+  if(currentRound_>=MAX_GAME_ROUNDS)
+  {
+    std::cout<<"Koniec Gry podlicz jednostki czy cos tam\n";
+  }
+  else if(currentRound_ % 2 == 0){
+    
+  }
+  else{
+
+  }
+  currentRound_++;
 }
 
 size_t Map::getMapSizeX() {
@@ -235,7 +249,7 @@ size_t Map::countWorkersInMine(const std::vector<Coordinates>& mineCoordinates, 
   size_t Map::calculateIncomeFromWorkersInMine_PlayerP(){
     return this->countWorkersInMine(this->getMineCoordinates(),this->PlayerP_->getWorkersCoordinates()) * INCOME_PER_WORKER;
   }
-  
+
   size_t Map::calculateIncomeFromWorkersInMine_PlayerE(){
     return this->countWorkersInMine(this->getMineCoordinates(),this->PlayerE_->getWorkersCoordinates()) * INCOME_PER_WORKER;
   }

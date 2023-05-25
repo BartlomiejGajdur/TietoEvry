@@ -30,7 +30,7 @@ struct MapUnderTestFixture : public ::testing::Test {
   Map map{
       "16600000000000000000000000000000\n00000009999000000000000000000000\n00000009999000000600000000000000\n00000009999000000000000000000000\n00000000000000000000000000000662\n",
       std::make_shared<Player>(),
-      std::make_shared<Player>(),
+      std::make_shared<Player>(),0
   };
 
   void addToPlayerE()

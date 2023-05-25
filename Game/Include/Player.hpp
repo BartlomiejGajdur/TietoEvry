@@ -10,6 +10,8 @@
 
 class Map;
 
+enum class PlayerTYPE {PlayerP,PlayerE};
+
 class Player {
 public:
   Player(){};

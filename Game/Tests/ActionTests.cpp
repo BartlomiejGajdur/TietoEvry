@@ -14,7 +14,7 @@ struct UnitsUnderTestFixture : public ::testing::Test {
   Map mapa{
       "09001\n60000\n90000\n00002\n",
       std::make_shared<Player>(),
-      std::make_shared<Player>(),
+      std::make_shared<Player>(),0
   };
 
   std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0, 0}, 70);

@@ -50,6 +50,8 @@ public:
   short getSpeedLeft() const { return speed_; };
   UnitTYPE getUnitType() const { return unitType_; };
   short getEndurance() const { return endurance_; };
+
+  virtual void nextDay();
   
   static unsigned short getBuildTime(const UnitTYPE &unitType);
   static unsigned short getPurchaseCost(const UnitTYPE &unitType);

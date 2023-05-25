@@ -8,15 +8,16 @@
 #include "FileManager.hpp"
 #include "MapObjects.hpp"
 #include "Player.hpp"
+#include "Time.hpp"
 
 const size_t INCOME_PER_WORKER = 50;
 
 class Player;
 
-class Map {
+class Map : public Observer {
 public:
   Map(const std::string &mapData, const std::shared_ptr<Player> PlayerP,
-      const std::shared_ptr<Player> PlayerE);
+      const std::shared_ptr<Player> PlayerE, size_t currentRound);
 
   size_t getMapSizeX();
   size_t getMapSizeY();
@@ -40,7 +41,11 @@ public:
   size_t calculateIncomeFromWorkersInMine_PlayerP();
   size_t calculateIncomeFromWorkersInMine_PlayerE();
 
+  void nextRound() override;
+  void setRound(size_t round) {currentRound_ = round;};
+  size_t getRound() const {return currentRound_;};
 private:
+  size_t currentRound_{0};
   std::string mapData_;
   size_t MAP_SIZE_X, MAP_SIZE_Y;
   std::shared_ptr<Player> PlayerP_;
