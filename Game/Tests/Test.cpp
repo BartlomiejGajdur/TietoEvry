@@ -44,13 +44,11 @@ struct UnitsUnderTestFixture : public ::testing::Test {
     }
 };
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_GetBase_ReturnsTrue) {
+TEST_F(UnitsUnderTestFixture, GetBase_ReturnsCorrectUnit) {
     addUnitsToEnemyPlayer();
     addUnitsToOwnPlayer();
     
-    EXPECT_EQ(mapa.getPlayerBelongsToEnemy()->getBase()->getId(), 1);
-    mapa.getPlayerBelongsToEnemy()->printObjectsOwn();
-    mapa.getPlayerBelongsToUs()->printObjectsOwn();
+    EXPECT_EQ(mapa.getPlayerBelongsToEnemy()->getBase()->getId(), mapa.getPlayerBelongsToEnemy()->getUnits()[0]->getId());
 }
 
 TEST_F(UnitsUnderTestFixture, MoveUnit_ValidCoordinates_ReturnsTrue) {
