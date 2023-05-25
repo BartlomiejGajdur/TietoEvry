@@ -4,6 +4,16 @@ bool Coordinates::operator==(const Coordinates &other) const {
   return this->positionX_ == other.positionX_ &&
          this->positionY_ == other.positionY_;
 }
+bool Coordinates::operator<(const Coordinates& other) const {
+  if (positionX_ < other.positionX_) {
+    return true;
+  } else if (positionX_ > other.positionX_) {
+    return false;
+  } else {
+    // Jeżeli positionX_ jest równe, porównujemy positionY_
+    return positionY_ < other.positionY_;
+  }
+}
 
 std::ostream &operator<<(std::ostream &os, const Coordinates &position) {
   os << "X[" << position.getPositionX() << "] Y[" << position.getPositionY()<< "]";

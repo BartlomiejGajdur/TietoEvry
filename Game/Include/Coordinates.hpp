@@ -19,6 +19,7 @@ public:
 
   // OPERATORS
   bool operator==(const Coordinates &other) const;
+  bool operator<(const Coordinates& other) const;
   friend std::ostream &operator<<(std::ostream &os,
                                   const Coordinates &position);
 

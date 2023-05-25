@@ -5,6 +5,8 @@
 #include "../Include/Units.hpp"
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
+#include <functional>
 
 
 Map::Map(const std::string &mapData, std::shared_ptr<Player> PlayerP,
@@ -202,3 +204,37 @@ std::vector<Coordinates> Map::getMineCoordinates(){
 
     return MineCoordinates;
 }
+
+struct CoordinatesHash {
+  size_t operator()(const Coordinates& coord) const {
+    std::hash<size_t> hasher;
+    size_t hash = 0;
+    hash ^= hasher(coord.getPositionX()) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+    hash ^= hasher(coord.getPositionY()) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+    return hash;
+  }
+};
+
+size_t Map::countWorkersInMine(const std::vector<Coordinates>& mineCoordinates, const std::vector<Coordinates>& workersCoordinates) {
+  std::unordered_map<Coordinates, size_t, CoordinatesHash> workersCount;
+  size_t counter = 0;
+
+  for (const auto& Coord : mineCoordinates) {
+    workersCount[Coord] = 0;
+  }
+
+  for (const auto& Coord : workersCoordinates) {
+    if (workersCount.find(Coord) != workersCount.end()) {
+      counter++;
+    }
+  }
+
+  return counter;
+}
+
+  size_t Map::calculateIncomeFromWorkersInMine_PlayerP(){
+
+  }
+  size_t Map::calculateIncomeFromWorkersInMine_PlayerE(){
+
+  }

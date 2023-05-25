@@ -9,6 +9,8 @@
 #include "MapObjects.hpp"
 #include "Player.hpp"
 
+const size_t INCOME_PER_WORKER = 50;
+
 class Player;
 
 class Map {
@@ -33,7 +35,11 @@ public:
   bool ProductAction_PlayerP(const UnitTYPE &unitType);
   bool ProductAction_PlayerE(const UnitTYPE &unitType);
 
+  size_t countWorkersInMine(const std::vector<Coordinates>& mineCoordinates, const std::vector<Coordinates>& workersCoordinates);
   std::vector<Coordinates> getMineCoordinates();
+  size_t calculateIncomeFromWorkersInMine_PlayerP();
+  size_t calculateIncomeFromWorkersInMine_PlayerE();
+
 private:
   std::string mapData_;
   size_t MAP_SIZE_X, MAP_SIZE_Y;
@@ -45,4 +51,5 @@ private:
   std::shared_ptr<MapObject> returnPointerFromGivenValue(char zn, int CoordX,
                                                          int CoordY);
   void matchCoordinatesWithFile();
+  
 };

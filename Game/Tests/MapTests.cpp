@@ -63,3 +63,10 @@ TEST_F(MapUnderTestFixture, WorkersVector)
     EXPECT_EQ(WorkersCoordinates, map.get_PlayerE()->getWorkersCoordinates());
 }
 
+
+TEST_F(MapUnderTestFixture, CountingVectorsInMines)
+{
+    addToPlayerE();
+    EXPECT_EQ(map.countWorkersInMine(map.getMineCoordinates(),map.get_PlayerE()->getWorkersCoordinates()), 2);
+}
+
