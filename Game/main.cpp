@@ -10,11 +10,11 @@
 #include <memory>
 
 std::string configLocalization ="../Config/mapa.txt";
-
+std::string statusLocalization ="../Config/status.txt";
 int main(){
     Time czas{};
     
-    FileManager File("../Config/mapa.txt");
+    FileManager File(configLocalization);
     File.openFile();
     File.readFromFile();
     std::string line = File.getFileContent();
@@ -52,6 +52,8 @@ int main(){
     std::cout<<"\nENEMY UNITS: \n";
     maps.get_PlayerE()->printObjectsOwn();
     std::cout<<"\n\n";
+
+    FileManager::SaveStatusToFile(statusLocalization,maps.get_PlayerP(),maps.get_PlayerE());
  
 
     return 0;

@@ -71,24 +71,7 @@ public:
 
   bool Produce(const UnitTYPE &unitType) override;
   std::pair<UnitTYPE, unsigned short>& getProduction() {return production_;};
-  UnitTYPE nextRound(){
-    if(production_.second == 1 && production_.first != UnitTYPE::Base){
-      std::cout<<"Production succesfull!\n";
-        UnitTYPE ReadyToProduce = production_.first;
-        production_.first = UnitTYPE::Base;
-        production_.second = 0;
-        return ReadyToProduce;
-    }else if(production_.second != 0 && production_.first != UnitTYPE::Base)
-    {
-      production_.second--;
-      std::cout<<"Produce will end in "<<production_.second<<" rounds\n";
-      return UnitTYPE::Base;
-    }
-
-    std::cout<<"Base may produce units!\n";
-    return UnitTYPE::Base;
-}
-
+  UnitTYPE nextRound();
 private:
   unsigned short timeToProduce_{0};
   std::pair<UnitTYPE, unsigned short> production_ = std::make_pair(UnitTYPE::Base, timeToProduce_);

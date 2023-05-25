@@ -181,3 +181,21 @@ bool Base::Produce(const UnitTYPE& unitType){
       return true;
 
 }
+
+UnitTYPE Base::nextRound(){
+    if(production_.second == 1 && production_.first != UnitTYPE::Base){
+      std::cout<<"Production succesfull!\n";
+        UnitTYPE ReadyToProduce = production_.first;
+        production_.first = UnitTYPE::Base;
+        production_.second = 0;
+        return ReadyToProduce;
+    }else if(production_.second != 0 && production_.first != UnitTYPE::Base)
+    {
+      production_.second--;
+      std::cout<<"Produce will end in "<<production_.second<<" rounds\n";
+      return UnitTYPE::Base;
+    }
+
+    std::cout<<"Base may produce units!\n";
+    return UnitTYPE::Base;
+}

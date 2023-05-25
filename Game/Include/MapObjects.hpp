@@ -53,6 +53,7 @@ public:
   
   static unsigned short getBuildTime(const UnitTYPE &unitType);
   static unsigned short getPurchaseCost(const UnitTYPE &unitType);
+  static std::string getUnitTypeInString(const UnitTYPE unitType);
 
 protected:
   UnitTYPE unitType_;

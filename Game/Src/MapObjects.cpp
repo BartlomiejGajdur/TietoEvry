@@ -192,3 +192,35 @@ unsigned short Unit::getBuildTime(const UnitTYPE &unitType) {
   }
 }
 
+std::string Unit::getUnitTypeInString(const UnitTYPE unitType){
+  switch (unitType) {
+  case UnitTYPE::Knight:
+    return "K";
+    break;
+  case UnitTYPE::Swordsman:
+    return "S";
+    break;
+  case UnitTYPE::Archer:
+    return "A";
+    break;
+  case UnitTYPE::Pikeman:
+    return "P";
+    break;
+  case UnitTYPE::Catapult:
+    return "C";
+    break;
+  case UnitTYPE::Ram:
+    return "R";
+    break;
+  case UnitTYPE::Worker:
+    return "W";
+    break;
+  case UnitTYPE::Base:
+    return "B";
+    break;
+  default:
+    return "New";
+    break;
+  }
+}
+
