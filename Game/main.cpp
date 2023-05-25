@@ -23,28 +23,36 @@ int main(){
     czas.addObserver(&maps);
 
 
-    maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(1,1),60));
-    maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(2,1),15));
+    // maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(1,1),60));
+    // maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(2,1),15));
 
     maps.get_PlayerE()->addUnit(std::make_shared<Knight>(Coordinates(2,2),60));
 
 
-    std::cout<<"\nPLAYER UNITS: \n";
-    maps.get_PlayerP()->printObjectsOwn();
-
+ 
     std::cout<<"\nENEMY UNITS: \n";
     maps.get_PlayerE()->printObjectsOwn();
     std::cout<<"\n\n";
 
-    maps.get_PlayerE()->getUnits()[1]->Produce(UnitTYPE::Knight);
-
-    maps.AttackAction_PlayerE(4,3);
-
-    std::cout<<"\nPLAYER UNITS: \n";
-    maps.get_PlayerP()->printObjectsOwn();
-
+    maps.ProductAction_PlayerE(UnitTYPE::Knight);
+   std::cout<< maps.get_PlayerE()->getMoney();
     czas.nextRound();
-    
+    czas.nextRound();
+    czas.nextRound();
+    maps.ProductAction_PlayerE(UnitTYPE::Knight);
+    czas.nextRound();
+    maps.ProductAction_PlayerE(UnitTYPE::Worker);
+    czas.nextRound();
+    czas.nextRound();
+    czas.nextRound();
+    czas.nextRound();
+    // czas.nextRound();
+    // czas.nextRound();
+
+    std::cout<<"\nENEMY UNITS: \n";
+    maps.get_PlayerE()->printObjectsOwn();
+    std::cout<<"\n\n";
+ 
 
     return 0;
 }

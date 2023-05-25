@@ -77,3 +77,32 @@ std::vector<Coordinates> Player::getWorkersCoordinates(){
 
     return WorkersCoordinates;
 }
+
+void Player::addUnit(const UnitTYPE &unitType){
+   switch (unitType) {
+  case UnitTYPE::Knight:
+    this->addUnit(std::make_shared<Knight>(this->getBase()->getObjectCoordinates()));
+    break;
+  case UnitTYPE::Swordsman:
+    this->addUnit(std::make_shared<Swordsman>(this->getBase()->getObjectCoordinates()));
+    break;
+  case UnitTYPE::Archer:
+    this->addUnit(std::make_shared<Archer>(this->getBase()->getObjectCoordinates()));
+    break;
+  case UnitTYPE::Pikeman:
+    this->addUnit(std::make_shared<Pikeman>(this->getBase()->getObjectCoordinates()));
+    break;
+  case UnitTYPE::Ram:
+    this->addUnit(std::make_shared<Ram>(this->getBase()->getObjectCoordinates()));
+    break;
+  case UnitTYPE::Catapult:
+    this->addUnit(std::make_shared<Catapult>(this->getBase()->getObjectCoordinates()));
+    break;
+  case UnitTYPE::Worker:
+    this->addUnit(std::make_shared<Worker>(this->getBase()->getObjectCoordinates()));
+    break;
+  default:
+    break;
+  }
+
+}

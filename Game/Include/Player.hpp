@@ -27,6 +27,7 @@ public:
   bool moveUnit(Map &map, int id, const Coordinates &coord);
 
   inline void addUnit(const std::shared_ptr<Unit> &Unit) {unitsOwn_.push_back(Unit);};
+  void addUnit(const UnitTYPE &unitType);
   void printObjectsOwn() const;
 
 private:

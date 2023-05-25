@@ -10,6 +10,7 @@ public:
   bool openFile();
   bool readFromFile();
   std::string getFileContent() const { return fileContent_; };
+ 
   ~FileManager();
 
 private:

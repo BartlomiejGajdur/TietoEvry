@@ -15,20 +15,50 @@ Map::Map(const std::string &mapData, std::shared_ptr<Player> PlayerP,
   MAP_SIZE_X = getMapSizeX();
   MAP_SIZE_Y = getMapSizeY();
   matchCoordinatesWithFile();
+  //Wczytanie z pliku status
 }
 
 void Map::nextRound(){
-  if(currentRound_>=MAX_GAME_ROUNDS)
+
+  std::shared_ptr<Base> bazaP = std::dynamic_pointer_cast<Base>(PlayerP_->getBase());
+  std::shared_ptr<Base> bazaE = std::dynamic_pointer_cast<Base>(PlayerE_->getBase());
+  if(bazaP == nullptr)
   {
-    std::cout<<"Koniec Gry podlicz jednostki czy cos tam\n";
+    std::cout<<"\n\n\nPLAYER_E WON!\n\n\n";
+  }else if(bazaE == nullptr)
+  {
+    std::cout<<"\n\n\nPLAYER_P WON!\n\n\n";
+  }else if(currentRound_>=MAX_GAME_ROUNDS)
+  {
+    int PlayerPUnitsCounter = PlayerP_->getUnits().size();
+    int PlayerEUnitsCounter = PlayerE_->getUnits().size();
+
+    if(PlayerPUnitsCounter == PlayerEUnitsCounter )
+      std::cout<<"\n\n\n ITS A DRAW! \n\n\n";
+    else 
+      PlayerPUnitsCounter-PlayerEUnitsCounter>0?std::cout<<"\n\n\nPLAYER_P WON!\n\n\n":std::cout<<"\n\n\nPLAYER_E WON!\n\n\n";
   }
   else if(currentRound_ % 2 == 0){
-    
+    PlayerP_->addMoney(this->calculateIncomeFromWorkersInMine_PlayerP());
+    UnitTYPE production = bazaP->nextRound();
+    if(production != UnitTYPE::Base)
+    {
+      PlayerP_->addUnit(production);
+    }
   }
   else{
-
+    PlayerE_->addMoney(this->calculateIncomeFromWorkersInMine_PlayerP());
+    UnitTYPE production = bazaE->nextRound();
+    if(production != UnitTYPE::Base)
+    {
+      PlayerE_->addUnit(production);
+    }
   }
+
+
   currentRound_++;
+  
+  //Zapis do pliku status
 }
 
 size_t Map::getMapSizeX() {
