@@ -10,6 +10,15 @@ void Player::printObjectsOwn() const{
     }
 }
 
+std::shared_ptr<Unit> Player::getUnitByID(int iD){
+    for (const auto& unit : this->getUnits()) {
+        if (unit->getId() == iD) {
+            return unit;
+        }
+    }
+    return nullptr;
+}
+
 bool Player::moveUnit(Map& map, int id,const Coordinates& coord){
 
     if(static_cast<size_t>(coord.getPositionX()) >= map.getMapSizeX() || static_cast<size_t>(coord.getPositionY()) >= map.getMapSizeY())
@@ -33,4 +42,10 @@ bool Player::moveUnit(Map& map, int id,const Coordinates& coord){
     }
 
     return foundObject->Move(coord);    
+}
+
+std::shared_ptr<Unit> Player::getBase(){
+    auto it = std::find_if(this->unitsOwn_.begin(), this->unitsOwn_.end(),[](const std::shared_ptr<Unit>& unit){ return unit->getUnitType() == UnitTYPE::Base;});
+    
+    return *it;
 }
