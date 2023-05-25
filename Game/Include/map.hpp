@@ -25,8 +25,8 @@ public:
     bool performMoveByPlayerBelongsToUs(int id,const Coordinates& coord);
     bool performMoveByPlayerBelongsToEnemy(int id,const Coordinates& coord);
 
-    bool performAttackByPlayerBelongsToUs();
-    bool performAttackByPlayerBelongsToEnemy();
+    bool performAttackByPlayerBelongsToUs(int PlayerUnitId, int EnemyPlayerUnitId);
+    bool performAttackByPlayerBelongsToEnemy(int PlayerUnitId, int EnemyPlayerUnitId);
 
 private:
     std::string mapData_;
