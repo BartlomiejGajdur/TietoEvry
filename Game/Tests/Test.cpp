@@ -13,7 +13,7 @@
 
 struct UnitsUnderTestFixture : public ::testing::Test {
     Map mapa{
-        "0900\n6000\n9000\n0000\n",
+        "09001\n60000\n90000\n00002\n",
         std::make_shared<Player>(),
         std::make_shared<Player>(),
     };
@@ -45,6 +45,14 @@ struct UnitsUnderTestFixture : public ::testing::Test {
     }
 };
 
+TEST_F(UnitsUnderTestFixture, MoveUnit_GetBase_ReturnsTrue) {
+    addUnitsToEnemyPlayer();
+    addUnitsToOwnPlayer();
+    
+    EXPECT_EQ(mapa.getPlayerBelongsToEnemy()->getBase()->getId(), BASE->getId());
+    mapa.getPlayerBelongsToEnemy()->printObjectsOwn();
+    mapa.getPlayerBelongsToUs()->printObjectsOwn();
+}
 
 TEST_F(UnitsUnderTestFixture, MoveUnit_ValidCoordinates_ReturnsTrue) {
     addUnitsToEnemyPlayer();

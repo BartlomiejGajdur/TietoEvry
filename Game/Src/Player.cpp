@@ -43,3 +43,9 @@ bool Player::moveUnit(Map& map, int id,const Coordinates& coord){
 
     return foundObject->Move(coord);    
 }
+
+std::shared_ptr<Unit> Player::getBase(){
+    auto it = std::find_if(this->unitsOwn_.begin(), this->unitsOwn_.end(),[](const std::shared_ptr<Unit>& unit){ return unit->getUnitType() == UnitTYPE::Base;});
+    
+    return *it;
+}

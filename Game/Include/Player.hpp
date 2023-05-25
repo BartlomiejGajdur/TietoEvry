@@ -16,6 +16,7 @@ class Player{
         void printObjectsOwn()const;
         std::vector<std::shared_ptr<Unit>>& getUnits() {return unitsOwn_;};
         std::shared_ptr<Unit> getUnitByID(int iD);
+        std::shared_ptr<Unit> getBase(); 
         bool moveUnit(Map& map, int id,const Coordinates& coord);
     private:
 
