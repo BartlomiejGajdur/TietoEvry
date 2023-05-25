@@ -20,12 +20,12 @@ struct UnitsUnderTestFixture : public ::testing::Test {
 
     std::shared_ptr<Base> BASE = std::make_shared<Base>(Coordinates{2,4});
     std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0,0},70);
+    std::shared_ptr<Knight> Knight2 =  std::make_shared<Knight>(Coordinates{2,3},70);
     std::shared_ptr<Swordsman> Swordsman1 = std::make_shared<Swordsman>(Coordinates{1,1},60);
     std::shared_ptr<Archer> Archer1 = std::make_shared<Archer>(Coordinates{0,0},40);
     std::shared_ptr<Catapult> Catapult1 = std::make_shared<Catapult>(Coordinates{7,0},50);
-    std::shared_ptr<Worker> Worker1 = std::make_shared<Worker>();
-    std::shared_ptr<Knight> Knight3 =  std::make_shared<Knight>(Coordinates{2,3},70);
-    std::shared_ptr<Knight> Knight2 = std::make_shared<Knight>(Coordinates{1,2},70);
+    std::shared_ptr<Worker> Worker1 = std::make_shared<Worker>(Coordinates{0,0});
+    std::shared_ptr<Knight> OwnPlayersKnight = std::make_shared<Knight>(Coordinates{1,2},70);
 
     void addUnitsToEnemyPlayer(){
         mapa.getPlayerBelongsToEnemy()->addUnit(BASE);
@@ -34,13 +34,13 @@ struct UnitsUnderTestFixture : public ::testing::Test {
         mapa.getPlayerBelongsToEnemy()->addUnit(Archer1);
         mapa.getPlayerBelongsToEnemy()->addUnit(Catapult1);
         mapa.getPlayerBelongsToEnemy()->addUnit(Worker1);
-        mapa.getPlayerBelongsToEnemy()->addUnit(Knight3);
+        mapa.getPlayerBelongsToEnemy()->addUnit(Knight2);
 
     }
 
 
     void addUnitsToOwnPlayer(){
-        mapa.getPlayerBelongsToUs()->addUnit(Knight2);
+        mapa.getPlayerBelongsToUs()->addUnit(OwnPlayersKnight);
 
     }
 };
@@ -131,7 +131,7 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_StandindOnUnitBelongsToOtherPlayer_Return
     addUnitsToOwnPlayer();
 
     //Perform moving Enemy player's units
-    Coordinates OthersPlayerUnit = Knight2->getObjectCoordinates();
+    Coordinates OthersPlayerUnit = OwnPlayersKnight->getObjectCoordinates();
 
     bool result = mapa.performMoveByPlayerBelongsToEnemy(Knight1->getId(), OthersPlayerUnit);
 
@@ -148,20 +148,19 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_StandindOnUnitBelongsToOtherPlayer2_Retur
     //Perform moving Enemy player's units
     Coordinates OthersPlayerUnit = Knight1->getObjectCoordinates();
 
-    bool result = mapa.performMoveByPlayerBelongsToUs(Knight2->getId(), OthersPlayerUnit);
+    bool result = mapa.performMoveByPlayerBelongsToUs(OwnPlayersKnight->getId(), OthersPlayerUnit);
 
     EXPECT_FALSE(result);
-    EXPECT_EQ(Knight2->getObjectCoordinates(), Coordinates(1, 2));  // Check that the unit's position remains unchanged
+    EXPECT_EQ(OwnPlayersKnight->getObjectCoordinates(), Coordinates(1, 2));  // Check that the unit's position remains unchanged
 
     }
-
 
 TEST_F(UnitsUnderTestFixture, PerformAttack_TooFarAway) {
     addUnitsToOwnPlayer();
     addUnitsToEnemyPlayer();
 
-    //TooFarAway
-    int playerUnitId = Knight2->getId();
+    // Attempt to attack when units are too far away
+    int playerUnitId = OwnPlayersKnight->getId();
     int enemyUnitId = Knight1->getId();
     EXPECT_FALSE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
 }
@@ -170,64 +169,65 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack) {
     addUnitsToOwnPlayer();
     addUnitsToEnemyPlayer();
 
-    //TooFarAway
-    int playerUnitId = Knight2->getId();
-    int enemyUnitId = Knight3->getId();
+    // Move unit closer and perform attack
+    int playerUnitId = OwnPlayersKnight->getId();
+    int enemyUnitId = Knight2->getId();
 
-    //Perform Move to Attack Enemy 
-    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(Knight2->getId(),Coordinates{2,2}));
-    EXPECT_EQ(Knight2->getObjectCoordinates(),Coordinates(2,2));
+    // Perform move to attack the enemy
+    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(OwnPlayersKnight->getId(), Coordinates{2, 2}));
+    EXPECT_EQ(OwnPlayersKnight->getObjectCoordinates(), Coordinates(2, 2));
 
-    //Perform Attack
+    // Perform attack
     EXPECT_TRUE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
-    EXPECT_EQ(Knight3->getEndurance(),35);
+    EXPECT_EQ(Knight2->getEndurance(), 35);
 }
 
 TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack_Failure) {
     addUnitsToOwnPlayer();
     addUnitsToEnemyPlayer();
 
-    //TooFarAway
-    int playerUnitId = Knight2->getId();
-    int enemyUnitId = Knight3->getId();
+    // Move unit closer and attempt to attack, but no speed points left
+    int playerUnitId = OwnPlayersKnight->getId();
+    int enemyUnitId = Knight2->getId();
 
-    //Perform Move to Attack Enemy 
-    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(Knight2->getId(),Coordinates{3,3}));
-    EXPECT_EQ(Knight2->getObjectCoordinates(),Coordinates(3,3));
+    // Perform move to attack the enemy
+    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(OwnPlayersKnight->getId(), Coordinates{3, 3}));
+    EXPECT_EQ(OwnPlayersKnight->getObjectCoordinates(), Coordinates(3, 3));
 
-    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(Knight2->getId(),Coordinates{2,2}));
-    EXPECT_EQ(Knight2->getObjectCoordinates(),Coordinates(2,2));
+    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(OwnPlayersKnight->getId(), Coordinates{2, 2}));
+    EXPECT_EQ(OwnPlayersKnight->getObjectCoordinates(), Coordinates(2, 2));
 
-    //No speed points left
+    // Attempt to attack without any speed points remaining
     EXPECT_FALSE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
-    EXPECT_EQ(Knight3->getEndurance(),70);
+    EXPECT_EQ(Knight2->getEndurance(), 70);
 }
 
 TEST_F(UnitsUnderTestFixture, PerformAttack_DoubleAttack_Failure) {
     addUnitsToOwnPlayer();
     addUnitsToEnemyPlayer();
 
-    //TooFarAway
-    int playerUnitId = Knight2->getId();
-    int enemyUnitId = Knight3->getId();
+    // Move unit closer and perform attack, then attempt another attack
+    int playerUnitId = OwnPlayersKnight->getId();
+    int enemyUnitId = Knight2->getId();
 
-    //Perform Move to Attack Enemy 
-    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(Knight2->getId(),Coordinates{2,2}));
-    EXPECT_EQ(Knight2->getObjectCoordinates(),Coordinates(2,2));
+    // Perform move to attack the enemy
+    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToUs(OwnPlayersKnight->getId(), Coordinates{2, 2}));
+    EXPECT_EQ(OwnPlayersKnight->getObjectCoordinates(), Coordinates(2, 2));
 
-    //Attack available
+    // First attack
     EXPECT_TRUE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
-    EXPECT_EQ(Knight3->getEndurance(),35);
+    EXPECT_EQ(Knight2->getEndurance(), 35);
 
-    //Second attack unavailable
+    // Second attack attempt (should fail)
     EXPECT_FALSE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
-    EXPECT_EQ(Knight3->getEndurance(),35);
+    EXPECT_EQ(Knight2->getEndurance(), 35);
 }
 
 TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerP) {
     addUnitsToEnemyPlayer();
 
-    int playerUnitId = Knight2->getId();
+    // Attempt to attack with a unit that doesn't belong to the player
+    int playerUnitId = OwnPlayersKnight->getId();
     int enemyUnitId = Knight1->getId();
 
     EXPECT_FALSE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
@@ -236,38 +236,37 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerP) {
 TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerE) {
     addUnitsToOwnPlayer();
 
-    int playerUnitId = Knight2->getId();
-    int enemyUnitId = 12345; // Wrong Id
+    // Attempt to attack a unit that doesn't exist
+    int playerUnitId = OwnPlayersKnight->getId();
+    int enemyUnitId = 12345; // Wrong ID
 
     EXPECT_FALSE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
-
 }
 
 TEST_F(UnitsUnderTestFixture, PerformAttack_UnitDies) {
     addUnitsToOwnPlayer();
     addUnitsToEnemyPlayer();
 
-    int playerUnitId = Knight2->getId();
-    int enemyUnitId_1 = Swordsman1->getId(); // Wrong Id
-    int enemyUnitId_2 = Archer1->getId(); // Wrong Id
-    int enemyUnitId_3 = Knight1->getId(); // Wrong Id
+    // Attack an enemy unit until it dies
+    int playerUnitId = OwnPlayersKnight->getId();
+    int enemyUnitId_1 = Swordsman1->getId();
+    int enemyUnitId_2 = Archer1->getId();
+    int enemyUnitId_3 = Knight1->getId();
 
+    // Attack enemy units multiple times
     EXPECT_TRUE(mapa.performAttackByPlayerBelongsToEnemy(enemyUnitId_1, playerUnitId));
-    EXPECT_EQ(Knight2->getEndurance(),40);
+    EXPECT_EQ(OwnPlayersKnight->getEndurance(), 40);
 
     EXPECT_TRUE(mapa.performAttackByPlayerBelongsToEnemy(enemyUnitId_2, playerUnitId));
-    EXPECT_EQ(Knight2->getEndurance(),25);
+    EXPECT_EQ(OwnPlayersKnight->getEndurance(), 25);
 
-    //Perform Move to Attack Enemy 
-    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToEnemy(enemyUnitId_3,Coordinates{1,1}));
-    EXPECT_EQ(Knight1->getObjectCoordinates(),Coordinates(1,1));
+    // Move unit closer to the enemy
+    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToEnemy(enemyUnitId_3, Coordinates{1, 1}));
+    EXPECT_EQ(Knight1->getObjectCoordinates(), Coordinates(1, 1));
 
+    // Perform attack that results in the player's unit being killed
     size_t before = mapa.getPlayerBelongsToUs()->getUnits().size();
-    //Perform Attack
     EXPECT_TRUE(mapa.performAttackByPlayerBelongsToEnemy(enemyUnitId_3, playerUnitId));
-    EXPECT_EQ(mapa.getPlayerBelongsToUs()->getUnitByID(playerUnitId),nullptr);
-
-    EXPECT_EQ(before-1,mapa.getPlayerBelongsToUs()->getUnits().size());
-    
-
+    EXPECT_EQ(mapa.getPlayerBelongsToUs()->getUnitByID(playerUnitId), nullptr);
+    EXPECT_EQ(before - 1, mapa.getPlayerBelongsToUs()->getUnits().size());
 }
