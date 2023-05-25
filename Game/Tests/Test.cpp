@@ -242,3 +242,32 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerE) {
     EXPECT_FALSE(mapa.performAttackByPlayerBelongsToUs(playerUnitId, enemyUnitId));
 
 }
+
+TEST_F(UnitsUnderTestFixture, PerformAttack_UnitDies) {
+    addUnitsToOwnPlayer();
+    addUnitsToEnemyPlayer();
+
+    int playerUnitId = Knight2->getId();
+    int enemyUnitId_1 = Swordsman1->getId(); // Wrong Id
+    int enemyUnitId_2 = Archer1->getId(); // Wrong Id
+    int enemyUnitId_3 = Knight1->getId(); // Wrong Id
+
+    EXPECT_TRUE(mapa.performAttackByPlayerBelongsToEnemy(enemyUnitId_1, playerUnitId));
+    EXPECT_EQ(Knight2->getEndurance(),40);
+
+    EXPECT_TRUE(mapa.performAttackByPlayerBelongsToEnemy(enemyUnitId_2, playerUnitId));
+    EXPECT_EQ(Knight2->getEndurance(),25);
+
+    //Perform Move to Attack Enemy 
+    EXPECT_TRUE(mapa.performMoveByPlayerBelongsToEnemy(enemyUnitId_3,Coordinates{1,1}));
+    EXPECT_EQ(Knight1->getObjectCoordinates(),Coordinates(1,1));
+
+    size_t before = mapa.getPlayerBelongsToUs()->getUnits().size();
+    //Perform Attack
+    EXPECT_TRUE(mapa.performAttackByPlayerBelongsToEnemy(enemyUnitId_3, playerUnitId));
+    EXPECT_EQ(mapa.getPlayerBelongsToUs()->getUnitByID(playerUnitId),nullptr);
+
+    EXPECT_EQ(before-1,mapa.getPlayerBelongsToUs()->getUnits().size());
+    
+
+}
