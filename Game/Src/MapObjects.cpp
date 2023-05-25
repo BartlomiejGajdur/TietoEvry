@@ -2,6 +2,7 @@
 
 #include "../Include/MapObjects.hpp"
 #include "../Include/map.hpp"
+#include "../Include/Units.hpp"
 
 int MapObject::counter = 0;
 
@@ -223,4 +224,76 @@ std::string Unit::getUnitTypeInString(const UnitTYPE unitType){
     break;
   }
 }
+
+UnitTYPE Unit::getUnitTypeFromString(const std::string& unitString) {
+  char unitCode = unitString[0];
+
+  switch (unitCode) {
+    case 'K':
+      return UnitTYPE::Knight;
+      break;
+    case 'S':
+      return UnitTYPE::Swordsman;
+      break;
+    case 'A':
+      return UnitTYPE::Archer;
+      break;
+    case 'P':
+      return UnitTYPE::Pikeman;
+      break;
+    case 'C':
+      return UnitTYPE::Catapult;
+      break;
+    case 'R':
+      return UnitTYPE::Ram;
+      break;
+    case 'W':
+      return UnitTYPE::Worker;
+      break;
+    default:
+      return UnitTYPE::Base;
+      break;
+  }
+}
+
+
+std::shared_ptr<Unit> Unit::returnUnit(const std::string& unitType, const int& id, const int& PosX,const int& PosY, const short& endurance, const std::string& productionType, const int& productionAmount ){
+  int unitTypeCode = static_cast<int>(unitType[0]);
+   switch (unitTypeCode) {
+    case 'K':
+      return std::make_shared<Knight>(id,Coordinates(PosX,PosY),endurance);
+    break;
+
+    case 'S':
+      return std::make_shared<Swordsman>(id,Coordinates(PosX,PosY),endurance);
+    break;
+
+    case 'A':
+      return std::make_shared<Archer>(id,Coordinates(PosX,PosY),endurance);
+    break;
+
+    case 'P':
+      return std::make_shared<Pikeman>(id,Coordinates(PosX,PosY),endurance);
+    break;
+
+    case 'C':
+      return std::make_shared<Catapult>(id,Coordinates(PosX,PosY),endurance);
+    break;
+
+    case 'R':
+      return std::make_shared<Ram>(id,Coordinates(PosX,PosY),endurance);
+    break;
+
+    case 'W':
+      return std::make_shared<Worker>(id,Coordinates(PosX,PosY),endurance);
+    break;
+
+    case 'B':
+      return std::make_shared<Base>(id,Coordinates(PosX,PosY),endurance,Unit::getUnitTypeFromString(productionType),productionAmount);
+    break;
+  default:
+     return nullptr;
+    break;
+  }
+ }
 

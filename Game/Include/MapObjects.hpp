@@ -27,6 +27,7 @@ public:
   Coordinates getObjectCoordinates() const { return ObjectCoordinates_; };
   virtual int getId() const { return id_; };
   virtual std::string getTypeInString() const = 0;
+  void setId(const int& id) {id_=id;};
 
 protected:
   Coordinates ObjectCoordinates_;
@@ -50,10 +51,12 @@ public:
   short getSpeedLeft() const { return speed_; };
   UnitTYPE getUnitType() const { return unitType_; };
   short getEndurance() const { return endurance_; };
-  
+
+  static UnitTYPE getUnitTypeFromString(const std::string& unitString);
   static unsigned short getBuildTime(const UnitTYPE &unitType);
   static unsigned short getPurchaseCost(const UnitTYPE &unitType);
   static std::string getUnitTypeInString(const UnitTYPE unitType);
+  static std::shared_ptr<Unit> returnUnit(const std::string& unitType, const int& id, const int& PosX,const int& PosY, const short& endurance, const std::string& productionType, const int& productionAmount );
 
 protected:
   UnitTYPE unitType_;

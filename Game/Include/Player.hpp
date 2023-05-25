@@ -10,13 +10,14 @@
 
 class Map;
 
-enum class PlayerTYPE {PlayerP,PlayerE};
+const long STARTED_MONEY{2000};
 
 class Player {
 public:
   Player(){};
 
   long getMoney() const { return money_; };
+  void setMoney(long money) { money_ = money;};
   void addMoney(long money) { money_ += money; };
   void substractMoney(long money) { money_ -= money; };
 
@@ -31,6 +32,6 @@ public:
   void printObjectsOwn() const;
 
 private:
-  long money_{2000};
+  long money_ = STARTED_MONEY;
   std::vector<std::shared_ptr<Unit>> unitsOwn_{};
 };

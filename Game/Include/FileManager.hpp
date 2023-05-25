@@ -13,6 +13,7 @@ public:
   bool readFromFile();
   std::string getFileContent() const { return fileContent_; };
   static void SaveStatusToFile(const std::string& fileName, std::shared_ptr<Player> PlayerP_, std::shared_ptr<Player> PlayerE_);
+  static void ParseStatusFile(const std::string& fileName, std::shared_ptr<Player> PlayerP_, std::shared_ptr<Player> PlayerE_);
   ~FileManager();
 
 private:

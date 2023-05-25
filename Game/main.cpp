@@ -21,40 +21,49 @@ int main(){
 
     Map maps(line,std::make_shared<Player>(),std::make_shared<Player>(),0);
     czas.addObserver(&maps);
-
+    std::cout<<"\nENEMY UNITS: \n";
+    maps.get_PlayerE()->printObjectsOwn();
+    std::cout<<"\n\n";
+    FileManager::ParseStatusFile(statusLocalization,maps.get_PlayerP(),maps.get_PlayerE());
 
     // maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(1,1),60));
     // maps.get_PlayerP()->addUnit(std::make_shared<Knight>(Coordinates(2,1),15));
 
-    maps.get_PlayerE()->addUnit(std::make_shared<Knight>(Coordinates(2,2),60));
+//     maps.get_PlayerE()->addUnit(std::make_shared<Knight>(Coordinates(2,2),60));
 
 
  
-    std::cout<<"\nENEMY UNITS: \n";
-    maps.get_PlayerE()->printObjectsOwn();
-    std::cout<<"\n\n";
+//     std::cout<<"\nENEMY UNITS: \n";
+//     maps.get_PlayerE()->printObjectsOwn();
+//     std::cout<<"\n\n";
 
-    maps.ProductAction_PlayerE(UnitTYPE::Knight);
-   std::cout<< maps.get_PlayerE()->getMoney();
-    czas.nextRound();
-    czas.nextRound();
-    czas.nextRound();
-    maps.ProductAction_PlayerE(UnitTYPE::Knight);
-    czas.nextRound();
-    maps.ProductAction_PlayerE(UnitTYPE::Worker);
-    czas.nextRound();
-    czas.nextRound();
-    czas.nextRound();
-    czas.nextRound();
-    // czas.nextRound();
-    // czas.nextRound();
+//     maps.ProductAction_PlayerE(UnitTYPE::Knight);
+//    std::cout<< maps.get_PlayerE()->getMoney();
+//     czas.nextRound();
+//     czas.nextRound();
+//     czas.nextRound();
+//     maps.ProductAction_PlayerE(UnitTYPE::Knight);
+//     czas.nextRound();
+//     maps.ProductAction_PlayerE(UnitTYPE::Worker);
+//     czas.nextRound();
+//     czas.nextRound();
+//     czas.nextRound();
+//     czas.nextRound();
+//     // czas.nextRound();
+//     // czas.nextRound();
 
     std::cout<<"\nENEMY UNITS: \n";
     maps.get_PlayerE()->printObjectsOwn();
     std::cout<<"\n\n";
 
     FileManager::SaveStatusToFile(statusLocalization,maps.get_PlayerP(),maps.get_PlayerE());
- 
+    
+
+    
+
+//Przypisz to co z status
+//Wykonaj to co z rozkazy 
+//Zapisz do status 
 
     return 0;
 }
