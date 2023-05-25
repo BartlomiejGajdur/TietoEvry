@@ -1,78 +1,76 @@
 #pragma once
-#include "MapObjects.hpp"
+
 #include <iostream>
 
-class Knight : public Unit{
-    public:
-        Knight(const Coordinates& coord);
-        Knight(const Coordinates& cord, const unsigned short endurance);
-   
-    private:
+#include "MapObjects.hpp"
+
+class Knight : public Unit {
+public:
+  Knight(const Coordinates &coord);
+  Knight(const Coordinates &cord, const unsigned short endurance);
+
+private:
 };
 
-class Swordsman : public Unit{
-    public:
-        Swordsman(const Coordinates& coord);
-        Swordsman(const Coordinates& cord, const unsigned short endurance);
+class Swordsman : public Unit {
+public:
+  Swordsman(const Coordinates &coord);
+  Swordsman(const Coordinates &cord, const unsigned short endurance);
 
-    private:
+private:
 };
 
-class Archer : public Unit{
-    public:
-        Archer(const Coordinates& coord);
-        Archer(const Coordinates& cord, const unsigned short endurance);
-   
-    private:
+class Archer : public Unit {
+public:
+  Archer(const Coordinates &coord);
+  Archer(const Coordinates &cord, const unsigned short endurance);
+
+private:
 };
 
-class Pikeman : public Unit{
-    public:
-        Pikeman(const Coordinates& coord);
-        Pikeman(const Coordinates& cord, const unsigned short endurance);
+class Pikeman : public Unit {
+public:
+  Pikeman(const Coordinates &coord);
+  Pikeman(const Coordinates &cord, const unsigned short endurance);
 
-    private:
+private:
 };
 
-class Catapult : public Unit{
-    public:
-        Catapult(const Coordinates& coord);
-        Catapult(const Coordinates& cord, const unsigned short endurance);
-   
-    private:
+class Catapult : public Unit {
+public:
+  Catapult(const Coordinates &coord);
+  Catapult(const Coordinates &cord, const unsigned short endurance);
+
+private:
 };
 
-class Ram : public Unit{
-    public:
-        Ram(const Coordinates& coord);
-        Ram(const Coordinates& cord, const unsigned short endurance);
+class Ram : public Unit {
+public:
+  Ram(const Coordinates &coord);
+  Ram(const Coordinates &cord, const unsigned short endurance);
 
-    private:
+private:
 };
 
-class Worker : public Unit{
-    public:
-        Worker(const Coordinates& coord);
-        Worker(const Coordinates& cord, const unsigned short endurance);
+class Worker : public Unit {
+public:
+  Worker(const Coordinates &coord);
+  Worker(const Coordinates &cord, const unsigned short endurance);
 
-    private:
+private:
 };
 
-class Base : public Unit{
-    public:
-        Base(const Coordinates& cord);
-        Base(const Coordinates& cord, const unsigned short endurance);
+class Base : public Unit {
+public:
+  Base(const Coordinates &cord);
+  Base(const Coordinates &cord, const unsigned short endurance);
 
-    inline bool Move([[maybe_unused]] const Coordinates& moveTo) override { std::cout<<"Base Cannot move!\n"; return false;}
-    inline bool Attack([[maybe_unused]] std::shared_ptr<Unit> Solider) override { std::cout<<"Base Cannot attack!\n"; return false;}
-    // Ma mieć produce 
-    //Player ma do siebie przypisana baze ta baza ma produkowac jednostki. Czyli jezeli w bazie aktualnie nic sie nie produkuje to zaczyna produkcje.
-    //W klasie player bedzie podawanie jednostki ktora ma sie produkowac tam odejmujemy pieniadze rowniez tam jest tez licznik jednostek 
-    bool Produce(const UnitTYPE& unitType) override;
-    
-    private:
-        unsigned short timeToProduce{0};
-        std::pair<UnitTYPE, unsigned short> production = std::make_pair(UnitTYPE::Base, timeToProduce);
+  inline bool Move([[maybe_unused]] const Coordinates &moveTo) override {std::cout << "Base Cannot move!\n";return false;}
+  inline bool Attack([[maybe_unused]] std::shared_ptr<Unit> Solider) override {std::cout << "Base Cannot attack!\n"; return false;}
 
+  bool Produce(const UnitTYPE &unitType) override;
 
+private:
+  unsigned short timeToProduce{0};
+  std::pair<UnitTYPE, unsigned short> production = std::make_pair(UnitTYPE::Base, timeToProduce);
 };
