@@ -4,7 +4,7 @@
 
 class Knight : public Unit{
     public:
-        Knight();
+        Knight(const Coordinates& coord);
         Knight(const Coordinates& cord, const unsigned short endurance);
    
     private:
@@ -12,7 +12,7 @@ class Knight : public Unit{
 
 class Swordsman : public Unit{
     public:
-        Swordsman();
+        Swordsman(const Coordinates& coord);
         Swordsman(const Coordinates& cord, const unsigned short endurance);
 
     private:
@@ -20,7 +20,7 @@ class Swordsman : public Unit{
 
 class Archer : public Unit{
     public:
-        Archer();
+        Archer(const Coordinates& coord);
         Archer(const Coordinates& cord, const unsigned short endurance);
    
     private:
@@ -28,7 +28,7 @@ class Archer : public Unit{
 
 class Pikeman : public Unit{
     public:
-        Pikeman();
+        Pikeman(const Coordinates& coord);
         Pikeman(const Coordinates& cord, const unsigned short endurance);
 
     private:
@@ -36,7 +36,7 @@ class Pikeman : public Unit{
 
 class Catapult : public Unit{
     public:
-        Catapult();
+        Catapult(const Coordinates& coord);
         Catapult(const Coordinates& cord, const unsigned short endurance);
    
     private:
@@ -44,7 +44,7 @@ class Catapult : public Unit{
 
 class Ram : public Unit{
     public:
-        Ram();
+        Ram(const Coordinates& coord);
         Ram(const Coordinates& cord, const unsigned short endurance);
 
     private:
@@ -52,7 +52,7 @@ class Ram : public Unit{
 
 class Worker : public Unit{
     public:
-        Worker();
+        Worker(const Coordinates& coord);
         Worker(const Coordinates& cord, const unsigned short endurance);
 
     private:
@@ -68,7 +68,7 @@ class Base : public Unit{
     // Ma mieć produce 
     //Player ma do siebie przypisana baze ta baza ma produkowac jednostki. Czyli jezeli w bazie aktualnie nic sie nie produkuje to zaczyna produkcje.
     //W klasie player bedzie podawanie jednostki ktora ma sie produkowac tam odejmujemy pieniadze rowniez tam jest tez licznik jednostek 
-    bool produce(UnitTYPE unitType);
+    bool produce(UnitTYPE unitType) {std::cout<<static_cast<int>(unitType); return true;};
     
     private:
         unsigned short timeToProduce;

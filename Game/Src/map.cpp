@@ -34,7 +34,7 @@ std::shared_ptr<MapObject> Map::returnPointerFromGivenValue(char zn,int CoordX, 
         return PlayerPBase;
     }else if(zn=='2'){
         std::shared_ptr<Base> PlayerEBase = std::make_shared<Base>(Coordinates{CoordX,CoordY});
-        PlayerP_->addUnit(PlayerEBase);
+        PlayerE_->addUnit(PlayerEBase);
         return PlayerEBase;
     }else if(zn == '0')
     {
@@ -102,5 +102,63 @@ bool Map::performMoveByPlayerBelongsToUs(int id, const Coordinates& coord) {
     return PlayerP_->moveUnit(*this, id, coord);
 }
 
+bool Map::performAttackByPlayerBelongsToUs(int PlayerUnitId, int EnemyPlayerUnitId){
 
+    std::shared_ptr<Unit> PlayerPUnit = PlayerP_->getUnitByID(PlayerUnitId);
+    if(PlayerPUnit==nullptr)
+    {
+        std::cout<<"Cannot find unit belongs to PlayerP that have given ID!\n";
+        return false;
+    }
+
+    std::shared_ptr<Unit> PlayerEUnit = PlayerE_->getUnitByID(EnemyPlayerUnitId);
+    if(PlayerE_->getUnitByID(EnemyPlayerUnitId)==nullptr)
+    {
+        std::cout<<"Cannot find unit belongs to PlayerE that have given ID!\n";
+        return false;
+    }
+
+    bool result = PlayerPUnit->Attack(PlayerEUnit);
+
+    if(result && PlayerEUnit->getEndurance()<=0)
+        {   
+            std::cout<<"The attacked unit's health drops below 0. The unit dies !\n";
+            PlayerE_->getUnits().erase(std::remove_if(PlayerE_->getUnits().begin(),PlayerE_->getUnits().end(),[&](std::shared_ptr<Unit> unit)
+            {
+                return unit->getId() == EnemyPlayerUnitId;
+            }),PlayerE_->getUnits().end());
+        }
+    
+    return result;
+    
+}
+
+bool Map::performAttackByPlayerBelongsToEnemy(int PlayerUnitId, int EnemyPlayerUnitId){
+
+    std::shared_ptr<Unit> PlayerEUnit = PlayerE_->getUnitByID(PlayerUnitId);
+    if(PlayerEUnit==nullptr)
+    {
+        std::cout<<"Cannot find unit belongs to PlayerE that have given ID!\n";
+        return false;
+    }
+
+    std::shared_ptr<Unit> PlayerPUnit = PlayerP_->getUnitByID(EnemyPlayerUnitId);
+    if(PlayerP_->getUnitByID(EnemyPlayerUnitId)==nullptr)
+    {
+        std::cout<<"Cannot find unit belongs to PlayerP that have given ID!\n";
+        return false;
+    }
+    bool result = PlayerEUnit->Attack(PlayerPUnit);
+
+    if(result && PlayerPUnit->getEndurance()<=0)
+        {   
+            std::cout<<"The attacked unit's health drops below 0. The unit dies !\n";
+            PlayerP_->getUnits().erase(std::remove_if(PlayerP_->getUnits().begin(),PlayerP_->getUnits().end(),[&](std::shared_ptr<Unit> unit)
+            {
+                return unit->getId() == EnemyPlayerUnitId;
+            }),PlayerP_->getUnits().end());
+        }
+    
+    return result;
+}
   
