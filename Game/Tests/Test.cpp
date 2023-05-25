@@ -49,26 +49,47 @@ Nowa runda ma rozdawac pieniadze/ wlasnie z tego u gory + produkcji czas ma
 niwelowac jak spadnie na 0 to ma zmieniac ze unit produkcyjny jest to baza i
 dodawac jednostke w miejscu bazy/ resetowanie speeda i mozliwosci ataku*/
 
+TEST_F(UnitsUnderTestFixture, MoneySubstract)
+{
+    mapa.get_PlayerE()->substractMoney(400);
+    EXPECT_EQ(mapa.get_PlayerE()->getMoney(),1600);
+}
+
+
 TEST_F(UnitsUnderTestFixture, GetBase_ReturnsCorrectUnit) {
   addUnitsToEnemyPlayer();
   addUnitsToOwnPlayer();
-
   EXPECT_EQ(mapa.get_PlayerE()->getBase()->getId(),
             mapa.get_PlayerE()->getUnits()[0]->getId());
 }
 
 TEST_F(UnitsUnderTestFixture, Production_Start) {
+
+  long moneyBeforePurchase = mapa.get_PlayerP()->getMoney();
+  
   EXPECT_TRUE(mapa.ProductAction_PlayerP(UnitTYPE::Catapult));
+  EXPECT_EQ(mapa.get_PlayerP()->getMoney()+Unit::getPurchaseCost(UnitTYPE::Catapult),moneyBeforePurchase);
 }
 
 TEST_F(UnitsUnderTestFixture, Production_LackOfPlayersMoney) {
+  
   mapa.get_PlayerP()->substractMoney(mapa.get_PlayerP()->getMoney());
+  long moneyBeforePurchase = mapa.get_PlayerP()->getMoney();
+
   EXPECT_FALSE(mapa.ProductAction_PlayerP(UnitTYPE::Catapult));
+  EXPECT_EQ(moneyBeforePurchase, mapa.get_PlayerP()->getMoney());
 }
 
 TEST_F(UnitsUnderTestFixture, Production_BaseDuringProduction) {
-  EXPECT_TRUE(mapa.ProductAction_PlayerE(UnitTYPE::Catapult));
-  EXPECT_FALSE(mapa.ProductAction_PlayerE(UnitTYPE::Catapult));
+  long moneyBeforePurchase = mapa.get_PlayerP()->getMoney();  
+
+  EXPECT_TRUE(mapa.ProductAction_PlayerP(UnitTYPE::Catapult));
+  EXPECT_EQ(mapa.get_PlayerP()->getMoney()+Unit::getPurchaseCost(UnitTYPE::Catapult),moneyBeforePurchase);
+
+  long moneyAfterPurchase = mapa.get_PlayerP()->getMoney();
+
+  EXPECT_FALSE(mapa.ProductAction_PlayerP(UnitTYPE::Catapult));
+  EXPECT_EQ(mapa.get_PlayerP()->getMoney(),moneyAfterPurchase);
 }
 
 TEST_F(UnitsUnderTestFixture, MoveUnit_ValidCoordinates_ReturnsTrue) {

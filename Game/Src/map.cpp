@@ -166,8 +166,11 @@ bool Map::ProductAction_PlayerP(const UnitTYPE &unitType) {
     std::cout << "Lack of money to produce unit!\n";
     return false;
   }
+  if (!PlayerP_->getBase()->Produce(unitType))
+    return false;
 
-  return PlayerP_->getBase()->Produce(unitType);
+  PlayerP_->substractMoney(Unit::getPurchaseCost(unitType));
+  return true;
 }
 
 bool Map::ProductAction_PlayerE(const UnitTYPE &unitType) {

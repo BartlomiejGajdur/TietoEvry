@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -24,7 +25,7 @@ public:
 
   inline void addUnit(const std::shared_ptr<Unit> &Unit) {unitsOwn_.push_back(Unit);};
   void printObjectsOwn() const;
-  
+
 private:
   long money_{2000};
   std::vector<std::shared_ptr<Unit>> unitsOwn_;

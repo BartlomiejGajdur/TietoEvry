@@ -63,6 +63,7 @@ private:
 class Base : public Unit {
 public:
   Base(const Coordinates &cord);
+  Base(const Coordinates &cord,const unsigned short endurance, const UnitTYPE& unitType, const unsigned short timeToProductionEnd);
   Base(const Coordinates &cord, const unsigned short endurance);
 
   inline bool Move([[maybe_unused]] const Coordinates &moveTo) override {std::cout << "Base Cannot move!\n";return false;}
@@ -71,6 +72,6 @@ public:
   bool Produce(const UnitTYPE &unitType) override;
 
 private:
-  unsigned short timeToProduce{0};
-  std::pair<UnitTYPE, unsigned short> production = std::make_pair(UnitTYPE::Base, timeToProduce);
+  unsigned short timeToProduce_{0};
+  std::pair<UnitTYPE, unsigned short> production_ = std::make_pair(UnitTYPE::Base, timeToProduce_);
 };
