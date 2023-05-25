@@ -21,6 +21,7 @@ public:
   std::vector<std::shared_ptr<Unit>> &getUnits() { return unitsOwn_; };
   std::shared_ptr<Unit> getUnitByID(int iD);
   std::shared_ptr<Unit> getBase();
+  std::vector<Coordinates> getWorkersCoordinates();
   bool moveUnit(Map &map, int id, const Coordinates &coord);
 
   inline void addUnit(const std::shared_ptr<Unit> &Unit) {unitsOwn_.push_back(Unit);};
@@ -28,5 +29,5 @@ public:
 
 private:
   long money_{2000};
-  std::vector<std::shared_ptr<Unit>> unitsOwn_;
+  std::vector<std::shared_ptr<Unit>> unitsOwn_{};
 };

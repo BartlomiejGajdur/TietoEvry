@@ -163,7 +163,7 @@ TEST_F(UnitsUnderTestFixture, MoveBase_CannotMove_ReturnsFalse) {
 
 TEST_F(UnitsUnderTestFixture, MoveUnit_WorkerStandOnMine_ReturnsTrue) {
   addUnitsToEnemyPlayer();
-  Coordinates MineCoord{0, 1};
+  Coordinates MineCoord{1, 0};
 
   bool result = mapa.MoveAction_PlayerE(Worker1->getId(), MineCoord);
 
@@ -173,7 +173,7 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_WorkerStandOnMine_ReturnsTrue) {
 
 TEST_F(UnitsUnderTestFixture, MoveUnit_UnitStandOnMine_ReturnsFalse) {
   addUnitsToEnemyPlayer();
-  Coordinates MineCoord{0, 1};
+  Coordinates MineCoord{1, 0};
 
   bool result = mapa.MoveAction_PlayerE(Knight1->getId(), MineCoord);
 

@@ -67,13 +67,13 @@ void Map::matchCoordinatesWithFile() {
 bool Map::posibilityToStandOn(std::shared_ptr<Unit> obj,
                               const Coordinates &coord) const {
 
-  if (vectorOfObjects[coord.getPositionY()][coord.getPositionX()]
+  if (vectorOfObjects[coord.getPositionX()][coord.getPositionY()]
           ->getTypeInString() == "R") {
     return true;
   }
 
   if (obj->getUnitType() == UnitTYPE::Worker &&
-      vectorOfObjects[coord.getPositionY()][coord.getPositionX()]
+      vectorOfObjects[coord.getPositionX()][coord.getPositionY()]
               ->getTypeInString() == "M") {
     return true;
   }
@@ -185,4 +185,20 @@ bool Map::ProductAction_PlayerE(const UnitTYPE &unitType) {
 
   PlayerE_->substractMoney(Unit::getPurchaseCost(unitType));
   return true;
+}
+
+std::vector<Coordinates> Map::getMineCoordinates(){
+    std::vector<Coordinates> MineCoordinates{};
+
+    std::for_each(this->vectorOfObjects.begin(),this->vectorOfObjects.end(),[&](const std::vector<std::shared_ptr<MapObject>> vectorObjects)
+    {
+       std::for_each(vectorObjects.begin(),vectorObjects.end(),[&](const std::shared_ptr<MapObject> object)
+          {
+              std::shared_ptr<Mine> mine = std::dynamic_pointer_cast<Mine>(object);
+              if(mine)
+                  MineCoordinates.push_back(mine->getObjectCoordinates());
+          });
+    });
+
+    return MineCoordinates;
 }

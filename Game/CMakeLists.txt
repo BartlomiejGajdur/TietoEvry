@@ -22,7 +22,8 @@ set(COMMON_SOURCES
 )
 
 set(Testing_SOURCES 
-    Tests/Test.cpp 
+    Tests/ActionTests.cpp 
+    Tests/MapTests.cpp 
 )
 
 # Kompilacja i dodanie targetów

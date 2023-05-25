@@ -1,9 +1,11 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../Include/Player.hpp"
 #include "../Include/MapObjects.hpp"
 #include "../Include/map.hpp"
+#include "../Include/Player.hpp"
+#include "../Include/Units.hpp"
+
 
 
 void Player::printObjectsOwn() const {
@@ -61,4 +63,17 @@ std::shared_ptr<Unit> Player::getBase() {
 
   std::cout << "No base found!\n";
   return nullptr;
+}
+
+std::vector<Coordinates> Player::getWorkersCoordinates(){
+    std::vector<Coordinates> WorkersCoordinates{};
+
+    std::for_each(this->getUnits().begin(),this->getUnits().end(),[&](const std::shared_ptr<Unit> unit)
+    {
+        std::shared_ptr<Worker> worker = std::dynamic_pointer_cast<Worker>(unit);
+        if(worker)
+            WorkersCoordinates.push_back(worker->getObjectCoordinates());
+    });
+
+    return WorkersCoordinates;
 }

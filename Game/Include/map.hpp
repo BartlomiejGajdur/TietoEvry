@@ -33,6 +33,7 @@ public:
   bool ProductAction_PlayerP(const UnitTYPE &unitType);
   bool ProductAction_PlayerE(const UnitTYPE &unitType);
 
+  std::vector<Coordinates> getMineCoordinates();
 private:
   std::string mapData_;
   size_t MAP_SIZE_X, MAP_SIZE_Y;
