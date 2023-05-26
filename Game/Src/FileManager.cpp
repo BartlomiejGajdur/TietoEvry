@@ -4,6 +4,7 @@
 #include "../Include/FileManager.hpp"
 #include "../Include/Units.hpp"
 #include "../Include/Map.hpp"
+#include "../Include/Mediator.hpp"
 
 FileManager::~FileManager() {
   if (file_.is_open())
@@ -94,18 +95,18 @@ void FileManager::ParseStatusFile(const std::string& fileName, Map& mapa) {
       if (lineCount == 0) {
         if (iss >> roundNumber) {
           mapa.setRound(roundNumber);
-          std::cout << "Round number: " << roundNumber << std::endl;
+          
         }
       } else if (lineCount == 1) {
         if (iss >> playerTag) {
           if (playerTag == "P") {
             if (iss >> playerPMoney) {
-              std::cout << "PlayerP money: " << playerPMoney << std::endl;
+              
               mapa.get_PlayerP()->setMoney(playerPMoney);
             }
           } else if (playerTag == "E") {
             if (iss >> playerEMoney) {
-              std::cout << "PlayerE money: " << playerEMoney << std::endl;
+              
               mapa.get_PlayerE()->setMoney(playerEMoney);
             }
           }
@@ -114,12 +115,12 @@ void FileManager::ParseStatusFile(const std::string& fileName, Map& mapa) {
         if (iss >> playerTag) {
           if (playerTag == "P") {
             if (iss >> playerPMoney) {
-              std::cout << "PlayerP money: " << playerPMoney << std::endl;
+              
               mapa.get_PlayerP()->setMoney(playerPMoney);
             }
           } else if (playerTag == "E") {
             if (iss >> playerEMoney) {
-              std::cout << "PlayerE money: " << playerEMoney << std::endl;
+              
               mapa.get_PlayerE()->setMoney(playerEMoney);
             }
           }
@@ -140,7 +141,7 @@ void FileManager::ParseStatusFile(const std::string& fileName, Map& mapa) {
                 } else {
                   mapa.get_PlayerP()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, "x", 0));
                 }
-                std::cout << "PlayerP unit: " << unitType << " ID: " << id << " Position: (" << posX << ", " << posY << ") Endurance: " << endurance << std::endl;
+                
               } else if (playerTag == "E") {
                 if (unitType == "B") {
                   if (iss >> productionType) { // czy to jest 0 np
@@ -153,7 +154,7 @@ void FileManager::ParseStatusFile(const std::string& fileName, Map& mapa) {
                 } else {
                   mapa.get_PlayerE()->addUnit(Unit::returnUnit(unitType, id, posX, posY, endurance, "x", 0));
                 }
-                std::cout << "PlayerE unit: " << unitType << " ID: " << id << " Position: (" << posX << ", " << posY << ") Endurance: " << endurance << std::endl;
+              
               }
             }
           }
@@ -169,3 +170,86 @@ void FileManager::ParseStatusFile(const std::string& fileName, Map& mapa) {
   }
 }
 
+void FileManager::PerformActionsFromFile(const std::string& fileName, Map& mapa) {
+    std::ifstream inputFile(fileName);
+
+    if (inputFile.is_open()) {
+        std::string line;
+        std::string actionType;
+        std::string unitType;
+        int id, posX, posY;
+        int id_2;
+        switch (mapa.getRound() % 2)
+        {
+        case 0:
+          while (std::getline(inputFile, line)) {
+            std::istringstream iss(line);
+
+            if (iss >> id >> actionType) {
+                if (actionType == "A") {
+                  if (iss >> id_2)
+                    mapa.AttackAction_PlayerP(id, id_2);
+                } else if (actionType == "M") {
+                    if(iss>>posX >> posY)
+                      mapa.MoveAction_PlayerP(id, Coordinates{posX,posY});
+                } else if (actionType == "B") {
+                    if(iss>>unitType)
+                      mapa.ProductAction_PlayerP(Unit::getUnitTypeFromString(unitType));
+                } else {
+                    std::cout << "Unknown unit type: " << actionType << std::endl;
+                }
+            }
+        }
+          break;
+
+        case 1:
+          while (std::getline(inputFile, line)) {
+            std::istringstream iss(line);
+
+            if (iss >> id >> actionType) {
+                if (actionType == "A") {
+                  if (iss >> id_2)
+                    mapa.AttackAction_PlayerE(id, id_2);
+                } else if (actionType == "M") {
+                    if(iss>>posX >> posY)
+                      mapa.MoveAction_PlayerE(id, Coordinates{posX,posY});
+                } else if (actionType == "B") {
+                    if(iss>>unitType)
+                      mapa.ProductAction_PlayerE(Unit::getUnitTypeFromString(unitType));
+                } else {
+                    std::cout << "Unknown unit type: " << actionType << std::endl;
+                }
+            }
+        }
+          
+          break;
+        
+        default:
+          break;
+        }
+        
+
+        inputFile.close();
+    } else {
+        std::cout << "Unable to open file: " << fileName << std::endl;
+    }
+}
+
+void FileManager::printStatus(Map& map){
+  std::cout<<"Round Number: "<<map.getRound()<<"\nPrepare the "<<ActionsFile<<" for player ";
+  map.getRound() % 2 == 0 ? std::cout<<" [E] and run script\n" : std::cout<<" [P] and run script\n";
+  std::cout<<"PlayerP money: "<<map.get_PlayerP()->getMoney()<<"\n";
+  std::cout<<"PlayerE money: "<<map.get_PlayerE()->getMoney()<<"\n\n";
+  std::cout<<"Status Units belongs to Player P: \n";
+  for(const auto& unit : map.get_PlayerP()->getUnits())
+  {
+    std::cout<<"+P+   Unit: "<<unit->getTypeInString()<<" ID: "<<unit->getId()<<" Postion: "<<unit->getObjectCoordinates()<< " Endurance: "<<unit->getEndurance()<<"\n";
+  }
+  
+  std::cout<<"\nStatus Units belongs to Player E: \n";
+  for(const auto& unit : map.get_PlayerE()->getUnits())
+  {
+    std::cout<<"+E+   Unit: "<<unit->getTypeInString()<<" ID: "<<unit->getId()<<" Postion: "<<unit->getObjectCoordinates()<< " Endurance: "<<unit->getEndurance()<<"\n";
+  }
+  std::cout<<"\n";
+}

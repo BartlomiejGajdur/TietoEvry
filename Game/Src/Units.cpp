@@ -307,7 +307,5 @@ UnitTYPE Base::nextRound()
             std::cout << "Produce will end in " << production_.second << " rounds\n";
             return UnitTYPE::Base;
       }
-
-      std::cout << "Base may produce units!\n";
       return UnitTYPE::Base;
 }

@@ -29,7 +29,6 @@ int main(int argc, char *argv[]) {
     Time czas{}; 
     Map maps(line,std::make_shared<Player>(),std::make_shared<Player>(),0);
     czas.addObserver(&maps);
-    //maps.performAction();
     czas.nextRound();
 
     return 0;

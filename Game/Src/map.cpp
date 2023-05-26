@@ -21,6 +21,8 @@ Map::Map(const std::string &mapData, std::shared_ptr<Player> PlayerP,
 
 void Map::nextRound(){
 
+  FileManager::PerformActionsFromFile(ActionsFile,*this);
+
   std::shared_ptr<Base> bazaP = std::dynamic_pointer_cast<Base>(PlayerP_->getBase());
   std::shared_ptr<Base> bazaE = std::dynamic_pointer_cast<Base>(PlayerE_->getBase());
   if(bazaP == nullptr)
@@ -56,7 +58,7 @@ void Map::nextRound(){
     }
   }
 
-
+  FileManager::printStatus(*this);
   currentRound_++;
   FileManager::SaveStatusToFile(StatusFile,*this);
 }
