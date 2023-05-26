@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     }
 
     //Continue program
-    FileManager File(file1_content);
+    FileManager File(MapFile);
     File.openFile();
     File.readFromFile();
     std::string line = File.getFileContent();

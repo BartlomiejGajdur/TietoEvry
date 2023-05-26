@@ -4,10 +4,11 @@
 #include <algorithm>
 #include <fstream>
 
-extern std::string file0_content;
-extern std::string file1_content;
-extern std::string file2_content;
-extern std::string file3_content;
+extern std::string FileName;
+extern std::string MapFile;
+extern std::string StatusFile;
+extern std::string ActionsFile;
+extern size_t TimeLimit;
 
 namespace mediator{
     int checkGivenData(int argc, char *argv[]);

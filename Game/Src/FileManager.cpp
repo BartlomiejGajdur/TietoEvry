@@ -110,6 +110,20 @@ void FileManager::ParseStatusFile(const std::string& fileName, Map& mapa) {
             }
           }
         }
+      } else if(lineCount == 2){
+        if (iss >> playerTag) {
+          if (playerTag == "P") {
+            if (iss >> playerPMoney) {
+              std::cout << "PlayerP money: " << playerPMoney << std::endl;
+              mapa.get_PlayerP()->setMoney(playerPMoney);
+            }
+          } else if (playerTag == "E") {
+            if (iss >> playerEMoney) {
+              std::cout << "PlayerE money: " << playerEMoney << std::endl;
+              mapa.get_PlayerE()->setMoney(playerEMoney);
+            }
+          }
+        }
       } else {
         if (iss >> playerTag) {
           if (playerTag == "P" || playerTag == "E") {

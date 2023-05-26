@@ -14,7 +14,7 @@ Map::Map(const std::string &mapData, std::shared_ptr<Player> PlayerP,
     : currentRound_(currentRound),mapData_(mapData), PlayerP_(PlayerP), PlayerE_(PlayerE) {
   MAP_SIZE_X = getMapSizeX();
   MAP_SIZE_Y = getMapSizeY();
-  FileManager::ParseStatusFile(file2_content,*this);
+  FileManager::ParseStatusFile(StatusFile,*this);
   matchCoordinatesWithFile();
   
 }
@@ -58,7 +58,7 @@ void Map::nextRound(){
 
 
   currentRound_++;
-  FileManager::SaveStatusToFile(file2_content,*this);
+  FileManager::SaveStatusToFile(StatusFile,*this);
 }
 
 size_t Map::getMapSizeX() {
