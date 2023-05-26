@@ -1,7 +1,7 @@
 
-# TietoEvry_cpp_task002
+<h1  align="center">TietoEvry_cpp_task002</h1>
 
-## More details, requirements and task description can be found in TietoEvry_cpp_task002.docx
+<h2  align="center"> More details, requirements and task description can be found in TietoEvry_cpp_task002.docx</h2>
 
 How to run
   
@@ -15,9 +15,10 @@ How to run
       cd ..
       python .\TietoEvryGame.py File1.txt File2.txt File3.txt [TimeLimit]
 
-File1.txt -> File that contains map structure.
-File2.txt -> Status file.
-File3.txt -> The file from which actions are loaded.
+File1.txt -> File that contains map structure.<br>
+File2.txt -> Status file.<br>
+File3.txt -> The file from which actions are loaded.<br>
+TimeLimit -> Optional 
 
 File1.txt ( It should contain at least the coordinates of the players' bases, i.e. the numbers 1 and 2)
 
