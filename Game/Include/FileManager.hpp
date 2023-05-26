@@ -14,6 +14,7 @@ public:
   std::string getFileContent() const { return fileContent_; };
   static void SaveStatusToFile(const std::string& fileName,  Map& mapa);
   static void ParseStatusFile(const std::string& fileName,  Map& mapa);
+  
   ~FileManager();
 
 private:

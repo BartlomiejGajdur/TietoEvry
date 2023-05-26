@@ -20,6 +20,7 @@ set(COMMON_SOURCES
     Src/Object.cpp
     Src/Player.cpp
     Src/Time.cpp
+    Src/Mediator.cpp
 )
 
 set(Testing_SOURCES 

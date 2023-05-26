@@ -1,6 +1,7 @@
 #include "../Include/map.hpp"
 #include "../Include/Coordinates.hpp"
 #include "../Include/MapObjects.hpp"
+#include "../Include/Mediator.hpp"
 #include "../Include/Object.hpp"
 #include "../Include/Units.hpp"
 #include <algorithm>
@@ -8,14 +9,12 @@
 #include <unordered_map>
 #include <functional>
 
-std::string statusLocalization ="../Config/status.txt";
-
 Map::Map(const std::string &mapData, std::shared_ptr<Player> PlayerP,
          std::shared_ptr<Player> PlayerE, size_t currentRound)
     : currentRound_(currentRound),mapData_(mapData), PlayerP_(PlayerP), PlayerE_(PlayerE) {
   MAP_SIZE_X = getMapSizeX();
   MAP_SIZE_Y = getMapSizeY();
-  FileManager::ParseStatusFile(statusLocalization,*this);
+  FileManager::ParseStatusFile(file2_content,*this);
   matchCoordinatesWithFile();
   
 }
@@ -59,7 +58,7 @@ void Map::nextRound(){
 
 
   currentRound_++;
-  FileManager::SaveStatusToFile(statusLocalization,*this);
+  FileManager::SaveStatusToFile(file2_content,*this);
 }
 
 size_t Map::getMapSizeX() {
