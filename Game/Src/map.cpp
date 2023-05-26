@@ -50,7 +50,7 @@ void Map::nextRound(){
     }
   }
   else{
-    PlayerE_->addMoney(this->calculateIncomeFromWorkersInMine_PlayerP());
+    PlayerE_->addMoney(this->calculateIncomeFromWorkersInMine_PlayerE());
     UnitTYPE production = bazaE->nextRound();
     if(production != UnitTYPE::Base)
     {

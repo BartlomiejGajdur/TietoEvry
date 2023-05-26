@@ -15,12 +15,10 @@
 int main(int argc, char *argv[]) {
     int result = mediator::checkGivenData(argc, argv);
     if (result != 0) {
-        // Wyświetl komunikat lub podejmij odpowiednie działania w przypadku błędu
         std::cout << "Error Occured. Program ends." << std::endl;
         return 1;
     }
 
-    //Continue program
     FileManager File(MapFile);
     File.openFile();
     File.readFromFile();

@@ -10,7 +10,7 @@ extern std::string StatusFile;
 extern std::string ActionsFile;
 extern size_t TimeLimit;
 
-namespace mediator{
+namespace mediator
+{
     int checkGivenData(int argc, char *argv[]);
 }
-

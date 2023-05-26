@@ -1,31 +1,40 @@
 #include "../Include/Coordinates.hpp"
 
-bool Coordinates::operator==(const Coordinates &other) const {
+bool Coordinates::operator==(const Coordinates &other) const
+{
   return this->positionX_ == other.positionX_ &&
          this->positionY_ == other.positionY_;
 }
-bool Coordinates::operator<(const Coordinates& other) const {
-  if (positionX_ < other.positionX_) {
+bool Coordinates::operator<(const Coordinates &other) const
+{
+  if (positionX_ < other.positionX_)
+  {
     return true;
-  } else if (positionX_ > other.positionX_) {
+  }
+  else if (positionX_ > other.positionX_)
+  {
     return false;
-  } else {
-    // Jeżeli positionX_ jest równe, porównujemy positionY_
+  }
+  else
+  {
     return positionY_ < other.positionY_;
   }
 }
 
-std::ostream &operator<<(std::ostream &os, const Coordinates &position) {
-  os << "X[" << position.getPositionX() << "] Y[" << position.getPositionY()<< "]";
+std::ostream &operator<<(std::ostream &os, const Coordinates &position)
+{
+  os << "X[" << position.getPositionX() << "] Y[" << position.getPositionY() << "]";
   return os;
 }
 
-size_t Coordinates::distance(const Coordinates &lhs, const Coordinates &rhs) {
+size_t Coordinates::distance(const Coordinates &lhs, const Coordinates &rhs)
+{
   return abs(lhs.getPositionX() - rhs.getPositionX()) +
          abs(lhs.getPositionY() - rhs.getPositionY());
 }
 
-size_t Coordinates::distance(const Coordinates &other) {
+size_t Coordinates::distance(const Coordinates &other)
+{
   return abs(this->getPositionX() - other.getPositionX()) +
          abs(this->getPositionY() - other.getPositionY());
 }

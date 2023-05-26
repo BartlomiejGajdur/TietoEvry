@@ -17,7 +17,6 @@ set(COMMON_SOURCES
     Src/map.cpp
     Src/MapObjects.cpp
     Src/Units.cpp
-    Src/Object.cpp
     Src/Player.cpp
     Src/Time.cpp
     Src/Mediator.cpp

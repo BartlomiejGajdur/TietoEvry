@@ -6,7 +6,8 @@
 
 #include "Coordinates.hpp"
 
-enum class UnitTYPE {
+enum class UnitTYPE
+{
   Knight = 0,
   Swordsman,
   Archer,
@@ -16,9 +17,17 @@ enum class UnitTYPE {
   Worker,
   Base
 };
-enum class ObjectTYPE { Road = 0, Mine = 6, Obstacle = 9, BaseP = 1, BaseE = 2 };
+enum class ObjectTYPE
+{
+  Road = 0,
+  Mine = 6,
+  Obstacle = 9,
+  BaseP = 1,
+  BaseE = 2
+};
 
-class MapObject {
+class MapObject
+{
 public:
   MapObject(){};
   MapObject(const Coordinates &coordinates) : ObjectCoordinates_(coordinates){};
@@ -27,7 +36,7 @@ public:
   Coordinates getObjectCoordinates() const { return ObjectCoordinates_; };
   virtual int getId() const { return id_; };
   virtual std::string getTypeInString() const = 0;
-  void setId(const int& id) {id_=id;};
+  void setId(const int &id) { id_ = id; };
 
 protected:
   Coordinates ObjectCoordinates_;
@@ -35,7 +44,8 @@ protected:
   int id_ = counter;
 };
 
-class Unit : public MapObject {
+class Unit : public MapObject
+{
 public:
   Unit(){};
   Unit(const UnitTYPE &unitType, short endurance,
@@ -52,11 +62,11 @@ public:
   UnitTYPE getUnitType() const { return unitType_; };
   short getEndurance() const { return endurance_; };
 
-  static UnitTYPE getUnitTypeFromString(const std::string& unitString);
+  static UnitTYPE getUnitTypeFromString(const std::string &unitString);
   static unsigned short getBuildTime(const UnitTYPE &unitType);
   static unsigned short getPurchaseCost(const UnitTYPE &unitType);
   static std::string getUnitTypeInString(const UnitTYPE unitType);
-  static std::shared_ptr<Unit> returnUnit(const std::string& unitType, const int& id, const int& PosX,const int& PosY, const short& endurance, const std::string& productionType, const int& productionAmount );
+  static std::shared_ptr<Unit> returnUnit(const std::string &unitType, const int &id, const int &PosX, const int &PosY, const short &endurance, const std::string &productionType, const int &productionAmount);
 
 protected:
   UnitTYPE unitType_;
@@ -65,7 +75,8 @@ protected:
   bool attackDone_ = false;
 };
 
-class Object : public MapObject {
+class Object : public MapObject
+{
 public:
   Object(){};
   Object(const ObjectTYPE &ObjectType) : ObjectType_(ObjectType){};

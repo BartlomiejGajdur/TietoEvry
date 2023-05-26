@@ -10,12 +10,12 @@
 #include "../Include/Units.hpp"
 #include "../Include/map.hpp"
 
-struct UnitsUnderTestFixture : public ::testing::Test {
+struct UnitsUnderTestFixture : public ::testing::Test
+{
   Map mapa{
       "09001\n60000\n90000\n00002\n",
       std::make_shared<Player>(),
-      std::make_shared<Player>(),0
-  };
+      std::make_shared<Player>(), 0};
 
   std::shared_ptr<Knight> Knight1 = std::make_shared<Knight>(Coordinates{0, 0}, 70);
   std::shared_ptr<Knight> Knight2 = std::make_shared<Knight>(Coordinates{2, 3}, 70);
@@ -26,7 +26,8 @@ struct UnitsUnderTestFixture : public ::testing::Test {
 
   std::shared_ptr<Knight> OwnPlayersKnight = std::make_shared<Knight>(Coordinates{1, 2}, 70);
 
-  void addUnitsToEnemyPlayer() {
+  void addUnitsToEnemyPlayer()
+  {
     mapa.get_PlayerE()->addUnit(Knight1);
     mapa.get_PlayerE()->addUnit(Swordsman1);
     mapa.get_PlayerE()->addUnit(Archer1);
@@ -51,28 +52,30 @@ dodawac jednostke w miejscu bazy/ resetowanie speeda i mozliwosci ataku*/
 
 TEST_F(UnitsUnderTestFixture, MoneySubstract)
 {
-    mapa.get_PlayerE()->substractMoney(400);
-    EXPECT_EQ(mapa.get_PlayerE()->getMoney(),1600);
+  mapa.get_PlayerE()->substractMoney(400);
+  EXPECT_EQ(mapa.get_PlayerE()->getMoney(), 1600);
 }
 
-
-TEST_F(UnitsUnderTestFixture, GetBase_ReturnsCorrectUnit) {
+TEST_F(UnitsUnderTestFixture, GetBase_ReturnsCorrectUnit)
+{
   addUnitsToEnemyPlayer();
   addUnitsToOwnPlayer();
   EXPECT_EQ(mapa.get_PlayerE()->getBase()->getId(),
             mapa.get_PlayerE()->getUnits()[0]->getId());
 }
 
-TEST_F(UnitsUnderTestFixture, Production_Start) {
+TEST_F(UnitsUnderTestFixture, Production_Start)
+{
 
   long moneyBeforePurchase = mapa.get_PlayerP()->getMoney();
-  
+
   EXPECT_TRUE(mapa.ProductAction_PlayerP(UnitTYPE::Catapult));
-  EXPECT_EQ(mapa.get_PlayerP()->getMoney()+Unit::getPurchaseCost(UnitTYPE::Catapult),moneyBeforePurchase);
+  EXPECT_EQ(mapa.get_PlayerP()->getMoney() + Unit::getPurchaseCost(UnitTYPE::Catapult), moneyBeforePurchase);
 }
 
-TEST_F(UnitsUnderTestFixture, Production_LackOfPlayersMoney) {
-  
+TEST_F(UnitsUnderTestFixture, Production_LackOfPlayersMoney)
+{
+
   mapa.get_PlayerP()->substractMoney(mapa.get_PlayerP()->getMoney());
   long moneyBeforePurchase = mapa.get_PlayerP()->getMoney();
 
@@ -80,19 +83,21 @@ TEST_F(UnitsUnderTestFixture, Production_LackOfPlayersMoney) {
   EXPECT_EQ(moneyBeforePurchase, mapa.get_PlayerP()->getMoney());
 }
 
-TEST_F(UnitsUnderTestFixture, Production_BaseDuringProduction) {
-  long moneyBeforePurchase = mapa.get_PlayerP()->getMoney();  
+TEST_F(UnitsUnderTestFixture, Production_BaseDuringProduction)
+{
+  long moneyBeforePurchase = mapa.get_PlayerP()->getMoney();
 
   EXPECT_TRUE(mapa.ProductAction_PlayerP(UnitTYPE::Catapult));
-  EXPECT_EQ(mapa.get_PlayerP()->getMoney()+Unit::getPurchaseCost(UnitTYPE::Catapult),moneyBeforePurchase);
+  EXPECT_EQ(mapa.get_PlayerP()->getMoney() + Unit::getPurchaseCost(UnitTYPE::Catapult), moneyBeforePurchase);
 
   long moneyAfterPurchase = mapa.get_PlayerP()->getMoney();
 
   EXPECT_FALSE(mapa.ProductAction_PlayerP(UnitTYPE::Catapult));
-  EXPECT_EQ(mapa.get_PlayerP()->getMoney(),moneyAfterPurchase);
+  EXPECT_EQ(mapa.get_PlayerP()->getMoney(), moneyAfterPurchase);
 }
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_ValidCoordinates_ReturnsTrue) {
+TEST_F(UnitsUnderTestFixture, MoveUnit_ValidCoordinates_ReturnsTrue)
+{
   addUnitsToEnemyPlayer();
   Coordinates validCoord{1, 2};
 
@@ -102,7 +107,8 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_ValidCoordinates_ReturnsTrue) {
   EXPECT_EQ(Knight1->getObjectCoordinates(), validCoord);
 }
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_OutOfMapCoordinates_ReturnsFalse) {
+TEST_F(UnitsUnderTestFixture, MoveUnit_OutOfMapCoordinates_ReturnsFalse)
+{
   addUnitsToEnemyPlayer();
   Coordinates outOfMapCoord{10, 5};
 
@@ -114,7 +120,8 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_OutOfMapCoordinates_ReturnsFalse) {
       Coordinates(1, 1)); // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_UnitNotFound_ReturnsFalse) {
+TEST_F(UnitsUnderTestFixture, MoveUnit_UnitNotFound_ReturnsFalse)
+{
   addUnitsToEnemyPlayer();
   Coordinates validCoord{2, 2};
   int nonExistentId = 999;
@@ -124,7 +131,8 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_UnitNotFound_ReturnsFalse) {
   EXPECT_FALSE(result);
 }
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_CannotStandOnField_ReturnsFalse) {
+TEST_F(UnitsUnderTestFixture, MoveUnit_CannotStandOnField_ReturnsFalse)
+{
   addUnitsToEnemyPlayer();
   Coordinates invalidCoord{1, 0};
 
@@ -136,7 +144,8 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_CannotStandOnField_ReturnsFalse) {
       Coordinates(0, 0)); // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_TooFarToMove_ReturnsFalse) {
+TEST_F(UnitsUnderTestFixture, MoveUnit_TooFarToMove_ReturnsFalse)
+{
   addUnitsToEnemyPlayer();
   Coordinates farCoord{7, 7};
 
@@ -148,7 +157,8 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_TooFarToMove_ReturnsFalse) {
       Coordinates(7, 0)); // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, MoveBase_CannotMove_ReturnsFalse) {
+TEST_F(UnitsUnderTestFixture, MoveBase_CannotMove_ReturnsFalse)
+{
   addUnitsToEnemyPlayer();
   Coordinates validCoord{1, 2};
 
@@ -161,7 +171,8 @@ TEST_F(UnitsUnderTestFixture, MoveBase_CannotMove_ReturnsFalse) {
       Coordinates(3, 4)); // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_WorkerStandOnMine_ReturnsTrue) {
+TEST_F(UnitsUnderTestFixture, MoveUnit_WorkerStandOnMine_ReturnsTrue)
+{
   addUnitsToEnemyPlayer();
   Coordinates MineCoord{1, 0};
 
@@ -171,7 +182,8 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_WorkerStandOnMine_ReturnsTrue) {
   EXPECT_EQ(Worker1->getObjectCoordinates(), MineCoord);
 }
 
-TEST_F(UnitsUnderTestFixture, MoveUnit_UnitStandOnMine_ReturnsFalse) {
+TEST_F(UnitsUnderTestFixture, MoveUnit_UnitStandOnMine_ReturnsFalse)
+{
   addUnitsToEnemyPlayer();
   Coordinates MineCoord{1, 0};
 
@@ -184,7 +196,8 @@ TEST_F(UnitsUnderTestFixture, MoveUnit_UnitStandOnMine_ReturnsFalse) {
 }
 
 TEST_F(UnitsUnderTestFixture,
-       MoveUnit_StandindOnUnitBelongsToOtherPlayer_ReturnsFalse) {
+       MoveUnit_StandindOnUnitBelongsToOtherPlayer_ReturnsFalse)
+{
   addUnitsToEnemyPlayer();
   addUnitsToOwnPlayer();
 
@@ -200,7 +213,8 @@ TEST_F(UnitsUnderTestFixture,
 }
 
 TEST_F(UnitsUnderTestFixture,
-       MoveUnit_StandindOnUnitBelongsToOtherPlayer2_ReturnsFalse) {
+       MoveUnit_StandindOnUnitBelongsToOtherPlayer2_ReturnsFalse)
+{
 
   addUnitsToEnemyPlayer();
   addUnitsToOwnPlayer();
@@ -217,7 +231,8 @@ TEST_F(UnitsUnderTestFixture,
       Coordinates(1, 2)); // Check that the unit's position remains unchanged
 }
 
-TEST_F(UnitsUnderTestFixture, PerformAttack_TooFarAway) {
+TEST_F(UnitsUnderTestFixture, PerformAttack_TooFarAway)
+{
   addUnitsToOwnPlayer();
   addUnitsToEnemyPlayer();
 
@@ -227,7 +242,8 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_TooFarAway) {
   EXPECT_FALSE(mapa.AttackAction_PlayerP(playerUnitId, enemyUnitId));
 }
 
-TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack) {
+TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack)
+{
   addUnitsToOwnPlayer();
   addUnitsToEnemyPlayer();
 
@@ -245,7 +261,8 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack) {
   EXPECT_EQ(Knight2->getEndurance(), 35);
 }
 
-TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack_Failure) {
+TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack_Failure)
+{
   addUnitsToOwnPlayer();
   addUnitsToEnemyPlayer();
 
@@ -267,7 +284,8 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_MoveAndAttack_Failure) {
   EXPECT_EQ(Knight2->getEndurance(), 70);
 }
 
-TEST_F(UnitsUnderTestFixture, PerformAttack_DoubleAttack_Failure) {
+TEST_F(UnitsUnderTestFixture, PerformAttack_DoubleAttack_Failure)
+{
   addUnitsToOwnPlayer();
   addUnitsToEnemyPlayer();
 
@@ -289,7 +307,8 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_DoubleAttack_Failure) {
   EXPECT_EQ(Knight2->getEndurance(), 35);
 }
 
-TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerP) {
+TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerP)
+{
   addUnitsToEnemyPlayer();
 
   // Attempt to attack with a unit that doesn't belong to the player
@@ -299,7 +318,8 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerP) {
   EXPECT_FALSE(mapa.AttackAction_PlayerP(playerUnitId, enemyUnitId));
 }
 
-TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerE) {
+TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerE)
+{
   addUnitsToOwnPlayer();
 
   // Attempt to attack a unit that doesn't exist
@@ -309,7 +329,8 @@ TEST_F(UnitsUnderTestFixture, PerformAttack_UnitNotFound_PlayerE) {
   EXPECT_FALSE(mapa.AttackAction_PlayerP(playerUnitId, enemyUnitId));
 }
 
-TEST_F(UnitsUnderTestFixture, PerformAttack_UnitDies) {
+TEST_F(UnitsUnderTestFixture, PerformAttack_UnitDies)
+{
   addUnitsToOwnPlayer();
   addUnitsToEnemyPlayer();
 

@@ -7,19 +7,19 @@
 
 class FileManager {
 public:
-  FileManager(const std::string fileName) : fileName_(fileName){};
+    explicit FileManager(const std::string& fileName) : fileName_(fileName) {}
 
-  bool openFile();
-  bool readFromFile();
-  std::string getFileContent() const { return fileContent_; };
-  static void SaveStatusToFile(const std::string& fileName,  Map& mapa);
-  static void ParseStatusFile(const std::string& fileName,  Map& mapa);
-  static void PerformActionsFromFile(const std::string& fileName,  Map& mapa);
-  static void printStatus(Map& map);
-  ~FileManager();
+    bool openFile();
+    bool readFromFile();
+    std::string getFileContent() const { return fileContent_; }
+    static void SaveStatusToFile(const std::string& fileName, Map& mapa);
+    static void ParseStatusFile(const std::string& fileName, Map& mapa);
+    static void PerformActionsFromFile(const std::string& fileName, Map& mapa);
+    static void printStatus(Map& map);
+    ~FileManager();
 
 private:
-  std::string fileName_;
-  std::string fileContent_;
-  std::fstream file_;
+    std::string fileName_;
+    std::string fileContent_;
+    std::fstream file_;
 };

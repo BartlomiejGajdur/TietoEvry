@@ -27,16 +27,19 @@ Unit::Unit(const UnitTYPE &unitType, short endurance,
 Unit::Unit(const Coordinates &ObjectCoordinates, short endurance)
     : MapObject(ObjectCoordinates), endurance_(endurance){};
 
-bool Unit::Produce([[maybe_unused]] const UnitTYPE &unitType) {
+bool Unit::Produce([[maybe_unused]] const UnitTYPE &unitType)
+{
   std::cout << "Incorrect action " << this->getTypeInString()
             << " cannot produce Units!\n";
   return false;
 }
 
-bool Unit::Move(const Coordinates &moveTo) {
+bool Unit::Move(const Coordinates &moveTo)
+{
   short distance = Coordinates::distance(this->ObjectCoordinates_, moveTo);
 
-  if (distance <= this->speed_) {
+  if (distance <= this->speed_)
+  {
     this->ObjectCoordinates_ = moveTo;
     this->speed_ -= distance;
 
@@ -46,18 +49,22 @@ bool Unit::Move(const Coordinates &moveTo) {
   return false;
 }
 
-bool Unit::Attack(std::shared_ptr<Unit> Solider) {
+bool Unit::Attack(std::shared_ptr<Unit> Solider)
+{
 
-  if (attackDone_) {
+  if (attackDone_)
+  {
     std::cerr << "You have already made an attack this turn!\n";
     return false;
   }
   if (Coordinates::distance(this->ObjectCoordinates_,
-                            Solider->ObjectCoordinates_) > this->attackRange_) {
+                            Solider->ObjectCoordinates_) > this->attackRange_)
+  {
     std::cerr << "The unit is too far away to attack!\n";
     return false;
   }
-  if (this->speed_ < 1) {
+  if (this->speed_ < 1)
+  {
     std::cerr << "You need atleast one speed point to attack!\n";
     return false;
   }
@@ -80,8 +87,10 @@ bool Unit::Attack(std::shared_ptr<Unit> Solider) {
   return true;
 }
 
-std::string Unit::getTypeInString() const {
-  switch (unitType_) {
+std::string Unit::getTypeInString() const
+{
+  switch (unitType_)
+  {
   case UnitTYPE::Knight:
     return "K";
     break;
@@ -112,8 +121,10 @@ std::string Unit::getTypeInString() const {
   }
 }
 
-std::string Object::getTypeInString() const {
-  switch (ObjectType_) {
+std::string Object::getTypeInString() const
+{
+  switch (ObjectType_)
+  {
   case ObjectTYPE::Road:
     return "R";
     break;
@@ -133,8 +144,10 @@ std::string Object::getTypeInString() const {
   }
 }
 
-unsigned short Unit::getPurchaseCost(const UnitTYPE &unitType) {
-  switch (unitType) {
+unsigned short Unit::getPurchaseCost(const UnitTYPE &unitType)
+{
+  switch (unitType)
+  {
   case UnitTYPE::Knight:
     return 400;
     break;
@@ -165,8 +178,10 @@ unsigned short Unit::getPurchaseCost(const UnitTYPE &unitType) {
   }
 }
 
-unsigned short Unit::getBuildTime(const UnitTYPE &unitType) {
-  switch (unitType) {
+unsigned short Unit::getBuildTime(const UnitTYPE &unitType)
+{
+  switch (unitType)
+  {
   case UnitTYPE::Knight:
     return 5;
     break;
@@ -197,8 +212,10 @@ unsigned short Unit::getBuildTime(const UnitTYPE &unitType) {
   }
 }
 
-std::string Unit::getUnitTypeInString(const UnitTYPE unitType){
-  switch (unitType) {
+std::string Unit::getUnitTypeInString(const UnitTYPE unitType)
+{
+  switch (unitType)
+  {
   case UnitTYPE::Knight:
     return "K";
     break;
@@ -229,75 +246,77 @@ std::string Unit::getUnitTypeInString(const UnitTYPE unitType){
   }
 }
 
-UnitTYPE Unit::getUnitTypeFromString(const std::string& unitString) {
+UnitTYPE Unit::getUnitTypeFromString(const std::string &unitString)
+{
   char unitCode = unitString[0];
 
-  switch (unitCode) {
-    case 'K':
-      return UnitTYPE::Knight;
-      break;
-    case 'S':
-      return UnitTYPE::Swordsman;
-      break;
-    case 'A':
-      return UnitTYPE::Archer;
-      break;
-    case 'P':
-      return UnitTYPE::Pikeman;
-      break;
-    case 'C':
-      return UnitTYPE::Catapult;
-      break;
-    case 'R':
-      return UnitTYPE::Ram;
-      break;
-    case 'W':
-      return UnitTYPE::Worker;
-      break;
-    default:
-      return UnitTYPE::Base;
-      break;
+  switch (unitCode)
+  {
+  case 'K':
+    return UnitTYPE::Knight;
+    break;
+  case 'S':
+    return UnitTYPE::Swordsman;
+    break;
+  case 'A':
+    return UnitTYPE::Archer;
+    break;
+  case 'P':
+    return UnitTYPE::Pikeman;
+    break;
+  case 'C':
+    return UnitTYPE::Catapult;
+    break;
+  case 'R':
+    return UnitTYPE::Ram;
+    break;
+  case 'W':
+    return UnitTYPE::Worker;
+    break;
+  default:
+    return UnitTYPE::Base;
+    break;
   }
 }
 
-
-std::shared_ptr<Unit> Unit::returnUnit(const std::string& unitType, const int& id, const int& PosX,const int& PosY, const short& endurance, const std::string& productionType, const int& productionAmount ){
+std::shared_ptr<Unit> Unit::returnUnit(const std::string &unitType, const int &id, const int &PosX, const int &PosY, const short &endurance, const std::string &productionType, const int &productionAmount)
+{
   int unitTypeCode = static_cast<int>(unitType[0]);
-   switch (unitTypeCode) {
-    case 'K':
-      return std::make_shared<Knight>(id,Coordinates(PosX,PosY),endurance);
+  switch (unitTypeCode)
+  {
+  case 'K':
+    return std::make_shared<Knight>(id, Coordinates(PosX, PosY), endurance);
     break;
 
-    case 'S':
-      return std::make_shared<Swordsman>(id,Coordinates(PosX,PosY),endurance);
+  case 'S':
+    return std::make_shared<Swordsman>(id, Coordinates(PosX, PosY), endurance);
     break;
 
-    case 'A':
-      return std::make_shared<Archer>(id,Coordinates(PosX,PosY),endurance);
+  case 'A':
+    return std::make_shared<Archer>(id, Coordinates(PosX, PosY), endurance);
     break;
 
-    case 'P':
-      return std::make_shared<Pikeman>(id,Coordinates(PosX,PosY),endurance);
+  case 'P':
+    return std::make_shared<Pikeman>(id, Coordinates(PosX, PosY), endurance);
     break;
 
-    case 'C':
-      return std::make_shared<Catapult>(id,Coordinates(PosX,PosY),endurance);
+  case 'C':
+    return std::make_shared<Catapult>(id, Coordinates(PosX, PosY), endurance);
     break;
 
-    case 'R':
-      return std::make_shared<Ram>(id,Coordinates(PosX,PosY),endurance);
+  case 'R':
+    return std::make_shared<Ram>(id, Coordinates(PosX, PosY), endurance);
     break;
 
-    case 'W':
-      return std::make_shared<Worker>(id,Coordinates(PosX,PosY),endurance);
+  case 'W':
+    return std::make_shared<Worker>(id, Coordinates(PosX, PosY), endurance);
     break;
 
-    case 'B':
-      return std::make_shared<Base>(id,Coordinates(PosX,PosY),endurance,Unit::getUnitTypeFromString(productionType),productionAmount);
+  case 'B':
+    return std::make_shared<Base>(id, Coordinates(PosX, PosY), endurance, Unit::getUnitTypeFromString(productionType), productionAmount);
     break;
   default:
-     return nullptr;
+    return nullptr;
     break;
   }
- }
-
+}
