@@ -31,7 +31,7 @@ std::shared_ptr<Unit> Player::getUnitByID(int iD)
 
 bool Player::moveUnit(Map &map, int id, const Coordinates &coord)
 {
-
+  // Check if the given coordinates are within the map boundaries
   if (static_cast<size_t>(coord.getPositionX()) >= map.getMapSizeX() ||
       static_cast<size_t>(coord.getPositionY()) >= map.getMapSizeY())
   {
@@ -39,6 +39,7 @@ bool Player::moveUnit(Map &map, int id, const Coordinates &coord)
     return false;
   }
 
+  // Find the unit with the given ID in the player's owned units
   auto it = std::find_if(unitsOwn_.begin(), unitsOwn_.end(),
                          [=](std::shared_ptr<Unit> &objectsOwn)
                          {
@@ -50,30 +51,38 @@ bool Player::moveUnit(Map &map, int id, const Coordinates &coord)
     return false;
   }
 
+  // Retrieve the found unit
   std::shared_ptr<Unit> &foundObject = *it;
+
+  // Check if the unit can stand on the specified coordinates in the map
   if (!map.posibilityToStandOn(foundObject, coord))
   {
     std::cerr << "Cannot Stand on this field!\n";
     return false;
   }
 
+  // Move the unit to the specified coordinates
   return foundObject->Move(coord);
 }
 
 std::shared_ptr<Unit> Player::getBase()
 {
+  // Find the player's base unit
   auto it = std::find_if(this->unitsOwn_.begin(), this->unitsOwn_.end(),
                          [](const std::shared_ptr<Unit> &unit)
                          {
                            return unit->getUnitType() == UnitTYPE::Base;
                          });
 
+  // Return the found base unit if it exists
   if (it != this->unitsOwn_.end())
     return *it;
 
+  // No base unit found, print an error message
   std::cout << "No base found!\n";
   return nullptr;
 }
+
 
 std::vector<Coordinates> Player::getWorkersCoordinates()
 {

@@ -9,7 +9,7 @@ Knight::Knight(const Coordinates &coord)
       attackRange_ = 1;
       BuildTime_ = 5;
       ObjectCoordinates_ = coord;
-      counter++;
+      ++counter;
 };
 
 Knight::Knight(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -19,7 +19,7 @@ Knight::Knight(const Coordinates &cord, const unsigned short endurance) : Unit(c
       purchaseCost_ = 400;
       attackRange_ = 1;
       BuildTime_ = 5;
-      counter++;
+      ++counter;
 };
 
 Knight::Knight(const int &id, const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -29,7 +29,7 @@ Knight::Knight(const int &id, const Coordinates &cord, const unsigned short endu
       purchaseCost_ = 400;
       attackRange_ = 1;
       BuildTime_ = 5;
-      counter++;
+      ++counter;
       this->setId(id);
 };
 
@@ -42,7 +42,7 @@ Swordsman::Swordsman(const Coordinates &coord)
       attackRange_ = 1;
       BuildTime_ = 3;
       ObjectCoordinates_ = coord;
-      counter++;
+      ++counter;
 };
 
 Swordsman::Swordsman(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -52,7 +52,7 @@ Swordsman::Swordsman(const Coordinates &cord, const unsigned short endurance) : 
       purchaseCost_ = 250;
       attackRange_ = 1;
       BuildTime_ = 3;
-      counter++;
+      ++counter;
 };
 
 Swordsman::Swordsman(const int &id, const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -62,7 +62,7 @@ Swordsman::Swordsman(const int &id, const Coordinates &cord, const unsigned shor
       purchaseCost_ = 250;
       attackRange_ = 1;
       BuildTime_ = 3;
-      counter++;
+      ++counter;
       this->setId(id);
 };
 
@@ -75,7 +75,7 @@ Archer::Archer(const Coordinates &coord)
       attackRange_ = 5;
       BuildTime_ = 3;
       ObjectCoordinates_ = coord;
-      counter++;
+      ++counter;
 };
 
 Archer::Archer(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -85,7 +85,7 @@ Archer::Archer(const Coordinates &cord, const unsigned short endurance) : Unit(c
       purchaseCost_ = 250;
       attackRange_ = 5;
       BuildTime_ = 3;
-      counter++;
+      ++counter;
 };
 
 Archer::Archer(const int &id, const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -95,7 +95,7 @@ Archer::Archer(const int &id, const Coordinates &cord, const unsigned short endu
       purchaseCost_ = 250;
       attackRange_ = 5;
       BuildTime_ = 3;
-      counter++;
+      ++counter;
       this->setId(id);
 };
 
@@ -108,7 +108,7 @@ Pikeman::Pikeman(const Coordinates &coord)
       attackRange_ = 2;
       BuildTime_ = 3;
       ObjectCoordinates_ = coord;
-      counter++;
+      ++counter;
 };
 
 Pikeman::Pikeman(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -118,7 +118,7 @@ Pikeman::Pikeman(const Coordinates &cord, const unsigned short endurance) : Unit
       purchaseCost_ = 200;
       attackRange_ = 2;
       BuildTime_ = 3;
-      counter++;
+      ++counter;
 };
 
 Pikeman::Pikeman(const int &id, const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -128,7 +128,7 @@ Pikeman::Pikeman(const int &id, const Coordinates &cord, const unsigned short en
       purchaseCost_ = 200;
       attackRange_ = 2;
       BuildTime_ = 3;
-      counter++;
+      ++counter;
       this->setId(id);
 };
 
@@ -141,7 +141,7 @@ Ram::Ram(const Coordinates &coord)
       attackRange_ = 1;
       BuildTime_ = 4;
       ObjectCoordinates_ = coord;
-      counter++;
+      ++counter;
 };
 
 Ram::Ram(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -151,7 +151,7 @@ Ram::Ram(const Coordinates &cord, const unsigned short endurance) : Unit(cord, e
       purchaseCost_ = 500;
       attackRange_ = 1;
       BuildTime_ = 4;
-      counter++;
+      ++counter;
 };
 
 Ram::Ram(const int &id, const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -161,7 +161,7 @@ Ram::Ram(const int &id, const Coordinates &cord, const unsigned short endurance)
       purchaseCost_ = 500;
       attackRange_ = 1;
       BuildTime_ = 4;
-      counter++;
+      ++counter;
       this->setId(id);
 };
 
@@ -174,7 +174,7 @@ Catapult::Catapult(const Coordinates &coord)
       attackRange_ = 7;
       BuildTime_ = 6;
       ObjectCoordinates_ = coord;
-      counter++;
+      ++counter;
 };
 
 Catapult::Catapult(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -184,7 +184,7 @@ Catapult::Catapult(const Coordinates &cord, const unsigned short endurance) : Un
       purchaseCost_ = 800;
       attackRange_ = 7;
       BuildTime_ = 6;
-      counter++;
+      ++counter;
 };
 
 Catapult::Catapult(const int &id, const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -194,7 +194,7 @@ Catapult::Catapult(const int &id, const Coordinates &cord, const unsigned short 
       purchaseCost_ = 800;
       attackRange_ = 7;
       BuildTime_ = 6;
-      counter++;
+      ++counter;
       this->setId(id);
 };
 
@@ -207,7 +207,7 @@ Worker::Worker(const Coordinates &coord)
       attackRange_ = 1;
       BuildTime_ = 2;
       ObjectCoordinates_ = coord;
-      counter++;
+      ++counter;
 };
 
 Worker::Worker(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -217,7 +217,7 @@ Worker::Worker(const Coordinates &cord, const unsigned short endurance) : Unit(c
       purchaseCost_ = 100;
       attackRange_ = 1;
       BuildTime_ = 2;
-      counter++;
+      ++counter;
 };
 
 Worker::Worker(const int &id, const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -227,7 +227,7 @@ Worker::Worker(const int &id, const Coordinates &cord, const unsigned short endu
       purchaseCost_ = 100;
       attackRange_ = 1;
       BuildTime_ = 2;
-      counter++;
+      ++counter;
       this->setId(id);
 };
 
@@ -240,7 +240,7 @@ Base::Base(const Coordinates &cord)
       attackRange_ = 0;
       BuildTime_ = 0;
       ObjectCoordinates_ = cord;
-      counter++;
+      ++counter;
 };
 
 Base::Base(const Coordinates &cord, const unsigned short endurance) : Unit(cord, endurance)
@@ -250,7 +250,7 @@ Base::Base(const Coordinates &cord, const unsigned short endurance) : Unit(cord,
       purchaseCost_ = 0;
       attackRange_ = 0;
       BuildTime_ = 0;
-      counter++;
+      ++counter;
 };
 
 Base::Base(const Coordinates &cord, const unsigned short endurance, const UnitTYPE &unitType, const unsigned short timeToProductionEnd) : Unit(cord, endurance)
@@ -260,7 +260,7 @@ Base::Base(const Coordinates &cord, const unsigned short endurance, const UnitTY
       purchaseCost_ = 0;
       attackRange_ = 0;
       BuildTime_ = 0;
-      counter++;
+      ++counter;
       production_.first = unitType;
       production_.second = timeToProductionEnd;
 };
@@ -272,7 +272,7 @@ Base::Base(const int &id, const Coordinates &cord, const unsigned short enduranc
       purchaseCost_ = 0;
       attackRange_ = 0;
       BuildTime_ = 0;
-      counter++;
+      ++counter;
       production_.first = unitType;
       production_.second = timeToProductionEnd;
       this->setId(id);

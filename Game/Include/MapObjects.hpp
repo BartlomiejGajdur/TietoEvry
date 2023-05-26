@@ -37,7 +37,7 @@ public:
   virtual int getId() const { return id_; };
   virtual std::string getTypeInString() const = 0;
   void setId(const int &id) { id_ = id; };
-
+  static void IncCounter() { ++counter;};
 protected:
   Coordinates ObjectCoordinates_;
   static int counter;
