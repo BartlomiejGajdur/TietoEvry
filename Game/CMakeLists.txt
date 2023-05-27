@@ -32,7 +32,7 @@ add_executable(Gra main.cpp ${COMMON_SOURCES})
 add_executable(Tests ${Testing_SOURCES} ${COMMON_SOURCES})
 
 # Dodanie flag kompilatora
-target_compile_options(Tests PRIVATE -Wall -Wextra -Werror)
+target_compile_options(Tests PRIVATE -Wall -Wextra)
 
 # Linkowanie z biblioteką Google Test
 target_link_libraries(Tests gtest gtest_main)
