@@ -15,6 +15,17 @@ How to run
       cd ..
       python .\TietoEvryGame.py File1.txt File2.txt File3.txt [TimeLimit]
 
+How to run tests
+
+     git clone https://github.com/BartlomiejGajdur/TietoEvry
+     cd TietoEvry
+     mkdir build
+     cd build
+     cmake ..
+     make -j
+     ./Tests.exe
+
+
 File1.txt -> File that contains map structure.<br>
 File2.txt -> Status file.<br>
 File3.txt -> The file from which actions are loaded.<br>
